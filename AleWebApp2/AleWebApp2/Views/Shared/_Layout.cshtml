@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Automata and Logic Engineering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="Automata" name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+
+    <!-- App css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/js/modernizr.min.js"></script>
+
+</head>
+<body>
+
+    @Html.Partial("_Navigation")
+
+    <div class="wrapper">
+        <div class="container-fluid">
+
+          
+
+            @RenderBody()
+
+
+        </div>
+    </div>
+    <!-- end page title end breadcrumb -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    2016 - 2017 © Minton - Coderthemes.com
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery  -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script><!-- Popper for Bootstrap --><!-- Tether for Bootstrap -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/jquery.slimscroll.js"></script>
+    <script src="~/js/jquery.scrollTo.min.js"></script>
+
+    <!-- Counter Up  -->
+    <script src="~/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="~/plugins/counterup/jquery.counterup.min.js"></script>
+
+    
+@RenderSection("Scripts", required: false)
+
+    <!-- Custom main Js -->
+    <script src="~/js/jquery.core.js"></script>
+    <script src="~/js/jquery.app.js"></script>
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.counter').counterUp({
+                delay: 100,
+                time: 1200
+            });
+        });
+    </script>
+
+
+
+    
+</body>
+
+
+
+</html>
