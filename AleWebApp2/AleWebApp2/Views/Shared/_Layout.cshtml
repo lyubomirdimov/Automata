@@ -26,10 +26,7 @@
     <div class="wrapper">
         <div class="container-fluid">
 
-          
-
             @RenderBody()
-
 
         </div>
     </div>
@@ -57,15 +54,16 @@
     <script src="~/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="~/plugins/counterup/jquery.counterup.min.js"></script>
 
-    
-@RenderSection("Scripts", required: false)
+    <script src="~/lib/viz.js/viz.js"></script>
+    @RenderSection("Scripts", required: false)
 
     <!-- Custom main Js -->
     <script src="~/js/jquery.core.js"></script>
     <script src="~/js/jquery.app.js"></script>
+    
+    <script src="~/js/site.js"></script>
 
-
-    <script type="text/javascript">
+<script type="text/javascript">
         jQuery(document).ready(function ($) {
             $('.counter').counterUp({
                 delay: 100,
@@ -76,7 +74,7 @@
 
 
 
-    
+
 </body>
 
 
