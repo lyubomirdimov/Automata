@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Automata;
 using Newtonsoft.Json;
 
 namespace ConsoleApp
@@ -34,23 +35,15 @@ namespace ConsoleApp
             transitions.Add(tr2);
             transitions.Add(tr3);
 
-            Automata automata = new Automata
+            Automaton automata = new Automaton()
             {
-                Comments = "This is comments",
+                Comment = "This is comments",
                 Alphabet = alphabet,
                 States = states,
                 FinalStates = finalStates,
                 Transitions = transitions
             };
 
-            //AutomataV1 automata = new AutomataV1
-            //{
-            //    Comments = "This is comment",
-            //    Alphabet = new List<char>() { 'a','b'},
-            //    States = new List<string>() { "S1","S2","S3"},
-            //    FinalStates = new List<string>() { "S3"},
-            //    Transitions = new List<string>() { "S1,a --> S2", "S1,b --> S2", "S2,a --> S3" }
-            //};
 
             string jsonObject = JsonConvert.SerializeObject(automata,Formatting.Indented);
 
@@ -60,65 +53,10 @@ namespace ConsoleApp
 
         }
 
-        class AutomataV1
-        {
-            public string Comments { get; set; }
-            public List<char> Alphabet { get; set; }
-            public List<string> States { get; set; }
+      
+     
 
-            public List<string> FinalStates { get; set; }
-            public List<string> Transitions { get; set; }
-        }
-        class Automata
-        {
-            public string Comments { get; set; }
-            public List<Symbol> Alphabet { get; set; }
-            public List<State> States { get; set; }
-            public List<State> FinalStates { get; set; }
-            public List<Transition> Transitions { get; set; }
-
-        }
-
-        class Symbol
-        {
-            public char Name { get; set; }
-
-            public Symbol(char name)
-            {
-                Name = name;
-            }
-
-            public override string ToString()
-            {
-                return Name.ToString();
-            }
-        }
-        class State
-        {
-            public string Name { get; set; }
-            public State(string name)
-            {
-                Name = name;
-            }
-
-            public override string ToString()
-            {
-                return Name;
-            }
-        }
-        class Transition
-        {
-            public State StartState { get; set; }
-            public State EndState { get; set; }
-            public Symbol Symbol { get; set; }
-            public Transition(State startState, State endState, Symbol symbol)
-            {
-                StartState = startState;
-                EndState = endState;
-                Symbol = symbol;
-            }
-
-        }
+  
 
     }
 }
