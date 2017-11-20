@@ -2,13 +2,93 @@
 @model AutomataViewModel
 
 
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-cube-outline"></i> Input</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group row">
+                        <label asp-for="AutomataString" class="col-2 text-right col-form-label"></label>
+                        <div class="col-4">
+                            <input class="form-control" type="text" asp-for="AutomataString">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="RegularExpression" class="col-2 text-right col-form-label"></label>
+                        <div class="col-4">
+                            <input class="form-control" type="text" asp-for="RegularExpression">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div id="automaton" class="card-box mt-4"></div>
+<div class="row mt-4">
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-view-list"></i> List of Words accepted</h5>
+            <div class="card-body">
+                <div class="pre-scrollable">
+                    <ul>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-playlist-check"></i> Output</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label> DFA </label> <i class="text-danger  mdi mdi-close-circle"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label> Finite </label> <i class="text-success mdi mdi-check-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-call-merge"></i> Automata</h5>
+            <div class="card-body">
+                <div id="automaton"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts{
     <script type="text/javascript">
         var nodes = new vis.DataSet(
-
             @Html.Raw(JsonConvert.SerializeObject(Model.Nodes))
         );
 

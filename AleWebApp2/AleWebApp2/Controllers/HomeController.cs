@@ -52,6 +52,7 @@ namespace AleWebApp2.Controllers
                 FinalStates = finalStates,
                 Transitions = transitions
             };
+
             AutomataViewModel model = new AutomataViewModel {Automaton = automata};
             foreach (State currState in model.Automaton.States)
             {

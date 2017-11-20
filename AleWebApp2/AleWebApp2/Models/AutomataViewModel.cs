@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Automata;
@@ -12,6 +13,12 @@ namespace AleWebApp2.Models
         public List<Node> Nodes { get; set; } = new List<Node>();
         public List<Edge> Edges { get; set; } = new List<Edge>();
         public Automaton Automaton { get; set; }
+
+        [Display(Name = "String")]
+        public string AutomataString { get; set; }
+
+        [Display(Name = "Regular Expression")]
+        public string RegularExpression { get; set; }
     }
 
     public class Edge
