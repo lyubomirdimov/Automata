@@ -6,14 +6,19 @@ namespace Automata
 {
     public class Transition
     {
-        public State StartState { get; set; }
-        public State EndState { get; set; }
-        public Symbol Symbol { get; set; }
-        public Transition(State startState, State endState, Symbol symbol)
+        public string StartState { get; set; }
+        public string EndState { get; set; }
+        public char Symbol { get; set; }
+        public Transition(string startState, string endState, char symbol)
         {
             StartState = startState;
             EndState = endState;
             Symbol = symbol;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("({0}, {1}) -> {2}", StartState, Symbol, EndState);
         }
     }
 }

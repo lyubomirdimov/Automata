@@ -61,7 +61,17 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <label> DFA </label> <i class="text-danger  mdi mdi-close-circle"></i>
+                        <label> DFA </label>
+                        @{
+                            if (Model.IsDFA)
+                            {
+                                <i class="text-success mdi mdi-check-circle"></i>
+                            }
+                            else
+                            {
+                                <i class="text-danger  mdi mdi-close-circle"></i>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="row">
@@ -136,7 +146,7 @@
                     background: 'none',
                     strokeWidth: 2, // px
                     strokeColor: '#ffffff',
-                    align: 'horizontal',
+                    align: 'top',
                     multi: false,
                     vadjust: 0,
 
@@ -149,7 +159,7 @@
 
                 width: 2,
                 shadow: true
-            },        // defined in the edges module.
+            }, // defined in the edges module.
             nodes: {
                 shape: 'ellipse',
                 size: 30,
@@ -170,23 +180,22 @@
                         background: '#F2EBBF'
                     }
                 }
-            },        // defined in the nodes module.
+            }, // defined in the nodes module.
             groups: {
-
-            },       // defined in the groups module.
+            }, // defined in the groups module.
             layout: {
                 hierarchical: {
                     //enabled:false,
                     //levelSeparation: 150,
                     //nodeSpacing: 100,
                     //treeSpacing: 200,
-                    //blockShifting: true,
-                    //edgeMinimization: false,
                     //parentCentralization: false,
-                    direction: 'RL'        // UD, DU, LR, RL
-                    //sortMethod: 'hubsize'   // hubsize, directed
+                    //blockShifting: false,
+                    //edgeMinimization: false,
+                    sortMethod: "directed",
+                    direction: 'LR' // UD, DU, LR, RL
                 }
-            },       // defined in the layout module.
+            }, // defined in the layout module.
             interaction: {
                 dragNodes: true,
                 dragView: true,
@@ -205,7 +214,7 @@
                 selectConnectedEdges: true,
                 tooltipDelay: 300,
                 zoomView: true
-            },  // defined in the interaction module.
+            }, // defined in the interaction module.
             manipulation: {
                 enabled: false,
                 initiallyActive: false,
@@ -215,7 +224,10 @@
                 editEdge: false,
                 deleteNode: false,
                 deleteEdge: false
-            } // defined in the manipulation module.
+            }, // defined in the manipulation module.
+            physics: {
+                enabled: true
+            }
         }
 
         // initialize your network!

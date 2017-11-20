@@ -12,7 +12,8 @@ namespace AleWebApp2.Models
         public bool IsAutomatonBuilt { get; set; }
         public List<Node> Nodes { get; set; } = new List<Node>();
         public List<Edge> Edges { get; set; } = new List<Edge>();
-        public Automaton Automaton { get; set; }
+
+        public bool IsDFA { get; set; }
 
         [Display(Name = "String")]
         public string AutomataString { get; set; }

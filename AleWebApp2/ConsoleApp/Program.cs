@@ -10,42 +10,43 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            List<Symbol> alphabet = new List<Symbol>();
-            Symbol sym1 = new Symbol('a');
-            Symbol sym2 = new Symbol('b');
-            alphabet.Add(sym1);
-            alphabet.Add(sym2);
+            List<char> alphabet = new List<char> {'1', '0'};
 
-            List<State> states = new List<State>();
-            State s1 = new State("S1");
-            State s2 = new State("S2");
-            State s3 = new State("S3");
-            states.Add(s1);
-            states.Add(s2);
-            states.Add(s3);
+            List<string> states = new List<string>();
+            string q0 = "q0";
+            string q2 = "q2";
+            string q1 = "q1";
+            states.Add(q0);
+            states.Add(q2);
+            states.Add(q1);
 
-            List<State> finalStates = new List<State>();
-            finalStates.Add(s3);
 
             List<Transition> transitions = new List<Transition>();
-            Transition tr1 = new Transition(s1,s2,sym1);
-            Transition tr2 = new Transition(s1, s2, sym2);
-            Transition tr3 = new Transition(s2, s3, sym1);
+            Transition tr1 = new Transition(q0, q0, '1');
+            Transition tr2 = new Transition(q0, q2, '0');
+            Transition tr3 = new Transition(q2, q2, '0');
+            Transition tr4 = new Transition(q2, q1, '1');
+            Transition tr5 = new Transition(q1, q1, '0');
+            Transition tr6 = new Transition(q1, q1, '1');
             transitions.Add(tr1);
             transitions.Add(tr2);
             transitions.Add(tr3);
+            transitions.Add(tr4);
+            transitions.Add(tr5);
+            transitions.Add(tr6);
 
-            Automaton automata = new Automaton()
-            {
-                Comment = "This is comments",
-                Alphabet = alphabet,
-                States = states,
-                FinalStates = finalStates,
-                Transitions = transitions
-            };
+            Automaton automata = new Automaton
+            (
+                comment: "This is comments",
+                states: states,
+                alphabet: alphabet,
+                initState: q0,
+                finalStates: new List<string>() { q1 },
+                transitions: transitions
+            );
 
 
-            string jsonObject = JsonConvert.SerializeObject(automata,Formatting.Indented);
+            string jsonObject = JsonConvert.SerializeObject(automata, Formatting.Indented);
 
             Console.WriteLine(jsonObject);
 
@@ -53,10 +54,10 @@ namespace ConsoleApp
 
         }
 
-      
-     
 
-  
+
+
+
 
     }
 }

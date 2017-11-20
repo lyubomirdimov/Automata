@@ -25,3 +25,8 @@ Assignment 6
 	- Check if PDA accepts string
 	- PDA to accept RE
 	- PDA to accept algebratic expressions
+
+
+
+	DFA 
+	- 

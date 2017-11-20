@@ -10,13 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		___Notes.txt = ___Notes.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automata", "Automata\Automata.csproj", "{204A473D-341F-4C0A-80A9-5C530E36D73D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automata", "Automata\Automata.csproj", "{204A473D-341F-4C0A-80A9-5C530E36D73D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{21CACE61-9B43-4386-AE93-326278788294}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{217B635A-ECEE-4622-B25C-A7BA56563726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{217B635A-ECEE-4622-B25C-A7BA56563726}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B9954280-DB53-4E00-94AC-103AFAFD947F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B9954280-DB53-4E00-94AC-103AFAFD947F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +30,6 @@ Global
 		{204A473D-341F-4C0A-80A9-5C530E36D73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{204A473D-341F-4C0A-80A9-5C530E36D73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{204A473D-341F-4C0A-80A9-5C530E36D73D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21CACE61-9B43-4386-AE93-326278788294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21CACE61-9B43-4386-AE93-326278788294}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21CACE61-9B43-4386-AE93-326278788294}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21CACE61-9B43-4386-AE93-326278788294}.Release|Any CPU.Build.0 = Release|Any CPU
 		{217B635A-ECEE-4622-B25C-A7BA56563726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{217B635A-ECEE-4622-B25C-A7BA56563726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{217B635A-ECEE-4622-B25C-A7BA56563726}.Release|Any CPU.ActiveCfg = Release|Any CPU
