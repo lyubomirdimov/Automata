@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Automata;
-using Automata.Parsing;
 using Newtonsoft.Json;
 
 namespace ConsoleApp

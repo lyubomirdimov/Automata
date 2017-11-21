@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Automata.Parsing
+namespace Automata
 {
     public static class Parser
     {
