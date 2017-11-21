@@ -10,7 +10,7 @@ namespace UnitTests
     [TestClass]
     public class UnitTests
     {
-        public Automaton Automaton { get; set; }
+        public DFA Automaton { get; set; }
         public UnitTests()
         {
             Init();
@@ -22,7 +22,7 @@ namespace UnitTests
             using (WebClient wc = new WebClient())
             {
                 string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/Automata.json");
-                Automaton = JsonConvert.DeserializeObject<Automaton>(json);
+                Automaton = JsonConvert.DeserializeObject<DFA>(json);
             }
 
         }

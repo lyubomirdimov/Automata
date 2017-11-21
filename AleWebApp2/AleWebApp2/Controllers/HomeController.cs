@@ -21,11 +21,11 @@ namespace AleWebApp2.Controllers
         }
         public IActionResult Index()
         {
-            Automaton automata;
+            DFA automata;
             using (WebClient wc = new WebClient())
             {
                 string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/Automata.json");
-                automata = JsonConvert.DeserializeObject<Automaton>(json);
+                automata = JsonConvert.DeserializeObject<DFA>(json);
             }
 
             AutomataViewModel model = new AutomataViewModel();

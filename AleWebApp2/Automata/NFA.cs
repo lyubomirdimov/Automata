@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Automata
 {
-    class NFA
+    public class NFA
     {
+
     }
 }
