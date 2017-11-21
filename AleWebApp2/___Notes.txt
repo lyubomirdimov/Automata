@@ -27,6 +27,5 @@ Assignment 6
 	- PDA to accept algebratic expressions
 
 
-
-	DFA 
-	- 
+Additions 
+	- Create Transition Tables

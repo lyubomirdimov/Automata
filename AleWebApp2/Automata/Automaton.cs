@@ -183,7 +183,8 @@ namespace Automata
 
                 if (transition == null)
                 {
-                    break;
+                    steps = stepsBuilder.ToString();
+                    return false;
                 }
 
                 // Go to next State
