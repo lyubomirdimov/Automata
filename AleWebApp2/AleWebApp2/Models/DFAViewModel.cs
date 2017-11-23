@@ -7,7 +7,7 @@ using Automata;
 
 namespace AleWebApp2.Models
 {
-    public class AutomataViewModel
+    public class DFAViewModel
     {
         public bool IsAutomatonBuilt { get; set; }
         public List<Node> Nodes { get; set; } = new List<Node>();

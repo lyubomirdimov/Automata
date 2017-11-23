@@ -1,88 +1,76 @@
 ﻿@using Newtonsoft.Json
-@model AutomataViewModel
+@model DFAViewModel
 
 
 <div class="row mt-4">
-    <div class="col-12">
+    <div class="col-6">
         <div class="card  bg-muted ">
             <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-cube-outline"></i> Input</h5>
             <div class="card-body">
                 <form>
                     <div class="form-group row">
-                        <label asp-for="AutomataString" class="col-2 text-right col-form-label"></label>
-                        <div class="col-4">
-                            <input class="form-control" type="text" asp-for="AutomataString">
+                        <div class="col-8">
+                            <input class="form-control" type="text" asp-for="AutomataString" placeholder="String">
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label asp-for="RegularExpression" class="col-2 text-right col-form-label"></label>
                         <div class="col-4">
-                            <input class="form-control" type="text" asp-for="RegularExpression">
+                            <button type="submit" class="btn btn-success">Check acceptance</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-settings"></i> Setting</h5>
+            <div class="card-body">
+                <div class="col-12">
+                    <label> DFA </label>
+                    @{
+                        if (Model.IsDFA)
+                        {
+                            <i class="text-success mdi mdi-check-circle"></i>
+                        }
+                        else
+                        {
+                            <i class="text-danger  mdi mdi-close-circle"></i>
+                        }
+                    }
+                </div>
+                <div class="col-12">
+                    <label> Finite </label> <i class="text-success mdi mdi-check-circle"></i>
+                </div>
+
+                <hr/>
+
+                <div class="col-12">
+                    <div class="pre-scrollable">
+                        <ul>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                            <li>Whatever</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row mt-4">
-    <div class="col-6">
-        <div class="card  bg-muted ">
-            <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-view-list"></i> List of Words accepted</h5>
-            <div class="card-body">
-                <div class="pre-scrollable">
-                    <ul>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card  bg-muted ">
-            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-playlist-check"></i> Output</h5>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label> DFA </label>
-                        @{
-                            if (Model.IsDFA)
-                            {
-                                <i class="text-success mdi mdi-check-circle"></i>
-                            }
-                            else
-                            {
-                                <i class="text-danger  mdi mdi-close-circle"></i>
-                            }
-                        }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label> Finite </label> <i class="text-success mdi mdi-check-circle"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row mt-4">
     <div class="col-12">

@@ -1,0 +1,253 @@
+﻿@using Newtonsoft.Json
+@model DFAViewModel
+
+
+<div class="row mt-4">
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-cube-outline"></i> Input</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group row">
+                        <label asp-for="AutomataString" class="col-4 text-right col-form-label"></label>
+                        <div class="col-8">
+                            <input class="form-control" type="text" asp-for="AutomataString">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="RegularExpression" class="col-4 text-right col-form-label"></label>
+                        <div class="col-8">
+                            <input class="form-control" type="text" asp-for="RegularExpression">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi "></i> Setting</h5>
+            <div class="card-body">
+                <h3>
+                    Supported Grammar
+                </h3>
+                <ul>
+                    <li>r = (s) </li>
+                    <li>r = st  </li>
+                    <li>r = s|t </li>
+                    <li>r = s*  </li>
+                    <li>r = ϵ   </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-view-list"></i> List of Words accepted</h5>
+            <div class="card-body">
+                <div class="pre-scrollable">
+                    <ul>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                        <li>Whatever</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-playlist-check"></i> Output</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label> DFA </label>
+                        @{
+                            if (Model.IsDFA)
+                            {
+                                <i class="text-success mdi mdi-check-circle"></i>
+                            }
+                            else
+                            {
+                                <i class="text-danger  mdi mdi-close-circle"></i>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label> Finite </label> <i class="text-success mdi mdi-check-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-call-merge"></i> Automata</h5>
+            <div class="card-body">
+                <div id="automaton"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        var nodes = new vis.DataSet(
+            @Html.Raw(JsonConvert.SerializeObject(Model.Nodes))
+        );
+
+        // create an array with edges
+        var edges = new vis.DataSet(
+            @Html.Raw(JsonConvert.SerializeObject(Model.Edges))
+        );
+
+        // create a network
+        var container = document.getElementById('automaton');
+
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+
+        var options = {
+            autoResize: true,
+            height: '100%',
+            width: '100%',
+            clickToUse: true,
+            //configure: {
+            //    enabled: false,
+            //    filter: 'nodes,edges',
+            //    showButton: false
+            //},    // defined in the configure module.
+            edges: {
+                arrows: {
+                    to: { enabled: false, scaleFactor: 1, type: 'arrow' },
+                    middle: { enabled: false, scaleFactor: 1, type: 'arrow' },
+                    from: { enabled: false, scaleFactor: 1, type: 'arrow' }
+                },
+                color: {
+                    color: '#5C4B51',
+                    highlight: '#5C4B51',
+                    hover: '#5C4B51',
+                    inherit: 'from',
+                    opacity: 1.0
+                },
+                font: {
+                    color: '#000',
+                    size: 14, // px
+                    face: 'arial',
+                    background: 'none',
+                    strokeWidth: 2, // px
+                    strokeColor: '#ffffff',
+                    align: 'top',
+                    multi: false,
+                    vadjust: 0,
+
+                },
+                smooth: {
+                    enabled: true,
+                    type: "dynamic",
+                    roundness: 0.5
+                },
+
+                width: 2,
+                shadow: true
+            }, // defined in the edges module.
+            nodes: {
+                shape: 'ellipse',
+                size: 30,
+                font: {
+                    size: 20
+                },
+                borderWidth: 2,
+                shadow: true,
+                color: {
+                    border: '#5C4B51',
+                    background: '#F2EBBF',
+                    highlight: {
+                        border: '#5C4B51',
+                        background: '#F2EBBF'
+                    },
+                    hover: {
+                        border: '#5C4B51',
+                        background: '#F2EBBF'
+                    }
+                }
+            }, // defined in the nodes module.
+            groups: {
+            }, // defined in the groups module.
+            layout: {
+                hierarchical: {
+                    //enabled:false,
+                    //levelSeparation: 150,
+                    //nodeSpacing: 100,
+                    //treeSpacing: 200,
+                    //parentCentralization: false,
+                    //blockShifting: false,
+                    //edgeMinimization: false,
+                    sortMethod: "directed",
+                    direction: 'LR' // UD, DU, LR, RL
+                }
+            }, // defined in the layout module.
+            interaction: {
+                dragNodes: true,
+                dragView: true,
+                hideEdgesOnDrag: false,
+                hideNodesOnDrag: false,
+                hover: true,
+                hoverConnectedEdges: true,
+                keyboard: {
+                    enabled: false,
+                    speed: { x: 10, y: 10, zoom: 0.02 },
+                    bindToWindow: true
+                },
+                multiselect: false,
+                navigationButtons: true,
+                selectable: true,
+                selectConnectedEdges: true,
+                tooltipDelay: 300,
+                zoomView: true
+            }, // defined in the interaction module.
+            manipulation: {
+                enabled: false,
+                initiallyActive: false,
+                addNode: false,
+                addEdge: false,
+                //editNode: undefined,
+                editEdge: false,
+                deleteNode: false,
+                deleteEdge: false
+            }, // defined in the manipulation module.
+            physics: {
+                enabled: true
+            }
+        }
+
+        // initialize your network!
+        var network = new vis.Network(container, data, options);
+    </script>
+}

@@ -19,7 +19,7 @@ namespace AleWebApp2.Controllers
         {
             _generator = generator;
         }
-        public IActionResult Index()
+        public IActionResult DFA()
         {
             DFA automata;
             using (WebClient wc = new WebClient())
@@ -28,7 +28,7 @@ namespace AleWebApp2.Controllers
                 automata = JsonConvert.DeserializeObject<DFA>(json);
             }
 
-            AutomataViewModel model = new AutomataViewModel();
+            DFAViewModel model = new DFAViewModel();
             model.IsDFA = automata.IsDFA;
             foreach (string currState in automata.States)
             {
@@ -59,7 +59,16 @@ namespace AleWebApp2.Controllers
             return View(model);
         }
 
+        public IActionResult RegexToNFA()
+        {
 
+            return View();
+        }
+
+        public IActionResult PDA()
+        {
+            return View();
+        }
 
         public IActionResult Error()
         {
