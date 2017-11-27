@@ -7,7 +7,7 @@ using Automata;
 
 namespace AleWebApp2.Models
 {
-    public class DFAViewModel
+    public class FiniteStateViewModel
     {
         public bool IsAutomatonBuilt { get; set; }
         public List<Node> Nodes { get; set; } = new List<Node>();

@@ -14,10 +14,8 @@ namespace AleWebApp2.Controllers
 {
     public class HomeController : Controller
     {
-        private AutomataGenerator _generator;
-        public HomeController(AutomataGenerator generator)
+        public HomeController()
         {
-            _generator = generator;
         }
         public IActionResult DFA()
         {
@@ -28,7 +26,7 @@ namespace AleWebApp2.Controllers
                 automata = JsonConvert.DeserializeObject<DFA>(json);
             }
 
-            DFAViewModel model = new DFAViewModel();
+            FiniteStateViewModel model = new FiniteStateViewModel();
             model.IsDFA = automata.IsDFA;
             foreach (string currState in automata.States)
             {
@@ -48,7 +46,7 @@ namespace AleWebApp2.Controllers
                 model.Nodes.Add(new Node() { id = currState, label = currState });
             }
 
-            foreach (Transition transition in automata.Transitions)
+            foreach (TransitionFunction transition in automata.TransitionFunctions)
             {
                 model.Edges.Add(new Edge() { arrows = "to", from = transition.StartState, to = transition.EndState, label = transition.Symbol.ToString() });
             }
