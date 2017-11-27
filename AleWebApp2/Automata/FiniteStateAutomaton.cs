@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Automata
 {
-    public class DFA
+    public class FiniteStateAutomaton
     {
         public string Comment { get; set; }
 
@@ -20,21 +21,18 @@ namespace Automata
 
         public List<string> FinalStates { get; set; }
 
-        // a transition function(δ : Q × Σ → Q)
-        public List<Transition> Transitions { get; set; } = new List<Transition>();
+        public List<Transition> Transitions { get; set; }
 
-        public bool IsDFA { get; set; }
-
-        public DFA()
+        public FiniteStateAutomaton()
         {
 
         }
-        public DFA(string comment,
-            IEnumerable<string> states,
-            IEnumerable<char> alphabet,
-            IEnumerable<Transition> transitions,
-            string initState,
-            IEnumerable<string> finalStates)
+        public FiniteStateAutomaton(string comment,
+           IEnumerable<string> states,
+           IEnumerable<char> alphabet,
+           IEnumerable<Transition> transitions,
+           string initState,
+           IEnumerable<string> finalStates)
         {
             Comment = comment;
 
@@ -44,7 +42,6 @@ namespace Automata
             AddInitialState(initState);
             AddFinalStates(finalStates);
 
-            DetermineIsDFA();
         }
         private void AddStates(IEnumerable<string> states)
         {
@@ -135,55 +132,71 @@ namespace Automata
                                   t.Symbol == transition.Symbol);
         }
 
-        public void DetermineIsDFA()
+        public bool IsDFA()
         {
-            IsDFA = false;
-
-            if (States.Any() == false) return;
-            if (Alphabet.Any() == false) return;
-            if (Transitions.Any() == false) return;
-            if (InitialState == null) return;
-            if (FinalStates.Any() == false) return;
+            if (States.Any() == false) return false;
+            if (Alphabet.Any() == false) return false;
+            if (Transitions.Any() == false) return false;
+            if (InitialState == null) return false;
+            if (FinalStates.Any() == false) return false;
 
             foreach (string state in States)
             {
                 List<Transition> transitionFromState = Transitions.Where(x => x.StartState == state).ToList();
 
                 if (transitionFromState.Any() == false)
-                    return;
+                    return false;
 
                 // Check if there exist two transitions, which have the same symbol, hence non-determistic Automata
                 if (transitionFromState.Exists(x => transitionFromState.Exists(y => y != x && x.Symbol == y.Symbol)))
-                    return;
+                    return false;
 
 
                 foreach (char c in Alphabet)
                 {
                     // Check if there is an outgoing arrow for each symbol from each state
                     if (transitionFromState.Exists(x => x.Symbol == c) == false)
-                        return;
+                        return false;
                 }
             }
 
-            IsDFA = true;
+            return true;
         }
 
-        public void DetermineIsFinite()
+        public bool IsFinite()
+        {
+            return IsDFA() ? IsDFAFinite()
+                           : IsNFAFinite();
+        }
+
+        private bool IsDFAFinite()
         {
             /*
-             * 
-             * Theorem. The language accepted by a DFA M with n states is infinite 
-             * if and only if M accepts a string of length k, where n ≤ k< 2n
-             *
-             * This makes the decision problem simple:
-             * try all strings of length at least n and less than 2n and answer
-             * "yes" if M accepts one of them and
-             * "no" if there's no string in that range that's accepted.
-            */
+            * 
+            * Theorem. The language accepted by a DFA M with n states is infinite 
+            * if and only if M accepts a string of length k, where n ≤ k< 2n
+            *
+            * This makes the decision problem simple:
+            * try all strings of length at least n and less than 2n and answer
+            * "yes" if M accepts one of them and
+            * "no" if there's no string in that range that's accepted.
+           */
+
+            throw new NotImplementedException();
+        }
+        private bool IsNFAFinite()
+        {
+            throw new NotImplementedException();
         }
 
 
         public bool AcceptsInput(string input, out string steps)
+        {
+            return IsDFA() ? DFAAcceptInput(input, out steps)
+                                    : NFAAcceptInput(input, out steps);
+        }
+
+        private bool DFAAcceptInput(string input, out string steps)
         {
             string currentState = InitialState;
 
@@ -217,5 +230,61 @@ namespace Automata
             steps = stepsBuilder.ToString();
             return false;
         }
+
+        private bool NFAAcceptInput(string input, out string steps)
+        {
+            /*
+             * Start From Initial State
+             * Check each possible path one by one
+             * If there is Match then return True
+             * If there was No path which resulted in a Match then NFA does NOT accept the input
+             */
+
+
+            string currentState = InitialState;
+            char currentSymbol = input[0];
+            List<Transition> paths = Transitions.Where(t => t.StartState == currentState && (t.Symbol == currentSymbol || t.Symbol.ToToken().Type == TokenType.Epsion)).ToList();
+
+            foreach (Transition path in paths)
+            {
+                
+            }
+
+            // Record the steps
+            StringBuilder stepsBuilder = new StringBuilder();
+
+            foreach (var symbol in input.ToCharArray())
+            {
+
+                // Find Transition, which allows step
+                List<Transition> transitions = Transitions.Where(t => t.StartState == currentState && (t.Symbol == symbol || t.Symbol.ToToken().Type == TokenType.Epsion)).ToList();
+
+
+                foreach (Transition transition in transitions)
+                {
+
+                }
+                if (transition == null)
+                {
+                    steps = stepsBuilder.ToString();
+                    return false;
+                }
+
+                // Go to next State
+                currentState = transition.EndState;
+
+                stepsBuilder.Append(transition + "\n");
+            }
+
+            // TODO
+            steps = null;
+            return false;
+        }
+
+        private bool CheckPath(string input, string state)
+        {
+            
+        }
     }
+
 }
