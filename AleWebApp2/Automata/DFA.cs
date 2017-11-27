@@ -173,7 +173,7 @@ namespace Automata
             /*
              * 
              * Theorem. The language accepted by a DFA M with n states is infinite 
-             * if and only if M accepts a string of length k, where n ≤ k< 2n ≤ k < 2n.
+             * if and only if M accepts a string of length k, where n ≤ k< 2n
              *
              * This makes the decision problem simple:
              * try all strings of length at least n and less than 2n and answer

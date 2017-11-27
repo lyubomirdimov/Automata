@@ -1,6 +1,13 @@
-﻿namespace Automata
+﻿using System.Net;
+
+namespace Automata
 {
 
+    public static class Constants
+    {
+        public static char Epsilon = 'ε';
+    }
+    
     /// <summary>
     /// Token type represents the equivalent logical proposition statement for certain token
     /// Token Type accepts Connectives, Predicates, Separator, and Paranthesis
@@ -85,5 +92,10 @@
 
         public override string ToString() => Char.ToString();
 
+    }
+
+    public static class TokenHelper
+    {
+        public static Token ToToken(this char input) => new Token(input);
     }
 }
