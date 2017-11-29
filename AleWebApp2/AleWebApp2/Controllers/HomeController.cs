@@ -25,9 +25,9 @@ namespace AleWebApp2.Controllers
                 string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/Automata.json");
                 automata = JsonConvert.DeserializeObject<DFA>(json);
             }
-
+            
             FiniteStateViewModel model = new FiniteStateViewModel();
-            model.IsDFA = automata.IsDFA;
+            model.IsDFA = automata.IsDFA();
             foreach (string currState in automata.States)
             {
 
@@ -50,6 +50,7 @@ namespace AleWebApp2.Controllers
             {
                 model.Edges.Add(new Edge() { arrows = "to", from = transition.StartState, to = transition.EndState, label = transition.Symbol.ToString() });
             }
+
             
             
 

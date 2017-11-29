@@ -13,7 +13,7 @@ namespace Automata
         public List<char> Alphabet { get; set; }
         public string InitialState { get; set; }
         public List<string> FinalStates { get; set; }
-        public List<TransitionFunction> TransitionFunctions { get; set; }
+        public List<TransitionFunction> TransitionFunctions { get; set; } = new List<TransitionFunction>();
 
         public DFA()
         {
@@ -63,6 +63,7 @@ namespace Automata
         }
         private void AddTransitions(IEnumerable<TransitionFunction> transitions)
         {
+            TransitionFunctions = new List<TransitionFunction>();
             foreach (var transition in transitions.Where(ValidTransition))
             {
                 TransitionFunctions.Add(transition);

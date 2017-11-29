@@ -26,30 +26,30 @@ namespace UnitTests
             }
 
         }
-        [TestMethod]
-        public void IsDFATest()
-        {
-            Automaton.DetermineIsDFA();
-            Assert.IsTrue(Automaton.IsDFA);
+        //[TestMethod]
+        //public void IsDFATest()
+        //{
+        //    Automaton.DetermineIsDFA();
+        //    Assert.IsTrue(Automaton.IsDFA);
 
-            Automaton.Alphabet[0] = '_';
-            Automaton.DetermineIsDFA();
-            Assert.IsFalse(Automaton.IsDFA);
-        }
+        //    Automaton.Alphabet[0] = '_';
+        //    Automaton.DetermineIsDFA();
+        //    Assert.IsFalse(Automaton.IsDFA);
+        //}
 
-        [TestMethod]
-        public void DFAInput()
-        {
-            string input = "1000000001111111";
-            string steps;
-            bool acceptsInput = Automaton.AcceptsInput(input, out steps);
-            Assert.IsTrue(acceptsInput);
-        }
+        //[TestMethod]
+        //public void DFAInput()
+        //{
+        //    string input = "1000000001111111";
+        //    string steps;
+        //    bool acceptsInput = Automaton.AcceptsInput(input, out steps);
+        //    Assert.IsTrue(acceptsInput);
+        //}
 
-        [TestMethod]
-        public void ConstructNFA()
-        {
+        //[TestMethod]
+        //public void ConstructNFA()
+        //{
             
-        } 
+        //} 
     }
 }
