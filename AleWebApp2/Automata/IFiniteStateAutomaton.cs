@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace Automata
-{
-    interface IFiniteStateAutomaton
-    {
-        string Comment { get; set; }
+//namespace Automata
+//{
+//    interface IFiniteStateAutomaton
+//    {
+//        string Comment { get; set; }
 
-        List<string> States { get; set; }
+//        List<string> States { get; set; }
 
-        List<char> Alphabet { get; set; }
+//        List<char> Alphabet { get; set; }
 
-        string InitialState { get; set; }
+//        string InitialState { get; set; }
 
-        List<string> FinalStates { get; set; }
+//        List<string> FinalStates { get; set; }
 
-        List<TransitionFunction> TransitionFunctions { get; set; }
+//        List<TransitionFunction> TransitionFunctions { get; set; }
 
-        bool IsFinite();
+//        bool IsFinite();
 
-        bool Accepts(string currentState,string input/*, out string steps*/);
-    }
-}
+//        bool Accepts(string currentState,string input/*, out string steps*/);
+//    }
+//}

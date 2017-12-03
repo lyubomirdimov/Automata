@@ -45,7 +45,7 @@ namespace AleWebApp2
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=DFA}/{id?}");
+                    template: "{controller=Home}/{action=FiniteStateAutomaton}/{id?}");
             });
         }
     }

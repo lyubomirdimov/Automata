@@ -17,15 +17,15 @@ namespace AleWebApp2.Controllers
         public HomeController()
         {
         }
-        public IActionResult DFA()
+        public IActionResult FiniteStateAutomaton()
         {
-            DFA automata;
+            FiniteStateAutomaton automata;
             using (WebClient wc = new WebClient())
             {
-                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/Automata.json");
-                automata = JsonConvert.DeserializeObject<DFA>(json);
+                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/nfa.json");
+                automata = JsonConvert.DeserializeObject<FiniteStateAutomaton>(json);
             }
-            
+
             FiniteStateViewModel model = new FiniteStateViewModel();
             model.IsDFA = automata.IsDFA();
             foreach (string currState in automata.States)
@@ -46,13 +46,10 @@ namespace AleWebApp2.Controllers
                 model.Nodes.Add(new Node() { id = currState, label = currState });
             }
 
-            foreach (TransitionFunction transition in automata.TransitionFunctions)
+            foreach (TransitionFunction transition in automata.Transitions)
             {
                 model.Edges.Add(new Edge() { arrows = "to", from = transition.StartState, to = transition.EndState, label = transition.Symbol.ToString() });
             }
-
-            
-            
 
 
             return View(model);
@@ -65,6 +62,10 @@ namespace AleWebApp2.Controllers
         }
 
         public IActionResult PDA()
+        {
+            return View();
+        }
+        public IActionResult Whatever()
         {
             return View();
         }

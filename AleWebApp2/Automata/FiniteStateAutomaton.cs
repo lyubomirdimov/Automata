@@ -27,12 +27,14 @@ namespace Automata
         {
 
         }
-        public FiniteStateAutomaton(string comment,
-           IEnumerable<string> states,
+        public FiniteStateAutomaton(
+           string comment,
            IEnumerable<char> alphabet,
-           IEnumerable<TransitionFunction> transitions,
+           IEnumerable<string> states,
            string initState,
-           IEnumerable<string> finalStates)
+           IEnumerable<string> finalStates,
+           IEnumerable<TransitionFunction> transitions
+           )
         {
             Comment = comment;
 
@@ -277,7 +279,7 @@ namespace Automata
                 }
             }
 
-            return new FiniteStateAutomaton("", dfaStates, dfaSymbols, dfaTransitions, dfaInitialState, dfaFinalStates);
+            return new FiniteStateAutomaton("", dfaSymbols,dfaStates, dfaInitialState, dfaFinalStates, dfaTransitions);
         }
         private string GetSink(List<string> dfaStates, List<TransitionFunction> dfaTransitions)
         {

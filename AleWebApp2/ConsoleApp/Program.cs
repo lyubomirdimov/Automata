@@ -35,20 +35,52 @@ namespace ConsoleApp
             transitions.Add(tr5);
             transitions.Add(tr6);
 
-            DFA automata = new DFA
+            FiniteStateAutomaton DFA = new FiniteStateAutomaton
             (
-                comment: "This is comments",
-                states: states,
+                comment: "DFA",
                 alphabet: alphabet,
+                states: states,
                 initState: q0,
                 finalStates: new List<string>() { q1 },
                 transitions: transitions
             );
 
 
-            string jsonObject = JsonConvert.SerializeObject(automata, Formatting.Indented);
+            string jsonObject = JsonConvert.SerializeObject(DFA, Formatting.Indented);
 
-            Console.WriteLine(jsonObject);
+
+            alphabet = new List<char>() { 'a', 'b' };
+            states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+            string initState = "0";
+            List<string> finStates = new List<string>() { "10" };
+            transitions = new List<TransitionFunction>()
+            {
+                new TransitionFunction("0","1",Constants.Epsilon),
+                new TransitionFunction("0","10",Constants.Epsilon),
+                new TransitionFunction("1","2",Constants.Epsilon),
+                new TransitionFunction("1","4",Constants.Epsilon),
+                new TransitionFunction("2","3",Constants.Epsilon),
+                new TransitionFunction("4","5",'a'),
+                new TransitionFunction("3","6",Constants.Epsilon),
+                new TransitionFunction("6","7",Constants.Epsilon),
+                new TransitionFunction("6","9",Constants.Epsilon),
+                new TransitionFunction("7","8",'b'),
+                new TransitionFunction("8","7",Constants.Epsilon),
+                new TransitionFunction("8","9",Constants.Epsilon),
+                new TransitionFunction("9","1",Constants.Epsilon),
+                new TransitionFunction("9","10",Constants.Epsilon),
+            };
+            FiniteStateAutomaton NFA = new FiniteStateAutomaton(
+                comment: "NFA",
+                alphabet: alphabet,
+                states: states,
+                initState: initState,
+                finalStates: finStates,
+                transitions: transitions
+                );
+
+            jsonObject = JsonConvert.SerializeObject(NFA, Formatting.Indented);
+
 
             string regex = "*(|(*(.(a,b)),c))";
 

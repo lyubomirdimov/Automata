@@ -10,22 +10,22 @@ namespace UnitTests
     [TestClass]
     public class UnitTests
     {
-        public DFA Automaton { get; set; }
-        public UnitTests()
-        {
-            Init();
-        }
+        //public DFA Automaton { get; set; }
+        //public UnitTests()
+        //{
+        //    Init();
+        //}
 
-        private void Init()
-        {
+        //private void Init()
+        //{
             
-            using (WebClient wc = new WebClient())
-            {
-                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/Automata.json");
-                Automaton = JsonConvert.DeserializeObject<DFA>(json);
-            }
+        //    using (WebClient wc = new WebClient())
+        //    {
+        //        string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/Automata.json");
+        //        Automaton = JsonConvert.DeserializeObject<DFA>(json);
+        //    }
 
-        }
+        //}
         //[TestMethod]
         //public void IsDFATest()
         //{
