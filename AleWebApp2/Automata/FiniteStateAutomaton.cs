@@ -173,10 +173,68 @@ namespace Automata
       
 
 
-        public bool Accepts(string input, out string steps)
+        public bool Accepts(List<string> currentStates,string input, StringBuilder steps)
         {
-            steps = "";
+            // Epsilon Transitions first
+            StatesAfterCompleteClosure(currentStates,states);
+
+            // Iterations Completed, check if it is accepted
+            if (input.Length <= 0)
+                return FinalStates.Contains(currentState);
+
+            char currentInput = input[0];
+
+            List<TransitionFunction> trsFunctions = new List<TransitionFunction>();
+            foreach (string state in states)
+            {
+                trsFunctions.AddRange(GetAllTransitions(state, currentInput));
+            }
+
+
+            List<TransitionFunction> transitions = GetAllTransitions(currentState, input[0]);
+            foreach (var transition in transitions)
+            {
+                StringBuilder currentSteps = new StringBuilder(steps.ToString() + transition + "\r\n");
+                if (Accepts(transition.EndState, input.Substring(1), currentSteps))
+                {
+                    return true;
+                }
+            }
             return false;
+        }
+
+        private void StatesAfterCompleteClosure(List<string> currentStates, List<string> states)
+        {
+            List<string> TempStates = new List<string>();
+            foreach (string currentState in currentStates)
+            {
+                List<TransitionFunction> transitionFunctions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
+                foreach (var tf in transitionFunctions)
+                {
+                    TempStates.Add(tf.EndState);
+                }
+            }
+
+
+
+            //if(states == null)
+            //    states = new List<string>();
+
+            //states.Add(currentState);
+
+            //List<TransitionFunction> transitionFunctions = Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == Constants.Epsilon);
+            //foreach (var transition in transitionFunctions)
+            //{
+            //    if(states.Contains(transition.EndState))
+            //        continue;
+
+            //    StatesAfterCompleteClosure(transition.EndState,states);
+            //}
+        }
+
+        private List<TransitionFunction> GetAllTransitions(string currentState, char c)
+        {
+            return Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == c);
         }
 
         private bool DFAAccepts(string input, out string steps)
@@ -214,29 +272,9 @@ namespace Automata
             return false;
         }
 
-        private bool NFAAccepts(string currentState, string input, StringBuilder steps)
-        {
-            if (input.Length > 0)
-            {
-                List<TransitionFunction> transitions = GetAllTransitions(currentState, input[0]);
-                foreach (var transition in transitions)
-                {
-                    StringBuilder currentSteps = new StringBuilder(steps.ToString() + transition + "\r\n");
-                    if (NFAAccepts(transition.EndState, input.Substring(1), currentSteps))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
+     
 
-            return FinalStates.Contains(currentState);
-        }
-
-        private List<TransitionFunction> GetAllTransitions(string currentState, char c)
-        {
-            return Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == c || tf.Symbol == Constants.Epsilon);
-        }
+    
 
         public FiniteStateAutomaton ConvertToDfa()
         {
