@@ -45,10 +45,7 @@ namespace UnitTests
         [TestMethod]
         public void TestAccepts()
         {
-            string input = "aaaaaaab";
-            StringBuilder steps = new StringBuilder();
-            bool acceptsInput = NFA.Accepts(NFA.InitialState,input, steps);
-            Assert.IsTrue(acceptsInput);
+            
         }
 
         [TestMethod]

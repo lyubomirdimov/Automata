@@ -176,11 +176,11 @@ namespace Automata
         public bool Accepts(List<string> currentStates,string input, StringBuilder steps)
         {
             // Epsilon Transitions first
-            StatesAfterCompleteClosure(currentStates,states);
+            StatesAfterCompleteClosure(currentStates, states);
 
             // Iterations Completed, check if it is accepted
-            if (input.Length <= 0)
-                return FinalStates.Contains(currentState);
+             if (input.Length <= 0)
+                    return FinalStates.Contains(currentState);
 
             char currentInput = input[0];
 
