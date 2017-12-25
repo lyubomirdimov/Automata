@@ -171,23 +171,33 @@ namespace Automata
         }
 
 
-
-
-        public bool Accepts(List<string> currentStates, string input, StringBuilder steps)
+        public bool Accepts(string input)
         {
+            // Check if input is in alphabet
+            foreach (char c in input)
+            {
+                if (Alphabet.Contains(c) == false)
+                    return false;
+            }
+
+            return Accepts(input, new List<string> {InitialState});
+        }
+
+        private bool Accepts(string input, List<string> currentStates)
+        {            
+            // Take all epsilon Transitions
+            currentStates = EpsilonReacheableStates(currentStates);
+
             // Iterations Completed, check if it is accepted
             if (input.Length <= 0)
                 return FinalStateExists(currentStates);
 
             char currentInput = input[0];
 
-            // Take all epsilon Transitions
-            currentStates = EpsilonReacheableStates(currentStates);
-
             // Take all current input transitions
             currentStates = InputReacheableStates(currentStates, currentInput);
 
-            return Accepts(currentStates, input.Substring(1), steps);
+            return Accepts(input.Substring(1), currentStates);
         }
 
         private bool FinalStateExists(List<string> currentStates)

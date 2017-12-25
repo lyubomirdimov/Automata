@@ -81,11 +81,7 @@ namespace ConsoleApp
                 transitions: transitions
             );
 
-            StringBuilder steps = new StringBuilder();
-            NFA.Accepts(new List<string>
-            {
-                NFA.InitialState
-            }, "aaab", steps);
+            NFA.Accepts("aaab");
 
             jsonObject = JsonConvert.SerializeObject(NFA, Formatting.Indented);
 
