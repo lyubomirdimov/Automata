@@ -170,66 +170,124 @@ namespace Automata
             return true;
         }
 
-      
 
 
-        public bool Accepts(List<string> currentStates,string input, StringBuilder steps)
+
+        public bool Accepts(List<string> currentStates, string input, StringBuilder steps)
         {
-            // Epsilon Transitions first
-            StatesAfterCompleteClosure(currentStates, states);
-
             // Iterations Completed, check if it is accepted
-             if (input.Length <= 0)
-                    return FinalStates.Contains(currentState);
+            if (input.Length <= 0)
+                return FinalStateExists(currentStates);
 
             char currentInput = input[0];
 
-            List<TransitionFunction> trsFunctions = new List<TransitionFunction>();
-            foreach (string state in states)
-            {
-                trsFunctions.AddRange(GetAllTransitions(state, currentInput));
-            }
+            // Take all epsilon Transitions
+            currentStates = EpsilonReacheableStates(currentStates);
 
+            // Take all current input transitions
+            currentStates = InputReacheableStates(currentStates, currentInput);
 
-            List<TransitionFunction> transitions = GetAllTransitions(currentState, input[0]);
-            foreach (var transition in transitions)
-            {
-                StringBuilder currentSteps = new StringBuilder(steps.ToString() + transition + "\r\n");
-                if (Accepts(transition.EndState, input.Substring(1), currentSteps))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return Accepts(currentStates, input.Substring(1), steps);
         }
 
-        private void StatesAfterCompleteClosure(List<string> currentStates, List<string> states)
+        private bool FinalStateExists(List<string> currentStates)
         {
-            List<string> TempStates = new List<string>();
+            return FinalStates.Intersect(currentStates.Select(x => x.ToString())).Any();
+        }
+
+        private List<string> EpsilonReacheableStates(List<string> currentStates)
+        {
+            List<string> result = new List<string>();
+
             foreach (string currentState in currentStates)
             {
-                List<TransitionFunction> transitionFunctions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
-                foreach (var tf in transitionFunctions)
-                {
-                    TempStates.Add(tf.EndState);
-                }
+                EpsilonClosureForState(currentState, result);
             }
 
+            result = result.Distinct().ToList();
 
+            return result;
+        }
 
-            //if(states == null)
-            //    states = new List<string>();
+        private void EpsilonClosureForState(string currentState, List<string> states)
+        {
+            if (states.Contains(currentState)) return;
 
-            //states.Add(currentState);
+            states.Add(currentState);
 
-            //List<TransitionFunction> transitionFunctions = Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == Constants.Epsilon);
-            //foreach (var transition in transitionFunctions)
-            //{
-            //    if(states.Contains(transition.EndState))
-            //        continue;
+            List<TransitionFunction> transForCurrentState = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
+            foreach (TransitionFunction trans in transForCurrentState)
+            {
+                EpsilonClosureForState(trans.EndState, states);
+            }
+        }
 
-            //    StatesAfterCompleteClosure(transition.EndState,states);
-            //}
+        private List<string> InputReacheableStates(List<string> currentStates, char input)
+        {
+            List<string> result = new List<string>();
+
+            foreach (var currentState in currentStates)
+            {
+                List<TransitionFunction> transitions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == input);
+                foreach (var transition in transitions)
+                {
+                    if (result.Contains(transition.EndState) == false)
+                        result.Add(transition.EndState);
+                }
+            }
+            return result;
+        }
+
+        //private List<string> StatesAfterCompleteClosure(List<string> currentStates)
+        //{
+        //    List<string> result = new List<string>();
+
+        //    // Add current states to the epsilon step
+        //    result.AddRange(currentStates);
+
+        //    // Add each state for which there is an epsilon path from any of the current states
+        //    foreach (string currentState in currentStates)
+        //    {
+        //        result.AddRange(GetEpsilonStatesForState(currentState));
+
+        //        //List<TransitionFunction> transitionFunctions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
+        //        //foreach (var tf in transitionFunctions)
+        //        //{
+        //        //    result.Add(tf.EndState);
+        //        //}
+        //    }
+        //    return result;
+
+        //    //if(states == null)
+        //    //    states = new List<string>();
+
+        //    //states.Add(currentState);
+
+        //    //List<TransitionFunction> transitionFunctions = Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == Constants.Epsilon);
+        //    //foreach (var transition in transitionFunctions)
+        //    //{
+        //    //    if(states.Contains(transition.EndState))
+        //    //        continue;
+
+        //    //    StatesAfterCompleteClosure(transition.EndState,states);
+        //    //}
+        //}
+
+        public List<string> GetEpsilonStatesForState(string currentState, List<string> states)
+        {
+            List<TransitionFunction> transitionFunctions = Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == Constants.Epsilon);
+            foreach (var transition in transitionFunctions)
+            {
+                if (states.Contains(transition.EndState))
+                    continue;
+
+                states.Add(transition.EndState);
+
+                // Recursively add Epsilon reacheable states from the lastly added state
+                states.AddRange(GetEpsilonStatesForState(transition.EndState, states));
+            }
+            return states;
+
         }
 
         private List<TransitionFunction> GetAllTransitions(string currentState, char c)
@@ -272,9 +330,9 @@ namespace Automata
             return false;
         }
 
-     
 
-    
+
+
 
         public FiniteStateAutomaton ConvertToDfa()
         {
@@ -317,7 +375,7 @@ namespace Automata
                 }
             }
 
-            return new FiniteStateAutomaton("", dfaSymbols,dfaStates, dfaInitialState, dfaFinalStates, dfaTransitions);
+            return new FiniteStateAutomaton("", dfaSymbols, dfaStates, dfaInitialState, dfaFinalStates, dfaTransitions);
         }
         private string GetSink(List<string> dfaStates, List<TransitionFunction> dfaTransitions)
         {

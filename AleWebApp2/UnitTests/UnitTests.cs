@@ -49,9 +49,15 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void TestGetEpsilonClosureForState()
+        {
+            
+        }
+        [TestMethod]
         public void ConstructNFA()
         {
 
         }
+
     }
 }

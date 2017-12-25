@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Automata;
 using Newtonsoft.Json;
 
@@ -50,25 +51,26 @@ namespace ConsoleApp
 
 
             alphabet = new List<char>() { 'a', 'b' };
-            states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+            states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
             string initState = "0";
-            List<string> finStates = new List<string>() { "10" };
+            List<string> finStates = new List<string>() { "7" };
             transitions = new List<TransitionFunction>()
             {
-                new TransitionFunction("0","1",Constants.Epsilon),
-                new TransitionFunction("0","10",Constants.Epsilon),
-                new TransitionFunction("1","2",Constants.Epsilon),
-                new TransitionFunction("1","4",Constants.Epsilon),
-                new TransitionFunction("2","3",Constants.Epsilon),
-                new TransitionFunction("4","5",'a'),
-                new TransitionFunction("3","6",Constants.Epsilon),
-                new TransitionFunction("6","7",Constants.Epsilon),
-                new TransitionFunction("6","9",Constants.Epsilon),
-                new TransitionFunction("7","8",'b'),
-                new TransitionFunction("8","7",Constants.Epsilon),
-                new TransitionFunction("8","9",Constants.Epsilon),
-                new TransitionFunction("9","1",Constants.Epsilon),
-                new TransitionFunction("9","10",Constants.Epsilon),
+                new TransitionFunction("0", "1", Constants.Epsilon),
+                new TransitionFunction("0", "2", Constants.Epsilon),
+                new TransitionFunction("1", "1", 'a'),
+                new TransitionFunction("1", "3", Constants.Epsilon),
+                new TransitionFunction("2", "2", Constants.Epsilon),
+                new TransitionFunction("2", "4", 'a'),
+                new TransitionFunction("3", "1", Constants.Epsilon),
+                new TransitionFunction("3", "3", 'b'),
+                new TransitionFunction("3", "5", Constants.Epsilon),
+                new TransitionFunction("4", "4", 'a'),
+                new TransitionFunction("4", "6", Constants.Epsilon),
+                new TransitionFunction("5", "3", 'a'),
+                new TransitionFunction("5", "7", Constants.Epsilon),
+                new TransitionFunction("6", "6", 'b'),
+                new TransitionFunction("6", "7", Constants.Epsilon),
             };
             FiniteStateAutomaton NFA = new FiniteStateAutomaton(
                 comment: "NFA",
@@ -77,7 +79,13 @@ namespace ConsoleApp
                 initState: initState,
                 finalStates: finStates,
                 transitions: transitions
-                );
+            );
+
+            StringBuilder steps = new StringBuilder();
+            NFA.Accepts(new List<string>
+            {
+                NFA.InitialState
+            }, "aaab", steps);
 
             jsonObject = JsonConvert.SerializeObject(NFA, Formatting.Indented);
 
