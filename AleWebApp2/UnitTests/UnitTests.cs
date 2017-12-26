@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -82,10 +82,17 @@ namespace UnitTests
             Assert.IsTrue(accepted);
         }
 
-        
+
         [TestMethod]
-        public void ConstructNFA()
+        public void TestRegexToNfa()
         {
+
+            string regex = ".(.(.(*(|(a,b)),a),b),b)";
+            regex = ".(a,b)";
+
+            AutomataConstructor constructor = new AutomataConstructor();
+            FiniteStateAutomaton nfa = constructor.RegexToNfa(regex);
+
 
         }
 

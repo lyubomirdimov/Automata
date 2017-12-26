@@ -38,12 +38,13 @@ namespace ConsoleApp
 
             FiniteStateAutomaton DFA = new FiniteStateAutomaton
             (
-                comment: "DFA",
+                
                 alphabet: alphabet,
                 states: states,
                 initState: q0,
                 finalStates: new List<string>() { q1 },
-                transitions: transitions
+                transitions: transitions,
+                comment: "DFA"
             );
 
 
@@ -73,12 +74,13 @@ namespace ConsoleApp
                 new TransitionFunction("6", "7", Constants.Epsilon),
             };
             FiniteStateAutomaton NFA = new FiniteStateAutomaton(
-                comment: "NFA",
+                
                 alphabet: alphabet,
                 states: states,
                 initState: initState,
                 finalStates: finStates,
-                transitions: transitions
+                transitions: transitions,
+                comment: "NFA"
             );
 
             NFA.Accepts("aaab");
@@ -94,6 +96,8 @@ namespace ConsoleApp
             Console.ReadLine();
 
         }
+
+       
 
 
 

@@ -28,12 +28,12 @@ namespace Automata
 
         }
         public FiniteStateAutomaton(
-           string comment,
            IEnumerable<char> alphabet,
            IEnumerable<string> states,
            string initState,
            IEnumerable<string> finalStates,
-           IEnumerable<TransitionFunction> transitions
+           IEnumerable<TransitionFunction> transitions,
+           string comment = ""
            )
         {
             Comment = comment;
@@ -247,41 +247,7 @@ namespace Automata
             }
             return result;
         }
-
-        //private List<string> StatesAfterCompleteClosure(List<string> currentStates)
-        //{
-        //    List<string> result = new List<string>();
-
-        //    // Add current states to the epsilon step
-        //    result.AddRange(currentStates);
-
-        //    // Add each state for which there is an epsilon path from any of the current states
-        //    foreach (string currentState in currentStates)
-        //    {
-        //        result.AddRange(GetEpsilonStatesForState(currentState));
-
-        //        //List<TransitionFunction> transitionFunctions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
-        //        //foreach (var tf in transitionFunctions)
-        //        //{
-        //        //    result.Add(tf.EndState);
-        //        //}
-        //    }
-        //    return result;
-
-        //    //if(states == null)
-        //    //    states = new List<string>();
-
-        //    //states.Add(currentState);
-
-        //    //List<TransitionFunction> transitionFunctions = Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == Constants.Epsilon);
-        //    //foreach (var transition in transitionFunctions)
-        //    //{
-        //    //    if(states.Contains(transition.EndState))
-        //    //        continue;
-
-        //    //    StatesAfterCompleteClosure(transition.EndState,states);
-        //    //}
-        //}
+     
 
         public List<string> GetEpsilonStatesForState(string currentState, List<string> states)
         {
@@ -299,50 +265,6 @@ namespace Automata
             return states;
 
         }
-
-        private List<TransitionFunction> GetAllTransitions(string currentState, char c)
-        {
-            return Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == c);
-        }
-
-        private bool DFAAccepts(string input, out string steps)
-        {
-            string currentState = InitialState;
-
-            // Record the steps
-            StringBuilder stepsBuilder = new StringBuilder();
-
-            foreach (var symbol in input.ToCharArray())
-            {
-                // Find Transition, which allows step
-                TransitionFunction transitionFunction = Transitions.Find(t => t.StartState == currentState && t.Symbol == symbol);
-
-                if (transitionFunction == null)
-                {
-                    steps = stepsBuilder.ToString();
-                    return false;
-                }
-
-                // Go to next State
-                currentState = transitionFunction.EndState;
-
-                stepsBuilder.Append(transitionFunction + "\n");
-            }
-
-            if (FinalStates.Contains(currentState))
-            {
-                steps = stepsBuilder.ToString();
-                return true;
-            }
-
-            // Failure
-            steps = stepsBuilder.ToString();
-            return false;
-        }
-
-
-
-
 
         public FiniteStateAutomaton ConvertToDfa()
         {
@@ -385,7 +307,7 @@ namespace Automata
                 }
             }
 
-            return new FiniteStateAutomaton("", dfaSymbols, dfaStates, dfaInitialState, dfaFinalStates, dfaTransitions);
+            return new FiniteStateAutomaton(dfaSymbols, dfaStates, dfaInitialState, dfaFinalStates, dfaTransitions);
         }
         private string GetSink(List<string> dfaStates, List<TransitionFunction> dfaTransitions)
         {

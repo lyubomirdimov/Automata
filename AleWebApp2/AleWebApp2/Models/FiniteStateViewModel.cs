@@ -10,7 +10,7 @@ namespace AleWebApp2.Models
     public class FiniteStateViewModel
     {
         public bool IsAutomatonBuilt { get; set; }
-        public List<Node> Nodes { get; set; } = new List<Node>();
+        public List<node> Nodes { get; set; } = new List<node>();
         public List<Edge> Edges { get; set; } = new List<Edge>();
 
         public bool IsDFA { get; set; }
@@ -31,7 +31,7 @@ namespace AleWebApp2.Models
 
     }
 
-    public class Node
+    public class node
     {
         public string id { get; set; }
         public string label { get; set; }

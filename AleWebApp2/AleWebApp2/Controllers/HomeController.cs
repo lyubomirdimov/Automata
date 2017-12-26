@@ -34,16 +34,16 @@ namespace AleWebApp2.Controllers
                 if (currState == automata.InitialState)
                 {
                     // Initial State
-                    model.Nodes.Add(new Node() { color = "#538EA6", id = currState, label = currState });
+                    model.Nodes.Add(new node() { color = "#538EA6", id = currState, label = currState });
                     continue;
                 }
                 if (automata.FinalStates.Exists(x => x == currState))
                 {
                     // Final State
-                    model.Nodes.Add(new Node() { color = "#F3B562", id = currState, label = currState });
+                    model.Nodes.Add(new node() { color = "#F3B562", id = currState, label = currState });
                     continue;
                 }
-                model.Nodes.Add(new Node() { id = currState, label = currState });
+                model.Nodes.Add(new node() { id = currState, label = currState });
             }
 
             foreach (TransitionFunction transition in automata.Transitions)
@@ -76,12 +76,12 @@ namespace AleWebApp2.Controllers
                 new TransitionFunction("6","7",Constants.Epsilon),
             };
             FiniteStateAutomaton NFA = new FiniteStateAutomaton(
-                comment: "NFA",
                 alphabet: alphabet,
                 states: states,
                 initState: initState,
                 finalStates: finStates,
-                transitions: transitions
+                transitions: transitions,
+                comment: "NFA"
             );
             return NFA;
         }

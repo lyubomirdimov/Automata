@@ -33,7 +33,7 @@ namespace Automata
         public TokenType Type { get; set; }
         public char Char { get; private set; }
 
-        public bool IsSpecialSymbol => Type == TokenType.Concatenation ||
+        public bool IsOperation => Type == TokenType.Concatenation ||
                                        Type == TokenType.Union ||
                                        Type == TokenType.KleeneStar;
 
@@ -61,7 +61,7 @@ namespace Automata
                 // Define the type of the Character
                 {
                     case '_':
-                        Type = TokenType.KleeneStar;
+                        Type = TokenType.Epsion;
                         break;
                     case '.':
                         Type = TokenType.Concatenation;
@@ -76,7 +76,7 @@ namespace Automata
                         Type = TokenType.OpeningParenthesis;
                         break;
                     case ')':
-                        Type = TokenType.OpeningParenthesis;
+                        Type = TokenType.ClosingParenthesis;
                         break;
                     case ',':
                         Type = TokenType.Separation;
