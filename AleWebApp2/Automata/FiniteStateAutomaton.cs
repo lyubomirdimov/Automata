@@ -12,16 +12,16 @@ namespace Automata
         public string Comment { get; set; }
 
         // a finite set of states (Q)
-        public List<string> States { get; set; }
+        public List<string> States { get; set; } = new List<string>();
 
         // a finite set of input symbols called the alphabet(Σ)
-        public List<char> Alphabet { get; set; }
+        public List<char> Alphabet { get; set; } = new List<char>();
 
-        public string InitialState { get; set; }
+        public string InitialState { get; set; } 
 
-        public List<string> FinalStates { get; set; }
+        public List<string> FinalStates { get; set; } = new List<string>();
 
-        public List<TransitionFunction> Transitions { get; set; }
+        public List<TransitionFunction> Transitions { get; set; } = new List<TransitionFunction>();
 
         public FiniteStateAutomaton()
         {

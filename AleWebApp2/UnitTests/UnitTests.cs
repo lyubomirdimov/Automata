@@ -87,8 +87,7 @@ namespace UnitTests
         public void TestRegexToNfa()
         {
 
-            string regex = ".(.(.(*(|(a,b)),a),b),b)";
-            regex = ".(a,b)";
+            string regex = "|(_,.(*(a),b))";
 
             AutomataConstructor constructor = new AutomataConstructor();
             FiniteStateAutomaton nfa = constructor.RegexToNfa(regex);

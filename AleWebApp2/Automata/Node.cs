@@ -42,12 +42,13 @@ namespace Automata
             FiniteStateAutomaton result = new FiniteStateAutomaton();
             FiniteStateAutomaton s;
             FiniteStateAutomaton t;
+            string init = "qi" + _counter;
+            string fin = "qf" + _counter;
+            List<TransitionFunction> funcs;
             switch (Token.Type)
             {
                 case TokenType.Epsion:
                 case TokenType.Letter:
-                    var init = "q" + _counter;
-                    var fin = "q" + _counter;
 
                     result.Alphabet = Token.IsLetter ? new List<char> { Token.Char } : new List<char>();
                     result.States = new List<string> { init, fin };
@@ -57,7 +58,7 @@ namespace Automata
 
                     break;
                 case TokenType.Concatenation:
-                    s = Children[0].ThomsonConstruct();                    
+                    s = Children[0].ThomsonConstruct();
                     t = Children[1].ThomsonConstruct();
                     List<TransitionFunction> sFuncs = s.Transitions.Where(x => x.EndState == s.FinalStates.FirstOrDefault()).ToList();
                     foreach (TransitionFunction func in sFuncs)
@@ -71,43 +72,57 @@ namespace Automata
                     result.Alphabet = s.Alphabet.Union(t.Alphabet).Distinct().ToList();
                     result.States = s.States.Union(t.States).ToList();
                     result.Transitions = s.Transitions.Union(t.Transitions).ToList();
-                    
+
                     result.InitialState = s.InitialState;
                     result.FinalStates = t.FinalStates;
-                    
+
                     break;
                 case TokenType.Union:
-                    var initUn = "q" + _counter;
-                    var finUn = "q" + _counter;
                     s = Children[0].ThomsonConstruct();
                     t = Children[1].ThomsonConstruct();
 
-                    TransitionFunction tOr1 = new TransitionFunction(initUn,s.InitialState,Constants.Epsilon);
-                    TransitionFunction tOr2 = new TransitionFunction(initUn, t.InitialState, Constants.Epsilon);
-                    TransitionFunction tOr3 = new TransitionFunction(s.FinalStates.FirstOrDefault(),finUn,Constants.Epsilon);
-                    TransitionFunction tOr4 = new TransitionFunction(t.FinalStates.FirstOrDefault(), finUn, Constants.Epsilon);
+                    funcs = new List<TransitionFunction>()
+                    {
+                        new TransitionFunction(init, s.InitialState, Constants.Epsilon),
+                        new TransitionFunction(init, t.InitialState, Constants.Epsilon),
+                        new TransitionFunction(s.FinalStates.FirstOrDefault(), fin, Constants.Epsilon),
+                        new TransitionFunction(t.FinalStates.FirstOrDefault(), fin, Constants.Epsilon)
+                    };
 
                     result.Alphabet = s.Alphabet.Union(t.Alphabet).Distinct().ToList();
-                    result.States.Add(initUn);
-                    result.States.Add(finUn);
+                    result.States.Add(init);
+                    result.States.Add(fin);
                     result.States.AddRange(s.States.Union(t.States).ToList());
+                    result.InitialState = init;
+                    result.FinalStates = new List<string> { fin };
                     result.Transitions = s.Transitions.Union(t.Transitions).ToList();
-                    result.Transitions.Add(tOr1);
-                    result.Transitions.Add(tOr2);
-                    result.Transitions.Add(tOr3);
-                    result.Transitions.Add(tOr4);
-                    result.InitialState = initUn;
-                    result.FinalStates = new List<string>{finUn};
-                    
-
+                    result.Transitions.AddRange(funcs);
 
                     break;
                 case TokenType.KleeneStar:
 
+                    s = Children[0].ThomsonConstruct();
+
+                    funcs = new List<TransitionFunction>()
+                    {
+                        new TransitionFunction(init, fin, Constants.Epsilon),
+                        new TransitionFunction(init, s.InitialState, Constants.Epsilon),
+                        new TransitionFunction(s.FinalStates.FirstOrDefault(), fin, Constants.Epsilon),
+                        new TransitionFunction(s.FinalStates.FirstOrDefault(), s.InitialState, Constants.Epsilon)
+                    };
+
+                    result.Alphabet = s.Alphabet.ToList();
+                    result.States = s.States.ToList();
+                    result.States.Add(init);
+                    result.States.Add(fin);
+                    result.InitialState = init;
+                    result.FinalStates = new List<string> { fin };
+                    result.Transitions = s.Transitions.ToList();
+                    result.Transitions.AddRange(funcs);
+                    
 
                     break;
             }
-            //result.Alphabet = s.Alphabet.Union(t.Alphabet).ToList();
             return result;
         }
 
