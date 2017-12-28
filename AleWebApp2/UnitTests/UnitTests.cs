@@ -49,24 +49,24 @@ namespace UnitTests
             List<string> states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
             string initState = "0";
             List<string> finStates = new List<string>() { "7" };
-            List<TransitionFunction> transitions = new List<TransitionFunction>()
+            List<Transition> transitions = new List<Transition>()
             {
-                new TransitionFunction("0", "1", Constants.Epsilon),
-                new TransitionFunction("0", "2", Constants.Epsilon),
-                new TransitionFunction("1", "1", 'a'),
-                new TransitionFunction("1", "3", Constants.Epsilon),
-                new TransitionFunction("2", "2", Constants.Epsilon),
-                new TransitionFunction("2", "4", 'a'),
-                new TransitionFunction("3", "1", Constants.Epsilon),
-                new TransitionFunction("3", "3", 'b'),
-                new TransitionFunction("3", "5", Constants.Epsilon),
-                new TransitionFunction("4", "4", 'a'),
-                new TransitionFunction("4", "6", Constants.Epsilon),
-                new TransitionFunction("5", "3", 'a'),
-                new TransitionFunction("5", "7", 'c'),
-                new TransitionFunction("6", "6", 'b'),
-                new TransitionFunction("6", "7", Constants.Epsilon),
-                new TransitionFunction("7", "7", 'c')
+                new Transition("0", "1", Constants.Epsilon),
+                new Transition("0", "2", Constants.Epsilon),
+                new Transition("1", "1", 'a'),
+                new Transition("1", "3", Constants.Epsilon),
+                new Transition("2", "2", Constants.Epsilon),
+                new Transition("2", "4", 'a'),
+                new Transition("3", "1", Constants.Epsilon),
+                new Transition("3", "3", 'b'),
+                new Transition("3", "5", Constants.Epsilon),
+                new Transition("4", "4", 'a'),
+                new Transition("4", "6", Constants.Epsilon),
+                new Transition("5", "3", 'a'),
+                new Transition("5", "7", 'c'),
+                new Transition("6", "6", 'b'),
+                new Transition("6", "7", Constants.Epsilon),
+                new Transition("7", "7", 'c')
             };
             FiniteStateAutomaton NFA = new FiniteStateAutomaton(
                 comment: "NFA",
@@ -104,15 +104,15 @@ namespace UnitTests
                 new List<string> { "1", "2", "3", "4" },
                 "1",
                 new List<string> { "3", "4" },
-                new List<TransitionFunction>
+                new List<Transition>
                 {
-                    new TransitionFunction("1","2",'0'),
-                    new TransitionFunction("1","3",Constants.Epsilon),
-                    new TransitionFunction("2","2",'1'),
-                    new TransitionFunction("2","4",'1'),
-                    new TransitionFunction("3","2",Constants.Epsilon),
-                    new TransitionFunction("3","4",'0'),
-                    new TransitionFunction("4","3",'0')
+                    new Transition("1","2",'0'),
+                    new Transition("1","3",Constants.Epsilon),
+                    new Transition("2","2",'1'),
+                    new Transition("2","4",'1'),
+                    new Transition("3","2",Constants.Epsilon),
+                    new Transition("3","4",'0'),
+                    new Transition("4","3",'0')
                 }
                 );
             FiniteStateAutomaton dfa = nfa.ToDfa();

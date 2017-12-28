@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Automata
 {
-    public class TransitionFunction
+    public class Transition
     {
         public string StartState { get; set; }
         public string EndState { get; set; }
         public char Symbol { get; set; }
-        public TransitionFunction(string startState, string endState, char symbol)
+        public Transition(string startState, string endState, char symbol)
         {
             StartState = startState;
             EndState = endState;

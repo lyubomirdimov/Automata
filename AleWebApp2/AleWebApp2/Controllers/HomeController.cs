@@ -46,7 +46,7 @@ namespace AleWebApp2.Controllers
                 model.Nodes.Add(new node() { id = currState, label = currState });
             }
 
-            foreach (TransitionFunction transition in automata.Transitions)
+            foreach (Transition transition in automata.Transitions)
             {
                 model.Edges.Add(new Edge() { arrows = "to", from = transition.StartState, to = transition.EndState, label = transition.Symbol.ToString() });
             }
@@ -62,18 +62,18 @@ namespace AleWebApp2.Controllers
             List<string> states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
             string initState = "0";
             List<string> finStates = new List<string>() { "7" };
-            List<TransitionFunction> transitions = new List<TransitionFunction>()
+            List<Transition> transitions = new List<Transition>()
             {
-                new TransitionFunction("0","1",Constants.Epsilon),
-                new TransitionFunction("0","2",Constants.Epsilon),
-                new TransitionFunction("1","6",'b'),
-                new TransitionFunction("2","3",Constants.Epsilon),
-                new TransitionFunction("2","5",Constants.Epsilon),
-                new TransitionFunction("3","4",'a'),
-                new TransitionFunction("4","3",Constants.Epsilon),
-                new TransitionFunction("4","5",Constants.Epsilon),
-                new TransitionFunction("5","7",Constants.Epsilon),
-                new TransitionFunction("6","7",Constants.Epsilon),
+                new Transition("0","1",Constants.Epsilon),
+                new Transition("0","2",Constants.Epsilon),
+                new Transition("1","6",'b'),
+                new Transition("2","3",Constants.Epsilon),
+                new Transition("2","5",Constants.Epsilon),
+                new Transition("3","4",'a'),
+                new Transition("4","3",Constants.Epsilon),
+                new Transition("4","5",Constants.Epsilon),
+                new Transition("5","7",Constants.Epsilon),
+                new Transition("6","7",Constants.Epsilon),
             };
             FiniteStateAutomaton NFA = new FiniteStateAutomaton(
                 alphabet: alphabet,

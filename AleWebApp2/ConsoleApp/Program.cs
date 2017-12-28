@@ -22,13 +22,13 @@ namespace ConsoleApp
             states.Add(q1);
 
 
-            List<TransitionFunction> transitions = new List<TransitionFunction>();
-            TransitionFunction tr1 = new TransitionFunction(q0, q0, '1');
-            TransitionFunction tr2 = new TransitionFunction(q0, q2, '0');
-            TransitionFunction tr3 = new TransitionFunction(q2, q2, '0');
-            TransitionFunction tr4 = new TransitionFunction(q2, q1, '1');
-            TransitionFunction tr5 = new TransitionFunction(q1, q1, '0');
-            TransitionFunction tr6 = new TransitionFunction(q1, q1, '1');
+            List<Transition> transitions = new List<Transition>();
+            Transition tr1 = new Transition(q0, q0, '1');
+            Transition tr2 = new Transition(q0, q2, '0');
+            Transition tr3 = new Transition(q2, q2, '0');
+            Transition tr4 = new Transition(q2, q1, '1');
+            Transition tr5 = new Transition(q1, q1, '0');
+            Transition tr6 = new Transition(q1, q1, '1');
             transitions.Add(tr1);
             transitions.Add(tr2);
             transitions.Add(tr3);
@@ -55,23 +55,23 @@ namespace ConsoleApp
             states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
             string initState = "0";
             List<string> finStates = new List<string>() { "7" };
-            transitions = new List<TransitionFunction>()
+            transitions = new List<Transition>()
             {
-                new TransitionFunction("0", "1", Constants.Epsilon),
-                new TransitionFunction("0", "2", Constants.Epsilon),
-                new TransitionFunction("1", "1", 'a'),
-                new TransitionFunction("1", "3", Constants.Epsilon),
-                new TransitionFunction("2", "2", Constants.Epsilon),
-                new TransitionFunction("2", "4", 'a'),
-                new TransitionFunction("3", "1", Constants.Epsilon),
-                new TransitionFunction("3", "3", 'b'),
-                new TransitionFunction("3", "5", Constants.Epsilon),
-                new TransitionFunction("4", "4", 'a'),
-                new TransitionFunction("4", "6", Constants.Epsilon),
-                new TransitionFunction("5", "3", 'a'),
-                new TransitionFunction("5", "7", Constants.Epsilon),
-                new TransitionFunction("6", "6", 'b'),
-                new TransitionFunction("6", "7", Constants.Epsilon),
+                new Transition("0", "1", Constants.Epsilon),
+                new Transition("0", "2", Constants.Epsilon),
+                new Transition("1", "1", 'a'),
+                new Transition("1", "3", Constants.Epsilon),
+                new Transition("2", "2", Constants.Epsilon),
+                new Transition("2", "4", 'a'),
+                new Transition("3", "1", Constants.Epsilon),
+                new Transition("3", "3", 'b'),
+                new Transition("3", "5", Constants.Epsilon),
+                new Transition("4", "4", 'a'),
+                new Transition("4", "6", Constants.Epsilon),
+                new Transition("5", "3", 'a'),
+                new Transition("5", "7", Constants.Epsilon),
+                new Transition("6", "6", 'b'),
+                new Transition("6", "7", Constants.Epsilon),
             };
             FiniteStateAutomaton NFA = new FiniteStateAutomaton(
                 

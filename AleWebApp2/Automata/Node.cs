@@ -44,7 +44,7 @@ namespace Automata
             FiniteStateAutomaton t;
             string init = "qi" + _counter;
             string fin = "qf" + _counter;
-            List<TransitionFunction> funcs;
+            List<Transition> funcs;
             switch (Token.Type)
             {
                 case TokenType.Epsion:
@@ -54,14 +54,14 @@ namespace Automata
                     result.States = new List<string> { init, fin };
                     result.InitialState = init;
                     result.FinalStates = new List<string> { fin };
-                    result.Transitions = new List<TransitionFunction> { new TransitionFunction(init, fin, Token.Char) };
+                    result.Transitions = new List<Transition> { new Transition(init, fin, Token.Char) };
 
                     break;
                 case TokenType.Concatenation:
                     s = Children[0].ThomsonConstruct();
                     t = Children[1].ThomsonConstruct();
-                    List<TransitionFunction> sFuncs = s.Transitions.Where(x => x.EndState == s.FinalStates.FirstOrDefault()).ToList();
-                    foreach (TransitionFunction func in sFuncs)
+                    List<Transition> sFuncs = s.Transitions.Where(x => x.EndState == s.FinalStates.FirstOrDefault()).ToList();
+                    foreach (Transition func in sFuncs)
                     {
                         func.EndState = t.InitialState;
                     }
@@ -81,12 +81,12 @@ namespace Automata
                     s = Children[0].ThomsonConstruct();
                     t = Children[1].ThomsonConstruct();
 
-                    funcs = new List<TransitionFunction>()
+                    funcs = new List<Transition>()
                     {
-                        new TransitionFunction(init, s.InitialState, Constants.Epsilon),
-                        new TransitionFunction(init, t.InitialState, Constants.Epsilon),
-                        new TransitionFunction(s.FinalStates.FirstOrDefault(), fin, Constants.Epsilon),
-                        new TransitionFunction(t.FinalStates.FirstOrDefault(), fin, Constants.Epsilon)
+                        new Transition(init, s.InitialState, Constants.Epsilon),
+                        new Transition(init, t.InitialState, Constants.Epsilon),
+                        new Transition(s.FinalStates.FirstOrDefault(), fin, Constants.Epsilon),
+                        new Transition(t.FinalStates.FirstOrDefault(), fin, Constants.Epsilon)
                     };
 
                     result.Alphabet = s.Alphabet.Union(t.Alphabet).Distinct().ToList();
@@ -103,12 +103,12 @@ namespace Automata
 
                     s = Children[0].ThomsonConstruct();
 
-                    funcs = new List<TransitionFunction>()
+                    funcs = new List<Transition>()
                     {
-                        new TransitionFunction(init, fin, Constants.Epsilon),
-                        new TransitionFunction(init, s.InitialState, Constants.Epsilon),
-                        new TransitionFunction(s.FinalStates.FirstOrDefault(), fin, Constants.Epsilon),
-                        new TransitionFunction(s.FinalStates.FirstOrDefault(), s.InitialState, Constants.Epsilon)
+                        new Transition(init, fin, Constants.Epsilon),
+                        new Transition(init, s.InitialState, Constants.Epsilon),
+                        new Transition(s.FinalStates.FirstOrDefault(), fin, Constants.Epsilon),
+                        new Transition(s.FinalStates.FirstOrDefault(), s.InitialState, Constants.Epsilon)
                     };
 
                     result.Alphabet = s.Alphabet.ToList();

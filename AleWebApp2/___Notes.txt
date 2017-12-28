@@ -16,7 +16,7 @@ Assignment 4
 	  generated words is finite or not. If it is finite, list the words as well.
 
 Assignment 5
-	- NDFA to DFA with Powerset construction
+	- NDFA to DFA with Powerset construction  - Complete
 	- Write DFA to file (JSON)
 
 Assignment 6

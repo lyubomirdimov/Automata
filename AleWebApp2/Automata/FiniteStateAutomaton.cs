@@ -21,7 +21,7 @@ namespace Automata
 
         public List<string> FinalStates { get; set; } = new List<string>();
 
-        public List<TransitionFunction> Transitions { get; set; } = new List<TransitionFunction>();
+        public List<Transition> Transitions { get; set; } = new List<Transition>();
 
         public FiniteStateAutomaton()
         {
@@ -32,7 +32,7 @@ namespace Automata
            IEnumerable<string> states,
            string initState,
            IEnumerable<string> finalStates,
-           IEnumerable<TransitionFunction> transitions,
+           IEnumerable<Transition> transitions,
            string comment = ""
            )
         {
@@ -133,10 +133,10 @@ namespace Automata
         //           TransitionExists(transitionFunction) == false;
         //}
 
-        private bool TransitionExists(TransitionFunction transitionFunction)
+        private bool TransitionExists(Transition transition)
         {
-            return Transitions.Any(t => t.StartState == transitionFunction.StartState &&
-                                  t.Symbol == transitionFunction.Symbol);
+            return Transitions.Any(t => t.StartState == transition.StartState &&
+                                  t.Symbol == transition.Symbol);
         }
 
         public bool IsDFA()
@@ -149,7 +149,7 @@ namespace Automata
 
             foreach (string state in States)
             {
-                List<TransitionFunction> transitionFromState = Transitions.Where(x => x.StartState == state).ToList();
+                List<Transition> transitionFromState = Transitions.Where(x => x.StartState == state).ToList();
 
                 if (transitionFromState.Any() == false)
                     return false;
@@ -225,8 +225,8 @@ namespace Automata
 
             states.Add(currentState);
 
-            List<TransitionFunction> transForCurrentState = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
-            foreach (TransitionFunction trans in transForCurrentState)
+            List<Transition> transForCurrentState = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == Constants.Epsilon);
+            foreach (Transition trans in transForCurrentState)
             {
                 EpsilonClosureForState(trans.EndState, states);
             }
@@ -238,7 +238,7 @@ namespace Automata
 
             foreach (var currentState in currentStates)
             {
-                List<TransitionFunction> transitions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == input);
+                List<Transition> transitions = Transitions.FindAll(x => x.StartState == currentState && x.Symbol == input);
                 foreach (var transition in transitions)
                 {
                     if (result.Contains(transition.EndState) == false)
@@ -265,7 +265,7 @@ namespace Automata
             List<string> notProcessedStates = new List<string>();
             string resultState;
             string currentState;
-            TransitionFunction tf;
+            Transition tf;
 
             // Initial State of the DFA is the EpsilonClosure of the Initial state of the NFA
             EpsilonClosureForState(InitialState, currentStates);
@@ -296,7 +296,7 @@ namespace Automata
                             notProcessedStates.Add(_sinkState);
                         }
 
-                        tf = new TransitionFunction(currentState, _sinkState, c);                        
+                        tf = new Transition(currentState, _sinkState, c);
                         dfa.Transitions.Add(tf);
                         continue;
                     }
@@ -305,19 +305,19 @@ namespace Automata
                     resultingStates = EpsilonReacheableStates(resultingStates);
                     resultingStates.Sort();
                     resultState = CombineStatesToString(resultingStates);
-                    
+
                     if (dfa.StateExists(resultState) == false)
                     // Add new state if it doesn't already exist
                     {
                         dfa.States.Add(resultState);
-                        if(resultingStates.Exists(x=>FinalStates.Contains(x)))
+                        if (resultingStates.Exists(x => FinalStates.Contains(x)))
                             dfa.FinalStates.Add(resultState);
 
                         notProcessedStates.Add(resultState);
                     }
 
                     // Create Transition
-                    tf = new TransitionFunction(currentState, resultState, c);
+                    tf = new Transition(currentState, resultState, c);
                     dfa.Transitions.Add(tf);
                 }
 
@@ -325,7 +325,7 @@ namespace Automata
                 {
                     currentStates = DecoupleStateToListOfStrings(notProcessedStates.FirstOrDefault());
                     currentState = CombineStatesToString(currentStates);
-                    
+
                 }
                 else
                 {
@@ -340,6 +340,72 @@ namespace Automata
         private string CombineStatesToString(List<string> states) => string.Join("-", states);
 
         private List<string> DecoupleStateToListOfStrings(string state) => state.Split('-').ToList();
+
+        public bool IsInfinite()
+        {
+            List<string> states = States;
+
+            // Set A - All reacheable States:
+            // state q' is said to be reachable from another state q if, 
+            // there is an input string which may take us from state q to state q'.
+            states = GetReacheableStates(InitialState);
+
+            // Set B - States that reach Final States
+            states = GetStatesReachingFinalState(states);
+
+            // Set C - States that has non-epsilon loops
+
+
+            return false;
+        }
+
+        /// <summary>
+        /// Get All States which are reacheable from the state given as parameter
+        /// </summary>
+        private List<string> GetReacheableStates(string state)
+        {
+            // Algorithm
+            // 1. Initialise the set of reachable states R to the set containing only the initial state.
+            // 2. Calculate the set of states M which can be reached from a state in R in one transition. 
+            //    Thus M will include all states q' such that for some input symbol a and state q in R, (q,a)  q' is a production rule.
+            // 3. Update R to be the union of M and the old value of R.
+            // 4. If new elements have been added to R in the last step, jump to step 2.
+            // 5. Remove all states in the automaton not in the final value of R and transitions from or into them.
+
+            List<string> reacheableStates = new List<string> { state };
+
+            List<Transition> transitions = Transitions.Where(x => x.StartState == state).ToList();
+            foreach (Transition transition in transitions)
+            {
+                reacheableStates.AddRange(GetReacheableStates(transition.EndState));
+            }
+
+            return reacheableStates;
+        }
+
+
+        /// <summary>
+        /// Get states which have a transition to a Final State (reaching final state)
+        /// </summary>
+        private List<string> GetStatesReachingFinalState(List<string> states)
+        {
+            return states.Where(x => Transitions.Exists(y => y.StartState == x && FinalStates.Contains(y.EndState))).ToList();
+        }
+
+        private List<string> GetStatesWithNonEpsilonLoops(List<string> states)
+        {
+            // There is a path, which lead 
+            return new List<string>();
+        }
+
+        public List<string> AcceptedWords()
+        {
+            if (IsInfinite())
+                return new List<string>();
+
+            return new List<string>();
+        }
+
     }
 
 }
