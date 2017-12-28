@@ -7,12 +7,12 @@ Assignment 2
 	- Check if string is accepted by the automaton = Complete
 
 Assignment 3
-	- Input format as Regular Expression
-	- Construct NDFA from RE with Thomson construction
-	- Write NDFA to a file (or JSON)
+	- Input format as Regular Expression  - complete
+	- Construct NDFA from RE with Thomson construction - complete
+	- Write NDFA to a file (or JSON) 
 
 Assignment 4
-	- Extend your program such that it indicates if the number of 
+	- Extend your program such that it indicates if the number of  
 	  generated words is finite or not. If it is finite, list the words as well.
 
 Assignment 5

@@ -17,7 +17,7 @@ namespace Automata
         // a finite set of input symbols called the alphabet(Σ)
         public List<char> Alphabet { get; set; } = new List<char>();
 
-        public string InitialState { get; set; } 
+        public string InitialState { get; set; }
 
         public List<string> FinalStates { get; set; } = new List<string>();
 
@@ -180,11 +180,11 @@ namespace Automata
                     return false;
             }
 
-            return Accepts(input, new List<string> {InitialState});
+            return Accepts(input, new List<string> { InitialState });
         }
 
         private bool Accepts(string input, List<string> currentStates)
-        {            
+        {
             // Take all epsilon Transitions
             currentStates = EpsilonReacheableStates(currentStates);
 
@@ -247,87 +247,99 @@ namespace Automata
             }
             return result;
         }
-     
 
-        public List<string> GetEpsilonStatesForState(string currentState, List<string> states)
-        {
-            List<TransitionFunction> transitionFunctions = Transitions.FindAll(tf => tf.StartState == currentState && tf.Symbol == Constants.Epsilon);
-            foreach (var transition in transitionFunctions)
-            {
-                if (states.Contains(transition.EndState))
-                    continue;
 
-                states.Add(transition.EndState);
 
-                // Recursively add Epsilon reacheable states from the lastly added state
-                states.AddRange(GetEpsilonStatesForState(transition.EndState, states));
-            }
-            return states;
-
-        }
-
-        public FiniteStateAutomaton ConvertToDfa()
+        private static readonly string _sinkState = "Sink";
+        /// <summary>
+        /// Conversion NFA to DFA using Powerset construction algorithm
+        /// </summary>
+        public FiniteStateAutomaton ToDfa()
         {
             if (IsDFA()) return this;
 
-            List<char> dfaSymbols = Alphabet;
-            string dfaInitialState = InitialState;
-            List<string> dfaStates = new List<string> { dfaInitialState };
-            List<string> dfaFinalStates = FinalStates;
-            List<TransitionFunction> dfaTransitions = new List<TransitionFunction>();
+            FiniteStateAutomaton dfa = new FiniteStateAutomaton();
+            dfa.Alphabet = Alphabet;
+            List<string> currentStates = new List<string>();
+            List<string> resultingStates = new List<string>();
+            List<string> notProcessedStates = new List<string>();
+            string resultState;
+            string currentState;
+            TransitionFunction tf;
 
-            for (int i = 0; i < dfaStates.Count; i++)
+            // Initial State of the DFA is the EpsilonClosure of the Initial state of the NFA
+            EpsilonClosureForState(InitialState, currentStates);
+            currentStates.Sort();
+
+            // Create Initial state as q0
+            currentState = CombineStatesToString(currentStates);
+            dfa.States.Add(currentState);
+            dfa.InitialState = currentState;
+
+
+            notProcessedStates.Add(currentState);
+            bool isComplete = false;
+            while (isComplete == false)
             {
-                string dfaCurrentState = dfaStates[i];
-                foreach (var symbol in dfaSymbols)
+                notProcessedStates.Remove(currentState);
+
+                foreach (char c in Alphabet)
                 {
-                    var result = Transitions.FindAll(t => t.StartState == dfaCurrentState && t.Symbol == symbol);
-                    if (result.Count == 1)
+                    resultingStates = InputReacheableStates(currentStates, c);
+
+                    if (resultingStates.Any() == false)
+                    // If no transition points to state with the current alphabet symbol, then it goes to the Sink
                     {
-                        dfaTransitions.Add(new TransitionFunction(dfaCurrentState, result[0].EndState, symbol));
-                        if (!dfaStates.Contains(result[0].EndState))
-                            dfaStates.Add(result[0].EndState);
+                        if (dfa.StateExists(_sinkState) == false)
+                        {
+                            dfa.States.Add(_sinkState);
+                            notProcessedStates.Add(_sinkState);
+                        }
+
+                        tf = new TransitionFunction(currentState, _sinkState, c);                        
+                        dfa.Transitions.Add(tf);
+                        continue;
                     }
-                    if (result.Count == 0)
+
+                    // Epsilon Closure for the resulting states 
+                    resultingStates = EpsilonReacheableStates(resultingStates);
+                    resultingStates.Sort();
+                    resultState = CombineStatesToString(resultingStates);
+                    
+                    if (dfa.StateExists(resultState) == false)
+                    // Add new state if it doesn't already exist
                     {
-                        dfaTransitions.Add(new TransitionFunction(dfaCurrentState,
-                            GetSink(dfaStates, dfaTransitions), symbol));
+                        dfa.States.Add(resultState);
+                        if(resultingStates.Exists(x=>FinalStates.Contains(x)))
+                            dfa.FinalStates.Add(resultState);
+
+                        notProcessedStates.Add(resultState);
                     }
-                    if (result.Count > 1)
-                    {
-                        string name = null; // create name to state from two states
-                        foreach (var function in result)
-                            name = name + function.StartState;
-                        var combinedState = name;
-                        dfaTransitions.Add(new TransitionFunction(dfaCurrentState, combinedState, symbol));
-                        if (!dfaStates.Contains(combinedState))
-                            dfaStates.Add(combinedState);
-                        //need completion
-                    }
+
+                    // Create Transition
+                    tf = new TransitionFunction(currentState, resultState, c);
+                    dfa.Transitions.Add(tf);
+                }
+
+                if (notProcessedStates.Any())
+                {
+                    currentStates = DecoupleStateToListOfStrings(notProcessedStates.FirstOrDefault());
+                    currentState = CombineStatesToString(currentStates);
+                    
+                }
+                else
+                {
+                    isComplete = true;
                 }
             }
 
-            return new FiniteStateAutomaton(dfaSymbols, dfaStates, dfaInitialState, dfaFinalStates, dfaTransitions);
-        }
-        private string GetSink(List<string> dfaStates, List<TransitionFunction> dfaTransitions)
-        {
-
-            var result = dfaStates.Find(state => state == "*");
-            if (result != null)
-                return result;
-            else
-            {
-                var trapStat = "*";
-                foreach (var symbol in Alphabet)
-                {
-                    dfaTransitions.Add(new TransitionFunction(trapStat, trapStat, symbol));
-                }
-                dfaStates.Add(trapStat);
-                return trapStat;
-            }
+            return dfa;
         }
 
 
+        private string CombineStatesToString(List<string> states) => string.Join("-", states);
+
+        private List<string> DecoupleStateToListOfStrings(string state) => state.Split('-').ToList();
     }
 
 }

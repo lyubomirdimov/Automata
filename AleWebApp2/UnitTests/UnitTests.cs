@@ -38,14 +38,14 @@ namespace UnitTests
         public void IsDFATest()
         {
             Assert.IsTrue(DFA.IsDFA());
-            
+
             Assert.IsFalse(NFA.IsDFA());
         }
 
         [TestMethod]
         public void TestAccepts()
         {
-            List<char> alphabet = new List<char>() { 'a', 'b','c' };
+            List<char> alphabet = new List<char>() { 'a', 'b', 'c' };
             List<string> states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
             string initState = "0";
             List<string> finStates = new List<string>() { "7" };
@@ -92,6 +92,30 @@ namespace UnitTests
             AutomataConstructor constructor = new AutomataConstructor();
             FiniteStateAutomaton nfa = constructor.RegexToNfa(regex);
 
+
+        }
+
+        [TestMethod]
+        public void TestNfaToDfa()
+        {
+            FiniteStateAutomaton nfa = new FiniteStateAutomaton
+                (
+                new List<char> { '0', '1' },
+                new List<string> { "1", "2", "3", "4" },
+                "1",
+                new List<string> { "3", "4" },
+                new List<TransitionFunction>
+                {
+                    new TransitionFunction("1","2",'0'),
+                    new TransitionFunction("1","3",Constants.Epsilon),
+                    new TransitionFunction("2","2",'1'),
+                    new TransitionFunction("2","4",'1'),
+                    new TransitionFunction("3","2",Constants.Epsilon),
+                    new TransitionFunction("3","4",'0'),
+                    new TransitionFunction("4","3",'0')
+                }
+                );
+            FiniteStateAutomaton dfa = nfa.ToDfa();
 
         }
 
