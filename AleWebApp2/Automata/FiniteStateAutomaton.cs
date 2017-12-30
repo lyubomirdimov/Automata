@@ -400,12 +400,43 @@ namespace Automata
 
         public List<string> AcceptedWords()
         {
-            if (IsInfinite())
+            if(IsInfinite())
                 return new List<string>();
 
-            return new List<string>();
+            List<string> result = new List<string>();
+
+            string currentInput = "";
+
+            AcceptedWords(InitialState,currentInput,result);
+
+            return result;
+        }
+        /// <summary>
+        /// Returns all accepted words. 
+        /// Important notice: Method assumes that the NFA is Finite
+        /// </summary>
+        private void AcceptedWords(string state, string currentInput, List<string> words)
+        {
+            if(IsFinalState(state))
+                words.Add(currentInput);
+
+            // Start From Initial State
+            List<Transition> transitions = TransitionsFromState(InitialState);
+
+            foreach (Transition transition in transitions)
+            {
+                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words);
+            }
+
         }
 
+
+        private List<Transition> TransitionsFromState(string state)
+        {
+            return Transitions.Where(x => x.IsFrom(state)).ToList();
+        }
+
+        private bool IsFinalState(string state) => FinalStates.Contains(state);
     }
 
 }
