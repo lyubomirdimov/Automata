@@ -43,100 +43,7 @@ namespace Automata
             Transitions = transitions.ToList();
             InitialState = initState;
             FinalStates = finalStates.ToList();
-            //AddStates(states);
-            //AddAlphabet(alphabet);
-            //AddTransitions(transitions);
-            //AddInitialState(initState);
-            //AddFinalStates(finalStates);
 
-        }
-        //private void AddStates(IEnumerable<string> states)
-        //{
-        //    States = new List<string>();
-
-        //    foreach (string state in states)
-        //    {
-        //        if (StateIsValid(state) == false)
-        //            throw new Exception("Invalid DFA");
-
-        //        States.Add(state);
-        //    }
-        //}
-
-        //private void AddAlphabet(IEnumerable<char> alphabet)
-        //{
-        //    Alphabet = new List<char>();
-
-        //    foreach (char c in alphabet)
-        //    {
-        //        if (SymbolIsValid(c) == false)
-        //            throw new Exception("Invalid DFA");
-
-        //        Alphabet.Add(c);
-        //    }
-        //}
-        //private void AddTransitions(IEnumerable<TransitionFunction> transitions)
-        //{
-        //    foreach (var transition in transitions.Where(ValidTransition))
-        //    {
-        //        Transitions.Add(transition);
-        //    }
-        //}
-        //private void AddInitialState(string initState)
-        //{
-        //    if (StateExists(initState) == false)
-        //        throw new Exception("Invalid DFA");
-
-        //    InitialState = initState;
-        //}
-
-        //private void AddFinalStates(IEnumerable<string> finStates)
-        //{
-        //    FinalStates = new List<string>();
-
-        //    foreach (string finState in finStates)
-        //    {
-        //        if (StateExists(finState) == false)
-        //            throw new Exception("Invalid DFA");
-
-        //        FinalStates.Add(finState);
-        //    }
-        //}
-
-
-        //private bool StateIsValid(string state)
-        //{
-        //    if (StateExists(state))
-        //        return false;
-
-        //    return true;
-
-        //}
-
-        private bool StateExists(string state)
-        {
-            return States.Exists(x => x == state);
-        }
-
-        //private bool SymbolIsValid(char symbol)
-        //{
-        //    Regex regex = new Regex("^[a-z0-9]$");
-        //    return regex.IsMatch(symbol.ToString());
-        //}
-
-
-        //private bool ValidTransition(TransitionFunction transitionFunction)
-        //{
-        //    return States.Contains(transitionFunction.StartState) &&
-        //           States.Contains(transitionFunction.EndState) &&
-        //           Alphabet.Contains(transitionFunction.Symbol) &&
-        //           TransitionExists(transitionFunction) == false;
-        //}
-
-        private bool TransitionExists(Transition transition)
-        {
-            return Transitions.Any(t => t.StartState == transition.StartState &&
-                                  t.Symbol == transition.Symbol);
         }
 
         public bool IsDFA()
@@ -170,7 +77,6 @@ namespace Automata
             return true;
         }
 
-
         public bool Accepts(string input)
         {
             // Check if input is in alphabet
@@ -200,11 +106,7 @@ namespace Automata
             return Accepts(input.Substring(1), currentStates);
         }
 
-        private bool FinalStateExists(List<string> currentStates)
-        {
-            return FinalStates.Intersect(currentStates.Select(x => x.ToString())).Any();
-        }
-
+      
         private List<string> EpsilonReacheableStates(List<string> currentStates)
         {
             List<string> result = new List<string>();
@@ -271,11 +173,9 @@ namespace Automata
             EpsilonClosureForState(InitialState, currentStates);
             currentStates.Sort();
 
-            // Create Initial state as q0
             currentState = CombineStatesToString(currentStates);
             dfa.States.Add(currentState);
             dfa.InitialState = currentState;
-
 
             notProcessedStates.Add(currentState);
             bool isComplete = false;
@@ -336,13 +236,15 @@ namespace Automata
             return dfa;
         }
 
-
         private string CombineStatesToString(List<string> states) => string.Join("-", states);
 
         private List<string> DecoupleStateToListOfStrings(string state) => state.Split('-').ToList();
 
+
+
         public bool IsInfinite()
         {
+
             List<string> states = States;
 
             // Set A - All reacheable States:
@@ -354,9 +256,8 @@ namespace Automata
             states = GetStatesReachingFinalState(states);
 
             // Set C - States that has non-epsilon loops
+            return CheckForCycles(states);
 
-
-            return false;
         }
 
         /// <summary>
@@ -389,7 +290,44 @@ namespace Automata
         /// </summary>
         private List<string> GetStatesReachingFinalState(List<string> states)
         {
-            return states.Where(x => Transitions.Exists(y => y.StartState == x && FinalStates.Contains(y.EndState))).ToList();
+            List<string> result = new List<string>();
+
+            List<string> tempStates = states.Where(IsFinalState).ToList();
+
+            foreach (string state in tempStates)
+            {
+                result.AddRange(GetPreceedingStates(state,states));
+            }
+
+            return result;
+        }
+
+        private List<string> GetPreceedingStates(string state, List<string> validStates)
+        {
+            List<string> result = new List<string>();
+
+            if(validStates.Contains(state) == false)
+                result.Add(state);
+
+            List<Transition> transitions = TransitionsToState(state);
+            foreach (Transition transition in transitions)
+            {
+                if (validStates.Contains(transition.StartState))
+                    result.AddRange(GetReacheableStates(transition.StartState));
+            }
+
+            return result;
+        }
+
+        private bool CheckForCycles(List<string> states)
+        {
+            List<Transition> transitions = Transitions.Where(x => states.Contains(x.StartState) && states.Contains(x.EndState)).ToList();
+
+            if (transitions.Exists(x => x.StartState == x.EndState))
+                return true;
+
+
+            throw new NotImplementedException();
         }
 
         private List<string> GetStatesWithNonEpsilonLoops(List<string> states)
@@ -411,6 +349,7 @@ namespace Automata
 
             return result;
         }
+
         /// <summary>
         /// Returns all accepted words. 
         /// Important notice: Method assumes that the NFA is Finite
@@ -430,13 +369,37 @@ namespace Automata
 
         }
 
+        #region Helpers
 
+        
+        private bool StateExists(string state)
+        {
+            return States.Exists(x => x == state);
+        }
+        private bool FinalStateExists(List<string> currentStates)
+        {
+            return FinalStates.Intersect(currentStates.Select(x => x.ToString())).Any();
+        }
+
+
+        private bool TransitionExists(Transition transition)
+        {
+            return Transitions.Any(t => t.StartState == transition.StartState &&
+                                        t.Symbol == transition.Symbol);
+        }
         private List<Transition> TransitionsFromState(string state)
         {
             return Transitions.Where(x => x.IsFrom(state)).ToList();
         }
 
+        private List<Transition> TransitionsToState(string state)
+        {
+            return Transitions.Where(x => x.IsTo(state)).ToList();
+        }
+
         private bool IsFinalState(string state) => FinalStates.Contains(state);
+
+        #endregion
     }
 
 }
