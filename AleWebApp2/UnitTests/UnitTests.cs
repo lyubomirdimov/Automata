@@ -43,7 +43,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void TestAccepts()
+        public void TestNFAAccepts()
         {
             List<char> alphabet = new List<char>() { 'a', 'b', 'c' };
             List<string> states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
@@ -116,6 +116,50 @@ namespace UnitTests
                 }
                 );
             FiniteStateAutomaton dfa = nfa.ToDfa();
+
+        }
+        [TestMethod]
+        public void TestIsFinite()
+        {
+
+        }
+
+        [TestMethod]
+        public void TestPDAAccepts()
+        {
+            PDA pda = new PDA
+            {
+                InputAlphabet = new List<char>() {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y'},
+                StackAlphabet = new List<char>() {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y'},
+                States = new List<string>() {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"},
+                InitialState = "A",
+                FinalStates = new List<string>() {"D", "E", "F", "G", "I", "K", "L"},
+                Transitions = new List<TransitionFunction>()
+                {
+                    new TransitionFunction("A", 'a', Constants.Epsilon, new List<char>() {'x'}, "B"),
+                    new TransitionFunction("A", 'b', "B"),
+                    new TransitionFunction("A", 'c', Constants.Epsilon, new List<char>() {'y'}, "B"),
+                    new TransitionFunction("B", 'd', "C"),
+                    new TransitionFunction("B", 'd', 'x', new List<char>() {Constants.Epsilon}, "D"),
+                    new TransitionFunction("B", 'e', "E"),
+                    new TransitionFunction("B", Constants.Epsilon, 'x', new List<char>() {Constants.Epsilon}, "F"),
+                    new TransitionFunction("B", Constants.Epsilon, "G"),
+                    new TransitionFunction("C", Constants.Epsilon, Constants.Epsilon, new List<char>() {'x'}, "H"),
+                    new TransitionFunction("E", 'f', 'y', new List<char>() {Constants.Epsilon}, "I"),
+                    new TransitionFunction("F", 'g', "I"),
+                    new TransitionFunction("G", 'g', 'x', new List<char>() {Constants.Epsilon}, "J"),
+                    new TransitionFunction("G", 'e', "K"),
+                    new TransitionFunction("G", 'h', 'y', new List<char>() {Constants.Epsilon}, "L")
+                }
+            };
+
+            Assert.IsTrue(pda.Accepts("ad"));
+            Assert.IsTrue(pda.Accepts("be"));
+            Assert.IsTrue(pda.Accepts("cef"));
+            Assert.IsTrue(pda.Accepts("ag"));
+            Assert.IsTrue(pda.Accepts("b"));
+            Assert.IsTrue(pda.Accepts("ch"));
+
 
         }
 
