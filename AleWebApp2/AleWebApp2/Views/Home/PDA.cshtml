@@ -1,112 +1,19 @@
-﻿@using Newtonsoft.Json
-@model FiniteStateViewModel
+﻿@using System.Web
+@model PDAViewModel
 
 
 <div class="row mt-4">
-    <div class="col-6">
-        <div class="card  bg-muted ">
-            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-cube-outline"></i> Input</h5>
-            <div class="card-body">
-                <form>
-                    <div class="form-group row">
-                        <label asp-for="AutomataString" class="col-4 text-right col-form-label"></label>
-                        <div class="col-8">
-                            <input class="form-control" type="text" asp-for="AutomataString">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label asp-for="RegularExpression" class="col-4 text-right col-form-label"></label>
-                        <div class="col-8">
-                            <input class="form-control" type="text" asp-for="RegularExpression">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card  bg-muted ">
-            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi "></i> Setting</h5>
-            <div class="card-body">
-                <h3>
-                    Supported Grammar
-                </h3>
-                <ul>
-                    <li>r = (s) </li>
-                    <li>r = st  </li>
-                    <li>r = s|t </li>
-                    <li>r = s*  </li>
-                    <li>r = ϵ   </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mt-4">
-    <div class="col-6">
-        <div class="card  bg-muted ">
-            <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-view-list"></i> List of Words accepted</h5>
-            <div class="card-body">
-                <div class="pre-scrollable">
-                    <ul>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                        <li>Whatever</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card  bg-muted ">
-            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-playlist-check"></i> Output</h5>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label> DFA </label>
-                        @{
-                            if (Model.IsDFA)
-                            {
-                                <i class="text-success mdi mdi-check-circle"></i>
-                            }
-                            else
-                            {
-                                <i class="text-danger  mdi mdi-close-circle"></i>
-                            }
-                        }
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label> Finite </label> <i class="text-success mdi mdi-check-circle"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mt-4">
-    <div class="col-12">
+    <div class="col-12 justify-content-center">
         <div class="card  bg-muted ">
             <h5 class="card-header card-header bg-inverse text-white"><i class="  mdi mdi-call-merge"></i> Automata</h5>
             <div class="card-body">
-                <div id="automaton"></div>
+                <div class="row justify-content-center">
+                    <div class="col-xs-10">
+                        <svg id="svg" width="1200">
+                            <g></g>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -114,140 +21,141 @@
 
 
 @section Scripts{
-    <script type="text/javascript">
-        var nodes = new vis.DataSet(
-            @Html.Raw(JsonConvert.SerializeObject(Model.Nodes))
-        );
-
-        // create an array with edges
-        var edges = new vis.DataSet(
-            @Html.Raw(JsonConvert.SerializeObject(Model.Edges))
-        );
-
-        // create a network
-        var container = document.getElementById('automaton');
-
-        // provide the data in the vis format
-        var data = {
-            nodes: nodes,
-            edges: edges
-        };
-
-        var options = {
-            autoResize: true,
-            height: '100%',
-            width: '100%',
-            clickToUse: true,
-            //configure: {
-            //    enabled: false,
-            //    filter: 'nodes,edges',
-            //    showButton: false
-            //},    // defined in the configure module.
-            edges: {
-                arrows: {
-                    to: { enabled: false, scaleFactor: 1, type: 'arrow' },
-                    middle: { enabled: false, scaleFactor: 1, type: 'arrow' },
-                    from: { enabled: false, scaleFactor: 1, type: 'arrow' }
-                },
-                color: {
-                    color: '#5C4B51',
-                    highlight: '#5C4B51',
-                    hover: '#5C4B51',
-                    inherit: 'from',
-                    opacity: 1.0
-                },
-                font: {
-                    color: '#000',
-                    size: 14, // px
-                    face: 'arial',
-                    background: 'none',
-                    strokeWidth: 2, // px
-                    strokeColor: '#ffffff',
-                    align: 'top',
-                    multi: false,
-                    vadjust: 0,
-
-                },
-                smooth: {
-                    enabled: true,
-                    type: "dynamic",
-                    roundness: 0.5
-                },
-
-                width: 2,
-                shadow: true
-            }, // defined in the edges module.
-            nodes: {
-                shape: 'ellipse',
-                size: 30,
-                font: {
-                    size: 20
-                },
-                borderWidth: 2,
-                shadow: true,
-                color: {
-                    border: '#5C4B51',
-                    background: '#F2EBBF',
-                    highlight: {
-                        border: '#5C4B51',
-                        background: '#F2EBBF'
-                    },
-                    hover: {
-                        border: '#5C4B51',
-                        background: '#F2EBBF'
-                    }
-                }
-            }, // defined in the nodes module.
-            groups: {
-            }, // defined in the groups module.
-            layout: {
-                hierarchical: {
-                    //enabled:false,
-                    //levelSeparation: 150,
-                    //nodeSpacing: 100,
-                    //treeSpacing: 200,
-                    //parentCentralization: false,
-                    //blockShifting: false,
-                    //edgeMinimization: false,
-                    sortMethod: "directed",
-                    direction: 'LR' // UD, DU, LR, RL
-                }
-            }, // defined in the layout module.
-            interaction: {
-                dragNodes: true,
-                dragView: true,
-                hideEdgesOnDrag: false,
-                hideNodesOnDrag: false,
-                hover: true,
-                hoverConnectedEdges: true,
-                keyboard: {
-                    enabled: false,
-                    speed: { x: 10, y: 10, zoom: 0.02 },
-                    bindToWindow: true
-                },
-                multiselect: false,
-                navigationButtons: true,
-                selectable: true,
-                selectConnectedEdges: true,
-                tooltipDelay: 300,
-                zoomView: true
-            }, // defined in the interaction module.
-            manipulation: {
-                enabled: false,
-                initiallyActive: false,
-                addNode: false,
-                addEdge: false,
-                //editNode: undefined,
-                editEdge: false,
-                deleteNode: false,
-                deleteEdge: false
-            }, // defined in the manipulation module.
-            physics: {
-                enabled: true
+<script type="text/javascript">
+        $(function () {
+            @if (Model.PDA != null)
+            {
+                @:genAutomataSVG();
             }
+        });
+
+
+        function genAutomataSVG() {
+            // Create a new directed graph
+            var g = new dagreD3.graphlib.Graph().setGraph({});
+            var render = new dagreD3.render();
+            var svg = d3.select("svg"),
+                inner = svg.select("g");
+            var zoom;
+
+            var states = [];
+            @foreach (var state in Model.PDA.States)
+            {
+                if (Model.PDA.FinalStates.Contains(state))
+                {
+                    @: states.push( { shape: 'accept', label: '@state' });
+                }
+                else
+                {
+                    @: states.push( { shape: 'normal', label: '@state' });
+                }
+            }
+
+            // Automatically label each of the nodes
+            states.forEach(function(state) { g.setNode(state.label, { shape: state.shape, label: state.label }); });
+            g.setNode(-1, { shape: 'text', label: 'start' });
+            g.setEdge(-1, '@Model.PDA.InitialState', { label: '' });
+            @foreach (var transitionFunction in Model.PDA.Transitions)
+            {
+                @: var label = '@Html.Raw(HttpUtility.JavaScriptStringEncode(transitionFunction.ToTransitionCaption()))';
+                @:g.setEdge('@transitionFunction.StartState','@transitionFunction.EndState',{label: label });
+            }
+
+
+            // Set up zoom support
+            zoom = d3.behavior.zoom().on("zoom", function () {
+                 inner.attr("transform", "translate(" + d3.event.translate + ")" + "scale(" + d3.event.scale + ")");
+             });
+            svg.call(zoom);
+
+            render.shapes().text = function (parent, bbox, node) {
+                var w = bbox.width,
+                    h = bbox.height,
+                    rx = Math.min(w / 2, h / 2),
+                    ry = rx,
+                    point = { x: w / 2, y: h / 2 },
+                    shapeSvg = parent
+                        .insert("ellipse", ":first-child")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("rx", rx)
+                        .attr("ry", ry)
+                        .attr("fill-opacity", "0")
+                        .attr("stroke-opacity", "0")
+                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+
+                node.intersect = function (point) {
+                    return dagreD3.intersect.ellipse(node, rx, ry, point);
+                };
+                return shapeSvg;
+            };
+
+            render.shapes().normal = function (parent, bbox, node) {
+                var w = bbox.width,
+                    h = bbox.height,
+                    rx = Math.min(w / 2, h / 2),
+                    ry = rx,
+                    point = { x: w / 2, y: h / 2 },
+                    shapeSvg = parent
+                        .insert("ellipse", ":first-child")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("rx", rx)
+                        .attr("ry", ry)
+                        .attr("fill", "white")
+                        .attr("fill-opacity", "0")
+                        .attr("stroke", "black")
+                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+
+                node.intersect = function (point) {
+                    return dagreD3.intersect.ellipse(node, rx, ry, point);
+                };
+                return shapeSvg;
+            };
+
+            render.shapes().accept = function (parent, bbox, node) {
+                var w = bbox.width,
+                    h = bbox.height,
+                    rx = Math.min(w / 2, h / 2),
+                    ry = rx,
+                    point = { x: w / 2, y: h / 2 },
+                    shapeSvg = parent
+                        .insert("ellipse", ":first-child")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("rx", rx)
+                        .attr("ry", ry)
+                        .attr("accept", '')
+                        .attr("fill", "white")
+                        .attr("fill-opacity", "0")
+                        .attr("stroke", "black")
+                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+                shapeSvg = parent
+                    .insert("ellipse", ":first-child")
+                    .attr("cx", point.x)
+                    .attr("cy", point.y)
+                    .attr("rx", rx - 2)
+                    .attr("ry", ry - 2)
+                    .attr("accept", '')
+                    .attr("fill", "white")
+                    .attr("fill-opacity", "0")
+                    .attr("stroke", "black")
+                    .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+
+                node.intersect = function (point) {
+                    return dagreD3.intersect.ellipse(node, rx, ry, point);
+                };
+                return shapeSvg;
+            };
+
+            g.graph().rankdir = 'LR';
+            render(inner, g);
+            zoom.translate([(svg.attr("width") - g.graph().width) / 2, 20]).event(svg);
+            svg.attr('height', g.graph().height * 1.5 + 40);
+
         }
 
-        // initialize your network!
-        var network = new vis.Network(container, data, options);
-    </script>
+
+
+</script>
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Automata
@@ -30,5 +31,9 @@ namespace Automata
             EndState = end;
         }
 
+        public string ToTransitionCaption()
+        {
+            return $"{InputSymbol}[{StackTopSymbol}/{String.Join(",", PushSymbols.Select(o => o.ToString()).ToArray())}]";
+        }
     }
 }

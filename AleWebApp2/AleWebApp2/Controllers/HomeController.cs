@@ -68,15 +68,38 @@ namespace AleWebApp2.Controllers
             );
             return NFA;
         }
-        public IActionResult RegexToNFA()
-        {
-
-            return View();
-        }
 
         public IActionResult PDA()
         {
-            return View();
+
+            PDA pda = new PDA
+            {
+                InputAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
+                StackAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
+                States = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" },
+                InitialState = "A",
+                FinalStates = new List<string>() { "D", "E", "F", "G", "I", "K", "L" },
+                Transitions = new List<TransitionFunction>()
+                {
+                    new TransitionFunction("A", 'a', Constants.Epsilon, new List<char>() {'x'}, "B"),
+                    new TransitionFunction("A", 'b', "B"),
+                    new TransitionFunction("A", 'c', Constants.Epsilon, new List<char>() {'y'}, "B"),
+                    new TransitionFunction("B", 'd', "C"),
+                    new TransitionFunction("B", 'd', 'x', new List<char>() {Constants.Epsilon}, "D"),
+                    new TransitionFunction("B", 'e', "E"),
+                    new TransitionFunction("B", Constants.Epsilon, 'x', new List<char>() {Constants.Epsilon}, "F"),
+                    new TransitionFunction("B", Constants.Epsilon, "G"),
+                    new TransitionFunction("C", Constants.Epsilon, Constants.Epsilon, new List<char>() {'x'}, "H"),
+                    new TransitionFunction("E", 'f', 'y', new List<char>() {Constants.Epsilon}, "I"),
+                    new TransitionFunction("F", 'g', "I"),
+                    new TransitionFunction("G", 'g', 'x', new List<char>() {Constants.Epsilon}, "J"),
+                    new TransitionFunction("G", 'e', "K"),
+                    new TransitionFunction("G", 'h', 'y', new List<char>() {Constants.Epsilon}, "L")
+                }
+            };
+            PDAViewModel model = new PDAViewModel();
+            model.PDA = pda;
+            return View(model);
         }
         public IActionResult Whatever()
         {

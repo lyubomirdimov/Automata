@@ -15,7 +15,7 @@ namespace AleWebApp2.Models
         public bool IsDFA { get; set; }
 
         [Display(Name = "String")]
-        public string AutomataString { get; set; }
+        public string InputString { get; set; }
 
         [Display(Name = "Regular Expression")]
         public string RegularExpression { get; set; }

@@ -1,4 +1,5 @@
-﻿@using Automata
+﻿@using System.Web
+@using Automata
 @using Newtonsoft.Json
 @model FiniteStateViewModel
 
@@ -11,7 +12,7 @@
                 <form>
                     <div class="form-group row">
                         <div class="col-8">
-                            <input class="form-control" type="text" asp-for="AutomataString" placeholder="String">
+                            <input class="form-control" type="text" asp-for="InputString" placeholder="String">
                         </div>
                         <div class="col-4">
                             <button type="submit" class="btn btn-success">Check acceptance</button>
@@ -93,7 +94,7 @@
 
 @section Scripts{
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             @if (Model.NFA != null)
             {
                 @:genAutomataSVG();
@@ -112,118 +113,121 @@
             var states = [];
             @foreach (var state in Model.NFA.States)
             {
-                @: states.push('@state');
-            }
-
-            // Automatically label each of the nodes
-            states.forEach(function (state) { g.setNode(state, {shape:'normal', label: state }); });
-            g.setNode(-1, { shape: 'text', label: 'start' });
-            g.setEdge(-1, '@Model.NFA.InitialState', { label: '' });
-            @foreach (Transition nfaTransition in Model.NFA.Transitions)
-            {
-                @: var label = '@nfaTransition.SymbolToTransitionCaption()';
-                if (nfaTransition.Symbol == Constants.Epsilon)
+                if (Model.NFA.FinalStates.Contains(state))
                 {
-                     @:label = "ϵ";
+                    @: states.push( { shape: 'accept', label: '@state' });
                 }
-                @:g.setEdge('@nfaTransition.StartState','@nfaTransition.EndState',{label: label });
+                else
+                {
+                    @: states.push( { shape: 'normal', label: '@state' });
+                }
             }
 
+        // Automatically label each of the nodes
+        states.forEach(function(state) { g.setNode(state.label, { shape: state.shape, label: state.label }); });
 
-            // Set up zoom support
-            zoom = d3.behavior.zoom().on("zoom", function () {
-                 inner.attr("transform", "translate(" + d3.event.translate + ")" + "scale(" + d3.event.scale + ")");
-             });
-            svg.call(zoom);
+        g.setNode(-1, { shape: 'text', label: 'start' });
+        g.setEdge(-1, '@Model.NFA.InitialState', { label: '' });
+        @foreach (Transition nfaTransition in Model.NFA.Transitions)
+        {
+            @: var label = '@Html.Raw(HttpUtility.JavaScriptStringEncode(nfaTransition.ToTransitionCaption()))';
+            @:g.setEdge('@nfaTransition.StartState', '@nfaTransition.EndState', { label: label });
+        }
 
-            render.shapes().text = function (parent, bbox, node) {
-                var w = bbox.width,
-                    h = bbox.height,
-                    rx = Math.min(w / 2, h / 2),
-                    ry = rx,
-                    point = { x: w / 2, y: h / 2 },
-                    shapeSvg = parent
-                        .insert("ellipse", ":first-child")
-                        .attr("cx", point.x)
-                        .attr("cy", point.y)
-                        .attr("rx", rx)
-                        .attr("ry", ry)
-                        .attr("fill-opacity", "0")
-                        .attr("stroke-opacity", "0")
-                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
 
-                node.intersect = function (point) {
-                    return dagreD3.intersect.ellipse(node, rx, ry, point);
-                };
-                return shapeSvg;
-            };
+        // Set up zoom support
+        zoom = d3.behavior.zoom().on("zoom",
+            function() {
+                inner.attr("transform", "translate(" + d3.event.translate + ")" + "scale(" + d3.event.scale + ")");
+            });
+        svg.call(zoom);
 
-            render.shapes().normal = function (parent, bbox, node) {
-                var w = bbox.width,
-                    h = bbox.height,
-                    rx = Math.min(w / 2, h / 2),
-                    ry = rx,
-                    point = { x: w / 2, y: h / 2 },
-                    shapeSvg = parent
-                        .insert("ellipse", ":first-child")
-                        .attr("cx", point.x)
-                        .attr("cy", point.y)
-                        .attr("rx", rx)
-                        .attr("ry", ry)
-                        .attr("fill", "white")
-                        .attr("fill-opacity", "0")
-                        .attr("stroke", "black")
-                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
-
-                node.intersect = function (point) {
-                    return dagreD3.intersect.ellipse(node, rx, ry, point);
-                };
-                return shapeSvg;
-            };
-
-            render.shapes().accept = function (parent, bbox, node) {
-                var w = bbox.width,
-                    h = bbox.height,
-                    rx = Math.min(w / 2, h / 2),
-                    ry = rx,
-                    point = { x: w / 2, y: h / 2 },
-                    shapeSvg = parent
-                        .insert("ellipse", ":first-child")
-                        .attr("cx", point.x)
-                        .attr("cy", point.y)
-                        .attr("rx", rx)
-                        .attr("ry", ry)
-                        .attr("accept", '')
-                        .attr("fill", "white")
-                        .attr("fill-opacity", "0")
-                        .attr("stroke", "black")
-                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+        render.shapes().text = function(parent, bbox, node) {
+            var w = bbox.width,
+                h = bbox.height,
+                rx = Math.min(w / 2, h / 2),
+                ry = rx,
+                point = { x: w / 2, y: h / 2 },
                 shapeSvg = parent
                     .insert("ellipse", ":first-child")
                     .attr("cx", point.x)
                     .attr("cy", point.y)
-                    .attr("rx", rx - 2)
-                    .attr("ry", ry - 2)
-                    .attr("accept", '')
+                    .attr("rx", rx)
+                    .attr("ry", ry)
+                    .attr("fill-opacity", "0")
+                    .attr("stroke-opacity", "0")
+                    .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+
+            node.intersect = function(point) {
+                return dagreD3.intersect.ellipse(node, rx, ry, point);
+            };
+            return shapeSvg;
+        };
+
+        render.shapes().normal = function(parent, bbox, node) {
+            var w = bbox.width,
+                h = bbox.height,
+                rx = Math.min(w / 2, h / 2),
+                ry = rx,
+                point = { x: w / 2, y: h / 2 },
+                shapeSvg = parent
+                    .insert("ellipse", ":first-child")
+                    .attr("cx", point.x)
+                    .attr("cy", point.y)
+                    .attr("rx", rx)
+                    .attr("ry", ry)
                     .attr("fill", "white")
                     .attr("fill-opacity", "0")
                     .attr("stroke", "black")
                     .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
 
-                node.intersect = function (point) {
-                    return dagreD3.intersect.ellipse(node, rx, ry, point);
-                };
-                return shapeSvg;
+            node.intersect = function(point) {
+                return dagreD3.intersect.ellipse(node, rx, ry, point);
             };
+            return shapeSvg;
+        };
 
-            g.graph().rankdir = 'LR';
-            render(inner, g);
-            zoom.translate([(svg.attr("width") - g.graph().width) / 2, 20]).event(svg);
-            svg.attr('height', g.graph().height * 1.5 + 40);
+        render.shapes().accept = function(parent, bbox, node) {
+            var w = bbox.width,
+                h = bbox.height,
+                rx = Math.min(w / 2, h / 2),
+                ry = rx,
+                point = { x: w / 2, y: h / 2 },
+                shapeSvg = parent
+                    .insert("ellipse", ":first-child")
+                    .attr("cx", point.x)
+                    .attr("cy", point.y)
+                    .attr("rx", rx)
+                    .attr("ry", ry)
+                    .attr("accept", '')
+                    .attr("fill", "white")
+                    .attr("fill-opacity", "0")
+                    .attr("stroke", "black")
+                    .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+            shapeSvg = parent
+                .insert("ellipse", ":first-child")
+                .attr("cx", point.x)
+                .attr("cy", point.y)
+                .attr("rx", rx - 2)
+                .attr("ry", ry - 2)
+                .attr("accept", '')
+                .attr("fill", "white")
+                .attr("fill-opacity", "0")
+                .attr("stroke", "black")
+                .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
 
+            node.intersect = function(point) {
+                return dagreD3.intersect.ellipse(node, rx, ry, point);
+            };
+            return shapeSvg;
+        };
+
+        g.graph().rankdir = 'LR';
+        render(inner, g);
+        zoom.translate([(svg.attr("width") - g.graph().width) / 2, 20]).event(svg);
+        svg.attr('height', g.graph().height * 1.5 + 40);
         }
 
 
-     
     </script>
 }

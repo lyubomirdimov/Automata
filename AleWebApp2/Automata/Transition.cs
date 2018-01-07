@@ -32,6 +32,6 @@ namespace Automata
 
         public string SymbolToString() => Symbol == Constants.Epsilon ? "" : Symbol.ToString();
 
-        public string SymbolToTransitionCaption() => Symbol == Constants.Epsilon ? "ϵ" : Symbol.ToString();
+        public string ToTransitionCaption() => Symbol == Constants.Epsilon ? "ϵ" : Symbol.ToString();
     }
 }
