@@ -106,7 +106,7 @@ namespace Automata
             return Accepts(input.Substring(1), currentStates);
         }
 
-      
+
         private List<string> EpsilonReacheableStates(List<string> currentStates)
         {
             List<string> result = new List<string>();
@@ -244,26 +244,25 @@ namespace Automata
 
         public bool IsInfinite()
         {
-
-            List<string> states = States;
-
             // Set A - All reacheable States:
             // state q' is said to be reachable from another state q if, 
             // there is an input string which may take us from state q to state q'.
-            states = GetReacheableStates(InitialState);
+            List<string> recheable = new List<string>();
+            GetReacheableStates(InitialState,recheable);
 
             // Set B - States that reach Final States
-            states = GetStatesReachingFinalState(states);
+            List<string> terminating = new List<string>(recheable);
+            terminating = GetStatesReachingFinalState(terminating);
 
             // Set C - States that has non-epsilon loops
-            return CheckForCycles(states);
+            return CheckForCycles(terminating);
 
         }
 
         /// <summary>
         /// Get All States which are reacheable from the state given as parameter
         /// </summary>
-        private List<string> GetReacheableStates(string state)
+        private void GetReacheableStates(string state,List<string> states)
         {
             // Algorithm
             // 1. Initialise the set of reachable states R to the set containing only the initial state.
@@ -273,20 +272,22 @@ namespace Automata
             // 4. If new elements have been added to R in the last step, jump to step 2.
             // 5. Remove all states in the automaton not in the final value of R and transitions from or into them.
 
-            List<string> reacheableStates = new List<string> { state };
+            if(states.Contains(state))
+                return;
+
+            states.Add(state);
 
             List<Transition> transitions = Transitions.Where(x => x.StartState == state).ToList();
             foreach (Transition transition in transitions)
             {
-                reacheableStates.AddRange(GetReacheableStates(transition.EndState));
+                GetReacheableStates(transition.EndState,states);
             }
 
-            return reacheableStates;
         }
 
 
         /// <summary>
-        /// Get states which have a transition to a Final State (reaching final state)
+        /// Get states which have a path to a Final State (reaching final state)
         /// </summary>
         private List<string> GetStatesReachingFinalState(List<string> states)
         {
@@ -296,7 +297,7 @@ namespace Automata
 
             foreach (string state in tempStates)
             {
-                result.AddRange(GetPreceedingStates(state,states));
+                result.AddRange(GetPreceedingStates(state, states));
             }
 
             return result;
@@ -306,14 +307,14 @@ namespace Automata
         {
             List<string> result = new List<string>();
 
-            if(validStates.Contains(state) == false)
+            if (validStates.Contains(state) == false)
                 result.Add(state);
 
             List<Transition> transitions = TransitionsToState(state);
             foreach (Transition transition in transitions)
             {
                 if (validStates.Contains(transition.StartState))
-                    result.AddRange(GetReacheableStates(transition.StartState));
+                    GetReacheableStates(transition.StartState,result);
             }
 
             return result;
@@ -321,31 +322,46 @@ namespace Automata
 
         private bool CheckForCycles(List<string> states)
         {
-            List<Transition> transitions = Transitions.Where(x => states.Contains(x.StartState) && states.Contains(x.EndState)).ToList();
+            HashSet<string> alreadyVisited = new HashSet<string>();
+            alreadyVisited.Add(InitialState);
+            return CheckForCycles(alreadyVisited, InitialState, states);
 
-            if (transitions.Exists(x => x.StartState == x.EndState))
-                return true;
-
-
-            throw new NotImplementedException();
         }
 
-        private List<string> GetStatesWithNonEpsilonLoops(List<string> states)
+        private bool CheckForCycles(HashSet<string> alreadyVisited, string currentState, List<string> states)
         {
-            // There is a path, which lead 
-            return new List<string>();
+            List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == currentState && states.Contains(x.EndState)).ToList();
+            for (int i = 0; i < transitionsFromState.Count; i++)
+            {
+                Transition transition = transitionsFromState[i];
+                if (states.Contains(transition.EndState) == false)
+                    continue;
+
+                if (alreadyVisited.Contains(transition.EndState))
+                {
+                    return true;
+                }
+
+                HashSet<string> newSet = i == transitionsFromState.Count - 1 ? alreadyVisited : new HashSet<string>(alreadyVisited);
+                newSet.Add(transition.EndState);
+                return CheckForCycles(newSet, transition.EndState, states);
+            }
+
+            return false;
         }
+
+
 
         public List<string> AcceptedWords()
         {
-            if(IsInfinite())
+            if (IsInfinite())
                 return new List<string>();
 
             List<string> result = new List<string>();
 
             string currentInput = "";
 
-            AcceptedWords(InitialState,currentInput,result);
+            AcceptedWords(InitialState, currentInput, result);
 
             return result;
         }
@@ -356,11 +372,11 @@ namespace Automata
         /// </summary>
         private void AcceptedWords(string state, string currentInput, List<string> words)
         {
-            if(IsFinalState(state))
+            if (IsFinalState(state))
                 words.Add(currentInput);
 
             // Start From Initial State
-            List<Transition> transitions = TransitionsFromState(InitialState);
+            List<Transition> transitions = TransitionsFromState(state);
 
             foreach (Transition transition in transitions)
             {
@@ -371,7 +387,7 @@ namespace Automata
 
         #region Helpers
 
-        
+
         private bool StateExists(string state)
         {
             return States.Exists(x => x == state);

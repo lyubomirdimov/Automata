@@ -121,7 +121,43 @@ namespace UnitTests
         [TestMethod]
         public void TestIsFinite()
         {
+            FiniteStateAutomaton fsm = new FiniteStateAutomaton();
+            fsm.Alphabet = new List<char>() { '1', '2', '3', '4', '5', '6' };
+            fsm.States = new List<string>() { "a", "b", "c", "d" };
+            fsm.InitialState = "a";
+            fsm.FinalStates = new List<string>() { "c" };
+            fsm.Transitions = new List<Transition>()
+            {
+                new Transition("a","b", '1'),
+                new Transition("a","c", '5'),
+                new Transition("b","c", '2'),
+                new Transition("c","a", '6'),
+                new Transition("c","d", '3'),
+                new Transition("d","a", '4'),
+            };
 
+            Assert.IsTrue(fsm.IsInfinite());
+
+        }
+
+        [TestMethod]
+        public void TestAcceptedWords()
+        {
+            FiniteStateAutomaton fsm = new FiniteStateAutomaton();
+            fsm.Alphabet = new List<char>() { '1', '2', '3', '4', '5', '6' };
+            fsm.States = new List<string>() { "a", "b", "c", "d" };
+            fsm.InitialState = "a";
+            fsm.FinalStates = new List<string>() { "c","d" };
+            fsm.Transitions = new List<Transition>()
+            {
+                new Transition("a","b", '1'),
+                new Transition("a","c", '2'),
+                new Transition("a","d", '3'),
+                new Transition("b","c", '2'),
+                new Transition("c","d", '3'),
+            };
+
+            List<string> acceptedWords = fsm.AcceptedWords();
         }
 
         [TestMethod]
@@ -129,11 +165,11 @@ namespace UnitTests
         {
             PDA pda = new PDA
             {
-                InputAlphabet = new List<char>() {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y'},
-                StackAlphabet = new List<char>() {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y'},
-                States = new List<string>() {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"},
+                InputAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
+                StackAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
+                States = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" },
                 InitialState = "A",
-                FinalStates = new List<string>() {"D", "E", "F", "G", "I", "K", "L"},
+                FinalStates = new List<string>() { "D", "E", "F", "G", "I", "K", "L" },
                 Transitions = new List<TransitionFunction>()
                 {
                     new TransitionFunction("A", 'a', Constants.Epsilon, new List<char>() {'x'}, "B"),

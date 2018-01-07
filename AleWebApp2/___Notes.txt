@@ -1,7 +1,7 @@
 Assignment 1
 	- read from input format
 	- Indicate if it is DFA or not - Complete
-	- Represent Automaton
+	- Represent Automaton - Complete
 
 Assignment 2
 	- Check if string is accepted by the automaton = Complete
@@ -20,9 +20,9 @@ Assignment 5
 	- Write DFA to file (JSON)
 
 Assignment 6
-	- Accepting PDA
-	- Transition Priorities
-	- Check if PDA accepts string
+	- Accepting PDA  - Complete
+	- Transition Priorities - Complete
+	- Check if PDA accepts string - Complete
 	- PDA to accept RE
 	- PDA to accept algebratic expressions
 

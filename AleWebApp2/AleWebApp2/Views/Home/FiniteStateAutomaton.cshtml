@@ -1,7 +1,7 @@
 ﻿@using System.Web
 @using Automata
 @using Newtonsoft.Json
-@model FiniteStateViewModel
+@model FiniteStateAutomatonViewModel
 
 
 <div class="row mt-4">
@@ -9,16 +9,45 @@
         <div class="card  bg-muted ">
             <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-cube-outline"></i> Input</h5>
             <div class="card-body">
-                <form>
-                    <div class="form-group row">
-                        <div class="col-8">
-                            <input class="form-control" type="text" asp-for="InputString" placeholder="String">
-                        </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-success">Check acceptance</button>
-                        </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form method="post" action="">
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <input class="form-control" type="text" asp-for="InputString" placeholder="Fill Input String">
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-success">Check acceptance</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form method="post" asp-action="RegexToNfa">
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <input class="form-control" type="text" asp-for="RegularExpression" placeholder="Fill Regular Expression">
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-dark">Regex To NFA</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form method="post" asp-action="NfaToDfa">
+                            <div class="form-group row justify-content-end">
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-info">Convert To Dfa</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -27,23 +56,45 @@
             <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-settings"></i> Setting</h5>
             <div class="card-body">
                 <div class="col-12">
-                    <label> DFA </label>
+                    <label> Input Accepted </label>
                     @{
-                        if (Model.IsDFA)
+                        if (Model.Accepts)
                         {
-                            <i class="text-success mdi mdi-check-circle"></i>
+                            <i id="ic_Accepts" class="text-success mdi mdi-check-circle"></i>
                         }
                         else
                         {
-                            <i class="text-danger  mdi mdi-close-circle"></i>
+                            <i id="ic_doesNotAccept" class="text-danger  mdi mdi-close-circle"></i>
                         }
                     }
                 </div>
                 <div class="col-12">
-                    <label> Finite </label> <i class="text-success mdi mdi-check-circle"></i>
+                    <label> DFA </label>
+                    @{
+                        if (Model.IsDFA)
+                        {
+                            <i id="ic_isDfa" class="text-success mdi mdi-check-circle"></i>
+                        }
+                        else
+                        {
+                            <i id="ic_isNotDfa" class="text-danger  mdi mdi-close-circle"></i>
+                        }
+                    }
                 </div>
-
-                <hr />
+                <div class="col-12">
+                    <label> Is Finite </label>
+                    @{
+                        if (Model.IsFinite)
+                        {
+                            <i id="ic_isFinite" class="text-success mdi mdi-check-circle"></i>
+                        }
+                        else
+                        {
+                            <i id="ic_isNotFinite" class="text-danger  mdi mdi-close-circle"></i>
+                        }
+                    }
+                </div>
+                <hr/>
 
                 <div class="col-12">
                     <div class="pre-scrollable">
@@ -93,9 +144,15 @@
 
 
 @section Scripts{
+    
+    <script>
+        $(function() {
+
+        });
+    </script>
     <script type="text/javascript">
         $(function() {
-            @if (Model.NFA != null)
+            @if (Model.FSM != null)
             {
                 @:genAutomataSVG();
             }
@@ -111,9 +168,9 @@
             var zoom;
 
             var states = [];
-            @foreach (var state in Model.NFA.States)
+            @foreach (var state in Model.FSM.States)
             {
-                if (Model.NFA.FinalStates.Contains(state))
+                if (Model.FSM.FinalStates.Contains(state))
                 {
                     @: states.push( { shape: 'accept', label: '@state' });
                 }
@@ -123,109 +180,109 @@
                 }
             }
 
-        // Automatically label each of the nodes
-        states.forEach(function(state) { g.setNode(state.label, { shape: state.shape, label: state.label }); });
+            // Automatically label each of the nodes
+            states.forEach(function(state) { g.setNode(state.label, { shape: state.shape, label: state.label }); });
 
-        g.setNode(-1, { shape: 'text', label: 'start' });
-        g.setEdge(-1, '@Model.NFA.InitialState', { label: '' });
-        @foreach (Transition nfaTransition in Model.NFA.Transitions)
+            g.setNode(-1, { shape: 'text', label: 'start' });
+            g.setEdge(-1, '@Model.FSM.InitialState', { label: '' });
+            @foreach (Transition nfaTransition in Model.FSM.Transitions)
         {
             @: var label = '@Html.Raw(HttpUtility.JavaScriptStringEncode(nfaTransition.ToTransitionCaption()))';
             @:g.setEdge('@nfaTransition.StartState', '@nfaTransition.EndState', { label: label });
         }
 
 
-        // Set up zoom support
-        zoom = d3.behavior.zoom().on("zoom",
-            function() {
-                inner.attr("transform", "translate(" + d3.event.translate + ")" + "scale(" + d3.event.scale + ")");
-            });
-        svg.call(zoom);
+            // Set up zoom support
+            zoom = d3.behavior.zoom().on("zoom",
+                function() {
+                    inner.attr("transform", "translate(" + d3.event.translate + ")" + "scale(" + d3.event.scale + ")");
+                });
+            svg.call(zoom);
 
-        render.shapes().text = function(parent, bbox, node) {
-            var w = bbox.width,
-                h = bbox.height,
-                rx = Math.min(w / 2, h / 2),
-                ry = rx,
-                point = { x: w / 2, y: h / 2 },
-                shapeSvg = parent
-                    .insert("ellipse", ":first-child")
-                    .attr("cx", point.x)
-                    .attr("cy", point.y)
-                    .attr("rx", rx)
-                    .attr("ry", ry)
-                    .attr("fill-opacity", "0")
-                    .attr("stroke-opacity", "0")
-                    .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+            render.shapes().text = function(parent, bbox, node) {
+                var w = bbox.width,
+                    h = bbox.height,
+                    rx = Math.min(w / 2, h / 2),
+                    ry = rx,
+                    point = { x: w / 2, y: h / 2 },
+                    shapeSvg = parent
+                        .insert("ellipse", ":first-child")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("rx", rx)
+                        .attr("ry", ry)
+                        .attr("fill-opacity", "0")
+                        .attr("stroke-opacity", "0")
+                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
 
-            node.intersect = function(point) {
-                return dagreD3.intersect.ellipse(node, rx, ry, point);
+                node.intersect = function(point) {
+                    return dagreD3.intersect.ellipse(node, rx, ry, point);
+                };
+                return shapeSvg;
             };
-            return shapeSvg;
-        };
 
-        render.shapes().normal = function(parent, bbox, node) {
-            var w = bbox.width,
-                h = bbox.height,
-                rx = Math.min(w / 2, h / 2),
-                ry = rx,
-                point = { x: w / 2, y: h / 2 },
-                shapeSvg = parent
-                    .insert("ellipse", ":first-child")
-                    .attr("cx", point.x)
-                    .attr("cy", point.y)
-                    .attr("rx", rx)
-                    .attr("ry", ry)
-                    .attr("fill", "white")
-                    .attr("fill-opacity", "0")
-                    .attr("stroke", "black")
-                    .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
+            render.shapes().normal = function(parent, bbox, node) {
+                var w = bbox.width,
+                    h = bbox.height,
+                    rx = Math.min(w / 2, h / 2),
+                    ry = rx,
+                    point = { x: w / 2, y: h / 2 },
+                    shapeSvg = parent
+                        .insert("ellipse", ":first-child")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("rx", rx)
+                        .attr("ry", ry)
+                        .attr("fill", "white")
+                        .attr("fill-opacity", "0")
+                        .attr("stroke", "black")
+                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
 
-            node.intersect = function(point) {
-                return dagreD3.intersect.ellipse(node, rx, ry, point);
+                node.intersect = function(point) {
+                    return dagreD3.intersect.ellipse(node, rx, ry, point);
+                };
+                return shapeSvg;
             };
-            return shapeSvg;
-        };
 
-        render.shapes().accept = function(parent, bbox, node) {
-            var w = bbox.width,
-                h = bbox.height,
-                rx = Math.min(w / 2, h / 2),
-                ry = rx,
-                point = { x: w / 2, y: h / 2 },
+            render.shapes().accept = function(parent, bbox, node) {
+                var w = bbox.width,
+                    h = bbox.height,
+                    rx = Math.min(w / 2, h / 2),
+                    ry = rx,
+                    point = { x: w / 2, y: h / 2 },
+                    shapeSvg = parent
+                        .insert("ellipse", ":first-child")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("rx", rx)
+                        .attr("ry", ry)
+                        .attr("accept", '')
+                        .attr("fill", "white")
+                        .attr("fill-opacity", "0")
+                        .attr("stroke", "black")
+                        .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
                 shapeSvg = parent
                     .insert("ellipse", ":first-child")
                     .attr("cx", point.x)
                     .attr("cy", point.y)
-                    .attr("rx", rx)
-                    .attr("ry", ry)
+                    .attr("rx", rx - 2)
+                    .attr("ry", ry - 2)
                     .attr("accept", '')
                     .attr("fill", "white")
                     .attr("fill-opacity", "0")
                     .attr("stroke", "black")
                     .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
-            shapeSvg = parent
-                .insert("ellipse", ":first-child")
-                .attr("cx", point.x)
-                .attr("cy", point.y)
-                .attr("rx", rx - 2)
-                .attr("ry", ry - 2)
-                .attr("accept", '')
-                .attr("fill", "white")
-                .attr("fill-opacity", "0")
-                .attr("stroke", "black")
-                .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")");
 
-            node.intersect = function(point) {
-                return dagreD3.intersect.ellipse(node, rx, ry, point);
+                node.intersect = function(point) {
+                    return dagreD3.intersect.ellipse(node, rx, ry, point);
+                };
+                return shapeSvg;
             };
-            return shapeSvg;
-        };
 
-        g.graph().rankdir = 'LR';
-        render(inner, g);
-        zoom.translate([(svg.attr("width") - g.graph().width) / 2, 20]).event(svg);
-        svg.attr('height', g.graph().height * 1.5 + 40);
+            g.graph().rankdir = 'LR';
+            render(inner, g);
+            zoom.translate([(svg.attr("width") - g.graph().width) / 2, 20]).event(svg);
+            svg.attr('height', g.graph().height * 1.5 + 40);
         }
 
 
