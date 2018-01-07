@@ -326,63 +326,77 @@ namespace Automata
         {
             List<string> result = new List<string>();
 
-            List<string> tempStates = states.Where(IsFinalState).ToList();
+            List<string> finalStates = states.Where(IsFinalState).ToList();
 
-            foreach (string state in tempStates)
+            foreach (string state in finalStates)
             {
-                result.AddRange(GetPreceedingStates(state, states));
+                GetPreceedingStates(state, result, states);
             }
 
             return result;
         }
 
-        private List<string> GetPreceedingStates(string state, List<string> validStates)
+        private void GetPreceedingStates(string state, List<string> resultingStates, List<string> reacheableStates)
         {
-            List<string> result = new List<string>();
 
-            if (validStates.Contains(state) == false)
-                result.Add(state);
+            if (resultingStates.Contains(state))
+                return;
+
+            if (reacheableStates.Contains(state))
+                resultingStates.Add(state);
+
 
             List<Transition> transitions = TransitionsToState(state);
             foreach (Transition transition in transitions)
             {
-                if (validStates.Contains(transition.StartState))
-                    GetReacheableStates(transition.StartState, result);
+                GetPreceedingStates(transition.StartState, resultingStates, reacheableStates);
             }
 
-            return result;
         }
 
         private bool CheckForCycles(List<string> states)
         {
-            HashSet<string> alreadyVisited = new HashSet<string>();
-            alreadyVisited.Add(InitialState);
-            return CheckForCycles(alreadyVisited, InitialState, states);
+            List<string> workingSet = states.ToList();
+            List<string> inRecursionSet = new List<string>();
+            List<string> totallyVisitedSet = new List<string>();
 
-        }
-
-        private bool CheckForCycles(HashSet<string> alreadyVisited, string currentState, List<string> states)
-        {
-            List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == currentState && states.Contains(x.EndState)).ToList();
-            for (int i = 0; i < transitionsFromState.Count; i++)
+            int count = 0;
+            while (workingSet.Any())
             {
-                Transition transition = transitionsFromState[i];
-                if (states.Contains(transition.EndState) == false)
-                    continue;
-
-                if (alreadyVisited.Contains(transition.EndState))
+                string current = workingSet[0];
+                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet,states))
                 {
                     return true;
                 }
-
-                HashSet<string> newSet = i == transitionsFromState.Count - 1 ? alreadyVisited : new HashSet<string>(alreadyVisited);
-                newSet.Add(transition.EndState);
-                return CheckForCycles(newSet, transition.EndState, states);
             }
-
             return false;
         }
 
+        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates)
+        {
+            MoveVertex(current, workingSet, inRecursionSet);
+            List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == current && terminatingStates.Contains(x.EndState)).ToList();
+            foreach (var trans in transitionsFromState)
+            {
+                if (totallyVisitedSet.Contains(trans.EndState))
+                    continue;
+
+                if (inRecursionSet.Contains(trans.EndState))
+                    return true;
+
+                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates))
+                    return true;
+            }
+
+            MoveVertex(current,inRecursionSet,totallyVisitedSet);
+            return false;
+        }
+
+        private void MoveVertex(string vertex, List<string> source, List<string> destination)
+        {
+            source.Remove(vertex);
+            destination.Add(vertex);
+        }
 
 
         public List<string> AcceptedWords()

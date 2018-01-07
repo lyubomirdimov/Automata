@@ -13,8 +13,9 @@ namespace AleWebApp2.Models
         public bool IsAutomatonBuilt { get; set; }
 
         public bool IsDFA { get; set; }
-        public bool IsFinite { get; set; }
+        public bool IsFinite { get; set; } = false;
         public bool Accepts { get; set; }
+        public List<string> AcceptedWords { get; set; } = new List<string>();
 
         [Display(Name = "Input String", Prompt = "Fill Input String")]
         public string InputString { get; set; } = "";
@@ -33,7 +34,8 @@ namespace AleWebApp2.Models
         {
             FSM = fsm;
             IsDFA = fsm.IsDFA();
-            IsFinite = false;
+            IsFinite = fsm.IsInfinite() == false;
+            AcceptedWords = fsm.AcceptedWords();
         }
 
        
@@ -43,7 +45,8 @@ namespace AleWebApp2.Models
             FiniteStateAutomaton fsm = constructor.RegexToNfa(regex);
             FSM = fsm;
             IsDFA = fsm.IsDFA();
-            IsFinite = false;
+            IsFinite = fsm.IsInfinite() == false;
+            AcceptedWords = fsm.AcceptedWords();
         }
             
         

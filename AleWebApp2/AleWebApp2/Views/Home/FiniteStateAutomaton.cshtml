@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-12">
                         <form id="form_toDfa" asp-action="NfaToDfa">
-                            <input type="hidden" id="hf_toDfa_fsm" name="fsm"/>
+                            <input type="hidden" id="hf_toDfa_fsm" name="fsm" />
                             <div class="form-group row justify-content-end">
                                 <div class="col-4">
                                     <button id="btn_ToDfa" class="btn btn-info">Convert To Dfa</button>
@@ -55,60 +55,56 @@
         <div class="card  bg-muted ">
             <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-settings"></i> Setting</h5>
             <div class="card-body">
-                <div class="col-12">
-                    <label> Input Accepted </label>
-                    <i id="ic_Accepts" class="text-success mdi mdi-check-circle" style="display: none"></i>
-                    <i id="ic_doesNotAccept" class="text-danger  mdi mdi-close-circle" style="display: none"></i>
-                </div>
-                <div class="col-12">
-                    <label> DFA </label>
-                    @{
-                        if (Model.IsDFA)
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-12">
+                            <label> Input Accepted </label>
+                            <i id="ic_Accepts" class="text-success mdi mdi-check-circle" style="display: none"></i>
+                            <i id="ic_doesNotAccept" class="text-danger  mdi mdi-close-circle" style="display: none"></i>
+                        </div>
+                        <div class="col-12">
+                            <label> DFA </label>
+                            @{
+                                if (Model.IsDFA)
+                                {
+                                    <i id="ic_isDfa" class="text-success mdi mdi-check-circle"></i>
+                                }
+                                else
+                                {
+                                    <i id="ic_isNotDfa" class="text-danger  mdi mdi-close-circle"></i>
+                                }
+                            }
+                        </div>
+                        <div class="col-12">
+                            <label> Is Finite </label>
+                            @{
+                                if (Model.IsFinite)
+                                {
+                                    <i id="ic_isFinite" class="text-success mdi mdi-check-circle"></i>
+                                }
+                                else
+                                {
+                                    <i id="ic_isNotFinite" class="text-danger  mdi mdi-close-circle"></i>
+                                }
+                            }
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="col-6">
+                        @if (Model.AcceptedWords.Any() == false)
                         {
-                            <i id="ic_isDfa" class="text-success mdi mdi-check-circle"></i>
+                            <div>
+                                <h6> Infinite amount of words</h6>
+                            </div>
                         }
-                        else
-                        {
-                            <i id="ic_isNotDfa" class="text-danger  mdi mdi-close-circle"></i>
-                        }
-                    }
-                </div>
-                <div class="col-12">
-                    <label> Is Finite </label>
-                    @{
-                        if (Model.IsFinite)
-                        {
-                            <i id="ic_isFinite" class="text-success mdi mdi-check-circle"></i>
-                        }
-                        else
-                        {
-                            <i id="ic_isNotFinite" class="text-danger  mdi mdi-close-circle"></i>
-                        }
-                    }
-                </div>
-                <hr />
-
-                <div class="col-12">
-                    <div class="pre-scrollable">
-                        <ul>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                            <li>Whatever</li>
-                        </ul>
+                        <div class="pre-scrollable">
+                            <ul>
+                                @foreach (var word in Model.AcceptedWords)
+                                {
+                                    <li>@word</li>
+                                }
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
