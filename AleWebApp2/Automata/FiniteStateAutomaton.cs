@@ -233,6 +233,39 @@ namespace Automata
                 }
             }
 
+            // Fix States Names
+            List<string> newStateNames = new List<string>();
+            string newInitialState = "";
+            List<string> newFinalStates = new List<string>();
+            for (var i = 0; i < dfa.States.Count; i++)
+            {
+                string dfaState = dfa.States[i];
+                string newStateName = i.ToString();
+
+                newStateNames.Add(newStateName);
+
+                if (dfa.InitialState == dfaState)
+                    newInitialState = newStateName;
+
+                if (dfa.FinalStates.Contains(dfaState))
+                    newFinalStates.Add(newStateName);
+
+                List<Transition> transWithStartState = dfa.Transitions.Where(x => x.StartState == dfaState).ToList();
+                foreach (Transition transition in transWithStartState)
+                {
+                    transition.StartState = newStateName;
+                }
+
+                List<Transition> transWithEndState = dfa.Transitions.Where(x => x.EndState == dfaState).ToList();
+                foreach (Transition transition in transWithEndState)
+                {
+                    transition.EndState = newStateName;
+                }
+
+            }
+            dfa.States = newStateNames;
+            dfa.InitialState = newInitialState;
+            dfa.FinalStates = newFinalStates;
             return dfa;
         }
 
@@ -248,7 +281,7 @@ namespace Automata
             // state q' is said to be reachable from another state q if, 
             // there is an input string which may take us from state q to state q'.
             List<string> recheable = new List<string>();
-            GetReacheableStates(InitialState,recheable);
+            GetReacheableStates(InitialState, recheable);
 
             // Set B - States that reach Final States
             List<string> terminating = new List<string>(recheable);
@@ -262,7 +295,7 @@ namespace Automata
         /// <summary>
         /// Get All States which are reacheable from the state given as parameter
         /// </summary>
-        private void GetReacheableStates(string state,List<string> states)
+        private void GetReacheableStates(string state, List<string> states)
         {
             // Algorithm
             // 1. Initialise the set of reachable states R to the set containing only the initial state.
@@ -272,7 +305,7 @@ namespace Automata
             // 4. If new elements have been added to R in the last step, jump to step 2.
             // 5. Remove all states in the automaton not in the final value of R and transitions from or into them.
 
-            if(states.Contains(state))
+            if (states.Contains(state))
                 return;
 
             states.Add(state);
@@ -280,7 +313,7 @@ namespace Automata
             List<Transition> transitions = Transitions.Where(x => x.StartState == state).ToList();
             foreach (Transition transition in transitions)
             {
-                GetReacheableStates(transition.EndState,states);
+                GetReacheableStates(transition.EndState, states);
             }
 
         }
@@ -314,7 +347,7 @@ namespace Automata
             foreach (Transition transition in transitions)
             {
                 if (validStates.Contains(transition.StartState))
-                    GetReacheableStates(transition.StartState,result);
+                    GetReacheableStates(transition.StartState, result);
             }
 
             return result;

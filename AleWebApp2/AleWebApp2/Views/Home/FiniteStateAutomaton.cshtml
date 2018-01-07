@@ -11,16 +11,14 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <form method="post" action="">
-                            <div class="form-group row">
-                                <div class="col-8">
-                                    <input class="form-control" type="text" asp-for="InputString" placeholder="Fill Input String">
-                                </div>
-                                <div class="col-4">
-                                    <button type="submit" class="btn btn-success">Check acceptance</button>
-                                </div>
+                        <div class="form-group row">
+                            <div class="col-8">
+                                <input class="form-control" id="txt_InputString" placeholder="Fill Input String">
                             </div>
-                        </form>
+                            <div class="col-4">
+                                <button id="btn_CheckAccepts" class="btn btn-success">Check acceptance</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -29,6 +27,7 @@
                             <div class="form-group row">
                                 <div class="col-8">
                                     <input class="form-control" type="text" asp-for="RegularExpression" placeholder="Fill Regular Expression">
+                                    <span asp-validation-for="RegularExpression" class="text-danger"></span>
                                 </div>
                                 <div class="col-4">
                                     <button type="submit" class="btn btn-dark">Regex To NFA</button>
@@ -39,10 +38,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <form method="post" asp-action="NfaToDfa">
+                        <form id="form_toDfa" asp-action="NfaToDfa">
+                            <input type="hidden" id="hf_toDfa_fsm" name="fsm"/>
                             <div class="form-group row justify-content-end">
                                 <div class="col-4">
-                                    <button type="submit" class="btn btn-info">Convert To Dfa</button>
+                                    <button id="btn_ToDfa" class="btn btn-info">Convert To Dfa</button>
                                 </div>
                             </div>
                         </form>
@@ -57,16 +57,8 @@
             <div class="card-body">
                 <div class="col-12">
                     <label> Input Accepted </label>
-                    @{
-                        if (Model.Accepts)
-                        {
-                            <i id="ic_Accepts" class="text-success mdi mdi-check-circle"></i>
-                        }
-                        else
-                        {
-                            <i id="ic_doesNotAccept" class="text-danger  mdi mdi-close-circle"></i>
-                        }
-                    }
+                    <i id="ic_Accepts" class="text-success mdi mdi-check-circle" style="display: none"></i>
+                    <i id="ic_doesNotAccept" class="text-danger  mdi mdi-close-circle" style="display: none"></i>
                 </div>
                 <div class="col-12">
                     <label> DFA </label>
@@ -94,7 +86,7 @@
                         }
                     }
                 </div>
-                <hr/>
+                <hr />
 
                 <div class="col-12">
                     <div class="pre-scrollable">
@@ -144,11 +136,40 @@
 
 
 @section Scripts{
-    
+
     <script>
         $(function() {
 
+            // Check Accepts button click
+            $("#btn_CheckAccepts").click(function() {
+                var input = $("#txt_InputString").val();
+                var fsm = '@Html.Raw(JsonConvert.SerializeObject(Model.FSM))';
+
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("FSMAccepts")",
+                    contentType: "application/json; charset=utf-8",
+                    data: { fsm: fsm, input: input },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data === true) {
+                            $("#ic_Accepts").show();
+                            $("#ic_doesNotAccept").hide();
+                        } else {
+                            $("#ic_Accepts").hide();
+                            $("#ic_doesNotAccept").show();
+                        }
+                    }
+                });
+            });
+
+            // To Dfa button click
+            $("#btn_ToDfa").click(function() {
+                var fsm = '@Html.Raw(JsonConvert.SerializeObject(Model.FSM))';
+                $("#hf_toDfa_fsm").val(fsm);
+                $("#form_toDfa").submit();
         });
+    });
     </script>
     <script type="text/javascript">
         $(function() {
@@ -161,7 +182,7 @@
 
         function genAutomataSVG() {
             // Create a new directed graph
-            var g = new dagreD3.graphlib.Graph().setGraph({});
+            var g = new dagreD3.graphlib.Graph({multigraph:true}).setGraph({});
             var render = new dagreD3.render();
             var svg = d3.select("svg"),
                 inner = svg.select("g");
@@ -185,10 +206,13 @@
 
             g.setNode(-1, { shape: 'text', label: 'start' });
             g.setEdge(-1, '@Model.FSM.InitialState', { label: '' });
+            @{ var count = 0;}
             @foreach (Transition nfaTransition in Model.FSM.Transitions)
         {
             @: var label = '@Html.Raw(HttpUtility.JavaScriptStringEncode(nfaTransition.ToTransitionCaption()))';
-            @:g.setEdge('@nfaTransition.StartState', '@nfaTransition.EndState', { label: label });
+            @:g.setEdge('@nfaTransition.StartState', '@nfaTransition.EndState', { label: label },'@count.ToString()');
+
+            count += 1;
         }
 
 

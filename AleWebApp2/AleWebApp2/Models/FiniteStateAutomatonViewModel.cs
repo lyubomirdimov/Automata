@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Automata;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AleWebApp2.Models
 {
@@ -19,6 +20,7 @@ namespace AleWebApp2.Models
         public string InputString { get; set; } = "";
 
         [Display(Name = "Regular Expression", Prompt = "Fill Regular Expression")]
+        [Remote("ValidateRegex", "Home", HttpMethod = "POST", ErrorMessage = "Invalid Regular Expression")]
         public string RegularExpression { get; set; } = "";
 
         public FiniteStateAutomaton FSM { get; set; }

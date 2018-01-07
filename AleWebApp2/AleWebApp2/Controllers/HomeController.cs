@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AleWebApp2.Models;
 using Automata;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 
@@ -34,12 +35,14 @@ namespace AleWebApp2.Controllers
 
         public IActionResult FSMAccepts(string fsm, string input)
         {
+            if (input == null) input = string.Empty;
             FiniteStateAutomaton finiteStateAutomaton = JsonConvert.DeserializeObject<FiniteStateAutomaton>(fsm);
             return Json(finiteStateAutomaton.Accepts(input));
         }
 
         public IActionResult NfaToDfa(string fsm)
         {
+            if (fsm == null) return Error();
             FiniteStateAutomaton finiteStateAutomaton = JsonConvert.DeserializeObject<FiniteStateAutomaton>(fsm);
             FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(finiteStateAutomaton.ToDfa());
             return View("FiniteStateAutomaton", model);
@@ -52,6 +55,15 @@ namespace AleWebApp2.Controllers
             return View("FiniteStateAutomaton", newModel);
         }
 
+        /// <summary>
+        /// Validates weather or not input is a valid Regular Expression in Infix Notenation
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult ValidateRegex(string RegularExpression)
+        {
+            return Json(RegularExpressionValidator.Validate(RegularExpression));
+        }
         #endregion
 
         #region PDA
@@ -59,6 +71,22 @@ namespace AleWebApp2.Controllers
         public IActionResult PDA()
         {
 
+            
+            PDAViewModel model = new PDAViewModel();
+            model.PDA = getPDA();
+            model.PDAString = JsonConvert.SerializeObject(getPDA());
+            return View(model);
+        }
+
+        public IActionResult PDAAccepts(string input)
+        {
+            if (input == null) input = string.Empty;
+            PDA pushDownAutomaton = getPDA();
+            return Json(pushDownAutomaton.Accepts(input));
+        }
+
+        private PDA getPDA()
+        {
             PDA pda = new PDA
             {
                 InputAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
@@ -84,9 +112,7 @@ namespace AleWebApp2.Controllers
                     new TransitionFunction("G", 'h', 'y', new List<char>() {Constants.Epsilon}, "L")
                 }
             };
-            PDAViewModel model = new PDAViewModel();
-            model.PDA = pda;
-            return View(model);
+            return pda;
         }
         #endregion
 

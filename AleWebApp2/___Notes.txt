@@ -12,8 +12,8 @@ Assignment 3
 	- Write NDFA to a file (or JSON) 
 
 Assignment 4
-	- Extend your program such that it indicates if the number of  
-	  generated words is finite or not. If it is finite, list the words as well.
+	- IsInfinite - 
+	- AcceptedWords - Complete
 
 Assignment 5
 	- NDFA to DFA with Powerset construction  - Complete
@@ -29,3 +29,4 @@ Assignment 6
 
 Additions 
 	- Create Transition Tables
+
