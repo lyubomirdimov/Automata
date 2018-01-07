@@ -26,7 +26,7 @@
                         <form method="post" asp-action="RegexToNfa">
                             <div class="form-group row">
                                 <div class="col-8">
-                                    <input class="form-control" type="text" asp-for="RegularExpression" placeholder="Fill Regular Expression">
+                                    <input class="form-control" type="text" asp-for="RegularExpression" id="txt_Regex" placeholder="Fill Regular Expression">
                                     <span asp-validation-for="RegularExpression" class="text-danger"></span>
                                 </div>
                                 <div class="col-4">
@@ -34,6 +34,15 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row justify-content-end">
+                            <div class="col-4">
+                                <button id="btn_rndRegex" class="btn btn-danger">Generate Random Regex</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -88,6 +97,12 @@
                                 }
                             }
                         </div>
+                        
+                        <div class="col-12">
+                            <label> Regex to Infix </label>
+                            @Model.RegularExpressionToInfix
+                        </div>
+
                         <hr />
                     </div>
                     <div class="col-6">
@@ -162,9 +177,24 @@
             // To Dfa button click
             $("#btn_ToDfa").click(function() {
                 var fsm = '@Html.Raw(JsonConvert.SerializeObject(Model.FSM))';
-                $("#hf_toDfa_fsm").val(fsm);
-                $("#form_toDfa").submit();
-        });
+                    $("#hf_toDfa_fsm").val(fsm);
+                    $("#form_toDfa").submit();
+
+
+            });
+
+            $("#btn_rndRegex").click(function() {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("GenerateRandomRegex")',
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                $("#txt_Regex").val(data);
+                            }
+                        });
+            });
+
+
     });
     </script>
     <script type="text/javascript">

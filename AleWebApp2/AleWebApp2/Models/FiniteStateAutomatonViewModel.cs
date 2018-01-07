@@ -23,6 +23,7 @@ namespace AleWebApp2.Models
         [Display(Name = "Regular Expression", Prompt = "Fill Regular Expression")]
         [Remote("ValidateRegex", "Home", HttpMethod = "POST", ErrorMessage = "Invalid Regular Expression")]
         public string RegularExpression { get; set; } = "";
+        public string RegularExpressionToInfix { get; set; } = "";
 
         public FiniteStateAutomaton FSM { get; set; }
 
@@ -47,6 +48,8 @@ namespace AleWebApp2.Models
             IsDFA = fsm.IsDFA();
             IsFinite = fsm.IsInfinite() == false;
             AcceptedWords = fsm.AcceptedWords();
+            Node tree = TreeConstructor.ConstructTree(regex.ParseRegex());
+            RegularExpressionToInfix = tree.ToInfixNotation();
         }
             
         

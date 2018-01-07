@@ -9,7 +9,7 @@ namespace Automata
 
             @"^                                         # Start of line
                   (                                     # Either
-                      [01A-Za-z_](?![01A-Za-z_]) |        # A predicate
+                      [0-9A-Za-z_](?![0-9A-Za-z_]) |        # A predicate
                       (?<couple>[|.]\((?!,))|        # Start of couple
                       (?<comma-couple>,(?!\)))|         # Looks for comma followed by couple. Pops off the couple stack.
                       (?<dBracket-comma>\))|            # Looks for ending bracket following comma. pops off comma stack. 

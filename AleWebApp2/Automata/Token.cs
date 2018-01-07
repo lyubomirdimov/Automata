@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace Automata
 {
@@ -92,6 +93,28 @@ namespace Automata
 
         public override string ToString() => Char.ToString();
 
+        public string ToInfixString()
+        {
+            switch (Type)
+            {
+                case TokenType.Concatenation:
+                    return "";
+                case TokenType.Union:
+                    return "|";
+                case TokenType.Epsion:
+                    return "ε";
+                case TokenType.KleeneStar:
+                    return "*";
+                case TokenType.Letter:
+                    return Char.ToString();
+                case TokenType.Separation:
+                case TokenType.OpeningParenthesis:
+                case TokenType.ClosingParenthesis:
+                    return "";
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 
     public static class TokenHelper

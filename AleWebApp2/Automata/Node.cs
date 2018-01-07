@@ -125,7 +125,50 @@ namespace Automata
             }
             return result;
         }
+        public string ToInfixNotation()
+        {
+            switch (Token.Type)
+            {
+                case TokenType.Concatenation:
+                case TokenType.Union:
+                    StringBuilder str = new StringBuilder();
+                    str.Append(Children[0].ToInfixNotation());
+                    str.Append($"{Token.ToInfixString()}");
+                    str.Append(Children[1].ToInfixNotation());
+                    return str.ToString();
+                case TokenType.KleeneStar:
+                    return $"{Children[0].ToInfixNotation()}{Token.ToInfixString()}";
+                case TokenType.Epsion:
+                case TokenType.Letter:
+                    return Token.ToInfixString();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
+        public string ToPrefixNotation()
+        {
+            switch (Token.Type)
+            {
+                case TokenType.Concatenation:
+                case TokenType.Union:
+                    StringBuilder str = new StringBuilder();
+                    str.Append($"{Token}");
+                    str.Append("(");
+                    str.Append(Children[0].ToPrefixNotation());
+                    str.Append(",");
+                    str.Append(Children[1].ToPrefixNotation());
+                    str.Append(")");
+                    return str.ToString();
+                case TokenType.KleeneStar:
+                    return $"{Token}({Children[0].ToPrefixNotation()})";
+                case TokenType.Epsion:
+                case TokenType.Letter:
+                    return Token.ToString();
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
 
 

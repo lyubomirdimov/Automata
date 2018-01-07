@@ -73,7 +73,7 @@ namespace Automata
         {
             if (counter == max)
             {
-                List<char> chars = "10PQRXS".ToList();
+                List<char> chars = "abcd_".ToList();
                 int r = GenerateRandomNumber(chars.Count);
                 return new Node(Guid.NewGuid(), new Token(chars[r]));
             }
@@ -101,7 +101,7 @@ namespace Automata
 
         private static Token RandomToken()
         {
-            List<char> chars = "~&|>=%10PQRXS~&|>=%".ToList();
+            List<char> chars = "|.*abcd_|.*".ToList();
             int r = GenerateRandomNumber(chars.Count);
             return new Token(chars[r]);
         }

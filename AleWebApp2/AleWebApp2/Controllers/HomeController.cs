@@ -64,6 +64,13 @@ namespace AleWebApp2.Controllers
         {
             return Json(RegularExpressionValidator.Validate(RegularExpression));
         }
+
+        public ActionResult GenerateRandomRegex()
+        {
+            Node tree = TreeConstructor.ConstructRandomTree();
+            string prefixTree = tree.ToPrefixNotation();
+            return Json(prefixTree);
+        }
         #endregion
 
         #region PDA
