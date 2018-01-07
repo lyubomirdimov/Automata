@@ -25,31 +25,14 @@ namespace AleWebApp2.Controllers
             //    string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/nfa.json");
             //    automata = JsonConvert.DeserializeObject<FiniteStateAutomaton>(json);
             //}
+            string regex = "|(_,.(*(a),b))";
+
+            AutomataConstructor constructor = new AutomataConstructor();
+            FiniteStateAutomaton nfa = constructor.RegexToNfa(regex);
 
             FiniteStateViewModel model = new FiniteStateViewModel();
-            model.IsDFA = automata.IsDFA();
-            foreach (string currState in automata.States)
-            {
-
-                if (currState == automata.InitialState)
-                {
-                    // Initial State
-                    model.Nodes.Add(new node() { color = "#538EA6", id = currState, label = currState });
-                    continue;
-                }
-                if (automata.FinalStates.Exists(x => x == currState))
-                {
-                    // Final State
-                    model.Nodes.Add(new node() { color = "#F3B562", id = currState, label = currState });
-                    continue;
-                }
-                model.Nodes.Add(new node() { id = currState, label = currState });
-            }
-
-            foreach (Transition transition in automata.Transitions)
-            {
-                model.Edges.Add(new Edge() { arrows = "to", from = transition.StartState, to = transition.EndState, label = transition.Symbol.ToString() });
-            }
+            model.IsDFA = nfa.IsDFA();
+            model.NFA = nfa;
 
 
             return View(model);

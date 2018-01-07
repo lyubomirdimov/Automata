@@ -54,7 +54,7 @@ namespace Automata
                     result.States = new List<string> { init, fin };
                     result.InitialState = init;
                     result.FinalStates = new List<string> { fin };
-                    result.Transitions = new List<Transition> { new Transition(init, fin, Token.Char) };
+                    result.Transitions = new List<Transition> { new Transition(init, fin, Token.IsEpsilon ? Constants.Epsilon : Token.Char) };
 
                     break;
                 case TokenType.Concatenation:
@@ -119,7 +119,7 @@ namespace Automata
                     result.FinalStates = new List<string> { fin };
                     result.Transitions = s.Transitions.ToList();
                     result.Transitions.AddRange(funcs);
-                    
+
 
                     break;
             }

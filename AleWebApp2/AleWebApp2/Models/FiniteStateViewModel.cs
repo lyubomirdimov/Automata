@@ -10,8 +10,7 @@ namespace AleWebApp2.Models
     public class FiniteStateViewModel
     {
         public bool IsAutomatonBuilt { get; set; }
-        public List<node> Nodes { get; set; } = new List<node>();
-        public List<Edge> Edges { get; set; } = new List<Edge>();
+
 
         public bool IsDFA { get; set; }
 
@@ -20,21 +19,8 @@ namespace AleWebApp2.Models
 
         [Display(Name = "Regular Expression")]
         public string RegularExpression { get; set; }
+
+        public FiniteStateAutomaton NFA { get; set; }
     }
 
-    public class Edge
-    {
-        public string from { get; set; }
-        public string to { get; set; }
-        public string arrows { get; set; }
-        public string label { get; set; }
-
-    }
-
-    public class node
-    {
-        public string id { get; set; }
-        public string label { get; set; }
-        public string color { get; set; }
-    }
 }

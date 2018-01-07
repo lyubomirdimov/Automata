@@ -1,12 +1,28 @@
 /*jslint browser: true*/
 /*global d3, dagreD3*/
 
+function displayStart(start) {
+    var cache = [];
+    JSON.stringify(start, function (key, value) {
+        if (typeof value === 'object' && value !== null) {
+            if (cache.indexOf(value) !== -1) {
+                // Circular reference found, discard key
+                return;
+            }
+            // Store value in our collection
+            cache.push(value);
+        }
+        return value;
+    });
+    cache = null; // Enable garbage collection
+}
 /**
  * @param {string} svgId The id of the svg tag, which should contains a `g` tag.
  * @param {object} start @see regexToNfa().
  * @return {void}
  */
 function genAutomataSVG(svgId, start) {
+    console.log(start);
     'use strict';
     var ids = {},
         node,
@@ -129,7 +145,7 @@ function genAutomataSVG(svgId, start) {
     zoom
         .translate([(svg.attr("width") - g.graph().width) / 2, 20])
         .event(svg);
-    svg.attr('height', g.graph().height * 1.5 + 40);
+    svg.attr('height', g.graph().height * 1.5 + 40);    
 }
 
 function genAutomatonLR0(svgId, start) {
