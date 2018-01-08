@@ -21,17 +21,17 @@ namespace UnitTests
         private void Init()
         {
 
-            using (WebClient wc = new WebClient())
-            {
-                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/nfa.json");
-                NFA = JsonConvert.DeserializeObject<FiniteStateAutomaton>(json);
-            }
+            //using (WebClient wc = new WebClient())
+            //{
+            //    string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/nfa.json");
+            //    NFA = JsonConvert.DeserializeObject<FiniteStateAutomaton>(json);
+            //}
 
-            using (WebClient wc = new WebClient())
-            {
-                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/dfa.json");
-                DFA = JsonConvert.DeserializeObject<FiniteStateAutomaton>(json);
-            }
+            //using (WebClient wc = new WebClient())
+            //{
+            //    string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/AleProps2/master/dfa.json");
+            //    DFA = JsonConvert.DeserializeObject<FiniteStateAutomaton>(json);
+            //}
 
         }
         [TestMethod]

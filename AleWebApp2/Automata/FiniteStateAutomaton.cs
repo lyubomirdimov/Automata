@@ -338,13 +338,11 @@ namespace Automata
 
         private void GetPreceedingStates(string state, List<string> resultingStates, List<string> reacheableStates)
         {
-
             if (resultingStates.Contains(state))
                 return;
 
             if (reacheableStates.Contains(state))
                 resultingStates.Add(state);
-
 
             List<Transition> transitions = TransitionsToState(state);
             foreach (Transition transition in transitions)
@@ -364,7 +362,7 @@ namespace Automata
             while (workingSet.Any())
             {
                 string current = workingSet[0];
-                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet,states))
+                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states))
                 {
                     return true;
                 }
@@ -388,7 +386,7 @@ namespace Automata
                     return true;
             }
 
-            MoveVertex(current,inRecursionSet,totallyVisitedSet);
+            MoveVertex(current, inRecursionSet, totallyVisitedSet);
             return false;
         }
 
@@ -405,10 +403,15 @@ namespace Automata
                 return new List<string>();
 
             List<string> result = new List<string>();
-
             string currentInput = "";
 
-            AcceptedWords(InitialState, currentInput, result);
+
+            List<string> recheable = new List<string>();
+            GetReacheableStates(InitialState, recheable);
+            List<string> terminating = new List<string>(recheable);
+            terminating = GetStatesReachingFinalState(terminating);
+
+            AcceptedWords(InitialState, currentInput, result, terminating);
 
             return result;
         }
@@ -417,17 +420,19 @@ namespace Automata
         /// Returns all accepted words. 
         /// Important notice: Method assumes that the NFA is Finite
         /// </summary>
-        private void AcceptedWords(string state, string currentInput, List<string> words)
+        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating)
         {
             if (IsFinalState(state))
                 words.Add(currentInput);
 
             // Start From Initial State
-            List<Transition> transitions = TransitionsFromState(state);
+            List<Transition> transitions = Transitions.Where(x => x.IsFrom(state)
+                                                            && terminating.Contains(x.StartState)
+                                                            && terminating.Contains(x.EndState)).ToList();
 
             foreach (Transition transition in transitions)
             {
-                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words);
+                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words,terminating);
             }
 
         }
