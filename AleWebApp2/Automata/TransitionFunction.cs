@@ -13,6 +13,10 @@ namespace Automata
         public List<char> PushSymbols { get; set; }
         public string EndState { get; set; }
 
+        public TransitionFunction()
+        {
+            
+        }
         public TransitionFunction(string startState,char inputSymbol,string end)
         {
             StartState = startState;

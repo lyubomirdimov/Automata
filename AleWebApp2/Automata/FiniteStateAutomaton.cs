@@ -49,8 +49,6 @@ namespace Automata
         public bool IsDFA()
         {
             if (States.Any() == false) return false;
-            if (Alphabet.Any() == false) return false;
-            if (Transitions.Any() == false) return false;
             if (InitialState == null) return false;
             if (FinalStates.Any() == false) return false;
 
@@ -159,6 +157,17 @@ namespace Automata
         public FiniteStateAutomaton ToDfa()
         {
             if (IsDFA()) return this;
+            if (Alphabet.Any() == false && States.Any())
+            {
+                // Empty Input accepting DFA
+                return new FiniteStateAutomaton()
+                {
+                    Alphabet = new List<char>(),
+                    States = new List<string>() { "0"},
+                    InitialState = "0",
+                    FinalStates = new List<string>() { "0"},
+                };
+            }
 
             FiniteStateAutomaton dfa = new FiniteStateAutomaton();
             dfa.Alphabet = Alphabet;
