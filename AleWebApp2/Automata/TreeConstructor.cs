@@ -69,6 +69,7 @@ namespace Automata
             return tree;
         }
 
+        private static bool PreviousKleeineStar = false;
         private static Node RecurConstRndTree(ref int counter, int max)
         {
             if (counter == max)
@@ -84,10 +85,12 @@ namespace Automata
             {
                 if (node.Token.IsKleeneStar)
                 {
+                    PreviousKleeineStar = true;
                     node.Add(RecurConstRndTree(ref counter, max));
                 }
                 else
                 {
+                    PreviousKleeineStar = false;
                     node.Add(RecurConstRndTree(ref counter, max));
                     node.Add(RecurConstRndTree(ref counter, max));
                 }
@@ -101,7 +104,16 @@ namespace Automata
 
         private static Token RandomToken()
         {
-            List<char> chars = "|.*abcd_|.*".ToList();
+            List<char> chars;
+            if (PreviousKleeineStar)
+            {
+                chars = "|.abcd_|.".ToList();
+            }
+            else
+            {
+                chars = "|.*abcd_|.*".ToList();
+            }
+            
             int r = GenerateRandomNumber(chars.Count);
             return new Token(chars[r]);
         }

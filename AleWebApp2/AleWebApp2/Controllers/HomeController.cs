@@ -50,7 +50,7 @@ namespace AleWebApp2.Controllers
 
         public IActionResult RegexToNfa(FiniteStateAutomatonViewModel model)
         {
-            if (model.RegularExpression == null) model.RegularExpression = string.Empty;
+            if (model.RegularExpression == null) model.RegularExpression = Constants.Epsilon.ToString();
             FiniteStateAutomatonViewModel newModel = new FiniteStateAutomatonViewModel(model.RegularExpression);
             return View("FiniteStateAutomaton", newModel);
         }
