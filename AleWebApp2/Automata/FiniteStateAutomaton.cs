@@ -56,8 +56,8 @@ namespace Automata
             {
                 List<Transition> transitionFromState = Transitions.Where(x => x.StartState == state).ToList();
 
-                if (transitionFromState.Any() == false)
-                    return !Transitions.Any();
+                if (transitionFromState.Any() == false && Alphabet.Any())
+                    return false;
 
                 // Check if there exist two transitions, which have the same symbol, hence non-determistic Automata
                 if (transitionFromState.Exists(x => transitionFromState.Exists(y => y != x && x.Symbol == y.Symbol)))

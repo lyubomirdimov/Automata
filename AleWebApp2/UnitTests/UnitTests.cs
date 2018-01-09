@@ -13,9 +13,8 @@ namespace UnitTests
     public class UnitTests
     {
 
-        public List<FSMTestVector> FiniteStateAutomatons { get; set; }
         public List<PDATestVectors> PDAs { get; set; }
-        public List<RegexToFSM> RegexToNFA { get; set; }
+        public List<RegexToFSM> RegexToFSM { get; set; }
         public List<RegexToFSM> RegexToDFA { get; set; }
 
         public UnitTests()
@@ -28,14 +27,12 @@ namespace UnitTests
            
             using (WebClient wc = new WebClient())
             {
-                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/FiniteStateAutomatons.json");
-                FiniteStateAutomatons = JsonConvert.DeserializeObject<List<FSMTestVector>>(json);
 
-                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/PDAs.json");
+                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/PDAs.json");
                 PDAs = JsonConvert.DeserializeObject<List<PDATestVectors>>(json);
 
-                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToNFA.json");
-                RegexToNFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
+                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToFSM.json");
+                RegexToFSM = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
 
                 json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToDFA.json");
                 RegexToDFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
@@ -43,42 +40,43 @@ namespace UnitTests
             }
 
         }
-        [TestMethod]
-        public void IsDFATest()
-        {
-            
-            
-            AutomataConstructor c = new AutomataConstructor();
-            string regex = "_";
-            var breaking = c.RegexToNfa(regex);
-            var stateAutomaton = breaking.ToDfa();
-            stateAutomaton.IsDFA();
 
-            List<RegexToFSM> tsts = new List<RegexToFSM>();
-            for (int i = 0; i < 100; i++)
-            {
-                var tree = TreeConstructor.ConstructRandomTree();
-                var automaton = c.RegexToNfa(tree.ToPrefixNotation());
-                var dfa = automaton.ToDfa();
-                Assert.IsTrue(dfa.IsDFA());
-                //RegexToFSM rgfx = new RegexToFSM();
-                //rgfx.FSM = dfa;
-                //rgfx.regex = tree.ToPrefixNotation();
-                //tsts.Add(rgfx);
-            }
+        private void TestVectorsGen()
+        {
+            //AutomataConstructor c = new AutomataConstructor();
+            //string regex = "a";
+            //var breaking = c.RegexToNfa(regex);
+            //var stateAutomaton = breaking.ToDfa();
+            //var breaks = stateAutomaton.IsDFA();
+            //breaks = breaking.IsDFA();
+
+            //List<RegexToFSM> tsts = new List<RegexToFSM>();
+            //for (int i = 0; i < 300; i++)
+            //{
+            //    var tree = TreeConstructor.ConstructRandomTree();
+            //    var fsm = c.RegexToNfa(tree.ToPrefixNotation());
+            //    fsm = fsm.ToDfa();
+            //    RegexToFSM rgfx = new RegexToFSM();
+            //    rgfx.FSM = fsm;
+            //    rgfx.regex = tree.ToPrefixNotation();
+            //    rgfx.IsDFA = fsm.IsDFA();
+            //    rgfx.IsFinite = fsm.IsInfinite() == false;
+            //    rgfx.Words = fsm.AcceptedWords();
+            //    tsts.Add(rgfx);
+            //}
 
             //var serializeObject = JsonConvert.SerializeObject(tsts,Formatting.Indented);
+        }
+        [TestMethod]
+        public void IsDFATest()
+        {           
 
-            foreach (var fsm in FiniteStateAutomatons.Where(x=>x.IsDFA))
+            foreach (var fsm in RegexToFSM.Where(x=>x.IsDFA))
             {
                 Assert.IsTrue(fsm.FSM.IsDFA());
             }
             foreach (var automaton in RegexToDFA)
             {
-                if (automaton.regex == "_")
-                {
-                    Assert.IsTrue(automaton.FSM.IsDFA());
-                }
                 Assert.IsTrue(automaton.FSM.IsDFA());
             }
 
@@ -87,23 +85,19 @@ namespace UnitTests
         [TestMethod]
         public void IsNFATest()
         {
-            foreach (var testVector in FiniteStateAutomatons.Where(x=>x.IsDFA == false))
+            foreach (var testVector in RegexToFSM.Where(x=>x.IsDFA == false))
             {
                 Assert.IsFalse(testVector.FSM.IsDFA());
             }
 
-            foreach (var nfa in RegexToNFA)
-            {
-                Assert.IsFalse(nfa.FSM.IsDFA());
-            }
         }
 
         [TestMethod]
         public void TestFSMAccepts()
         {
-            foreach (var fsmTestVector in FiniteStateAutomatons)
+            foreach (var fsmTestVector in RegexToFSM)
             {
-                Assert.IsTrue(fsmTestVector.Words == fsmTestVector.FSM.AcceptedWords());
+                Assert.IsTrue(fsmTestVector.Words.SequenceEqual(fsmTestVector.FSM.AcceptedWords()));
             }
         }
 
@@ -112,15 +106,14 @@ namespace UnitTests
         public void TestRegexToNfa()
         {
             AutomataConstructor constructor = new AutomataConstructor();
-            foreach (var regexToFsm in RegexToNFA)
+            foreach (var regexToFsm in RegexToFSM)
             {
                 FiniteStateAutomaton nfa = constructor.RegexToNfa(regexToFsm.regex);
 
-                Assert.IsTrue(nfa.Alphabet.Equals(regexToFsm.FSM.Alphabet));
-                Assert.IsTrue(nfa.States.Equals(regexToFsm.FSM.States));
+                Assert.IsTrue(nfa.Alphabet.SequenceEqual(regexToFsm.FSM.Alphabet));
+                Assert.IsTrue(nfa.States.SequenceEqual(regexToFsm.FSM.States));
                 Assert.IsTrue(nfa.InitialState.Equals(regexToFsm.FSM.InitialState));
-                Assert.IsTrue(nfa.FinalStates.Equals(regexToFsm.FSM.FinalStates));
-                Assert.IsTrue(nfa.Transitions.Equals(regexToFsm.FSM.Transitions));
+                Assert.IsTrue(nfa.FinalStates.SequenceEqual(regexToFsm.FSM.FinalStates));
             }
         }
 
@@ -161,10 +154,9 @@ namespace UnitTests
         public List<string> Words { get; set; }
     }
 
-    public class RegexToFSM
+    public class RegexToFSM : FSMTestVector
     {
         public string regex { get; set; }
-        public FiniteStateAutomaton FSM { get; set; }
     }
 
     public class PDATestVectors
