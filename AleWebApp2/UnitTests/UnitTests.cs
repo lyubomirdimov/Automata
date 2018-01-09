@@ -46,18 +46,26 @@ namespace UnitTests
         [TestMethod]
         public void IsDFATest()
         {
-            //AutomataConstructor c = new AutomataConstructor();
-            //List<RegexToFSM> tsts = new List<RegexToFSM>();
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    var tree = TreeConstructor.ConstructRandomTree();
-            //    var automaton = c.RegexToNfa(tree.ToPrefixNotation());
-            //    var dfa = automaton.ToDfa();
-            //    RegexToFSM rgfx = new RegexToFSM();
-            //    rgfx.FSM = dfa;
-            //    rgfx.regex = tree.ToPrefixNotation();
-            //    tsts.Add(rgfx);
-            //}
+            
+            
+            AutomataConstructor c = new AutomataConstructor();
+            string regex = "_";
+            var breaking = c.RegexToNfa(regex);
+            var stateAutomaton = breaking.ToDfa();
+            stateAutomaton.IsDFA();
+
+            List<RegexToFSM> tsts = new List<RegexToFSM>();
+            for (int i = 0; i < 100; i++)
+            {
+                var tree = TreeConstructor.ConstructRandomTree();
+                var automaton = c.RegexToNfa(tree.ToPrefixNotation());
+                var dfa = automaton.ToDfa();
+                Assert.IsTrue(dfa.IsDFA());
+                //RegexToFSM rgfx = new RegexToFSM();
+                //rgfx.FSM = dfa;
+                //rgfx.regex = tree.ToPrefixNotation();
+                //tsts.Add(rgfx);
+            }
 
             //var serializeObject = JsonConvert.SerializeObject(tsts,Formatting.Indented);
 
