@@ -42,8 +42,7 @@ namespace AleWebApp2.Models
        
         public FiniteStateAutomatonViewModel(string regex)
         {
-            AutomataConstructor constructor = new  AutomataConstructor();
-            FiniteStateAutomaton fsm = constructor.RegexToNfa(regex);
+            FiniteStateAutomaton fsm = AutomataConstructor.RegexToNfa(regex);
             FSM = fsm;
             IsDFA = fsm.IsDFA();
             IsFinite = fsm.IsInfinite() == false;

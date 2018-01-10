@@ -11,125 +11,123 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            List<char> alphabet = new List<char> { '1', '0' };
-
-            List<string> states = new List<string>();
-            string q0 = "q0";
-            string q2 = "q2";
-            string q1 = "q1";
-            states.Add(q0);
-            states.Add(q2);
-            states.Add(q1);
-
-
-            List<Transition> transitions = new List<Transition>();
-            Transition tr1 = new Transition(q0, q0, '1');
-            Transition tr2 = new Transition(q0, q2, '0');
-            Transition tr3 = new Transition(q2, q2, '0');
-            Transition tr4 = new Transition(q2, q1, '1');
-            Transition tr5 = new Transition(q1, q1, '0');
-            Transition tr6 = new Transition(q1, q1, '1');
-            transitions.Add(tr1);
-            transitions.Add(tr2);
-            transitions.Add(tr3);
-            transitions.Add(tr4);
-            transitions.Add(tr5);
-            transitions.Add(tr6);
-
-            FiniteStateAutomaton DFA = new FiniteStateAutomaton
-            (
-                
-                alphabet: alphabet,
-                states: states,
-                initState: q0,
-                finalStates: new List<string>() { q1 },
-                transitions: transitions,
-                comment: "DFA"
-            );
-
-
-            string jsonObject = JsonConvert.SerializeObject(DFA, Formatting.Indented);
-
-
-            alphabet = new List<char>() { 'a', 'b' };
-            states = new List<string>() { "0", "1", "2", "3", "4", "5", "6", "7" };
-            string initState = "0";
-            List<string> finStates = new List<string>() { "7" };
-            transitions = new List<Transition>()
-            {
-                new Transition("0", "1", Constants.Epsilon),
-                new Transition("0", "2", Constants.Epsilon),
-                new Transition("1", "1", 'a'),
-                new Transition("1", "3", Constants.Epsilon),
-                new Transition("2", "2", Constants.Epsilon),
-                new Transition("2", "4", 'a'),
-                new Transition("3", "1", Constants.Epsilon),
-                new Transition("3", "3", 'b'),
-                new Transition("3", "5", Constants.Epsilon),
-                new Transition("4", "4", 'a'),
-                new Transition("4", "6", Constants.Epsilon),
-                new Transition("5", "3", 'a'),
-                new Transition("5", "7", Constants.Epsilon),
-                new Transition("6", "6", 'b'),
-                new Transition("6", "7", Constants.Epsilon),
-            };
-            FiniteStateAutomaton NFA = new FiniteStateAutomaton(
-                
-                alphabet: alphabet,
-                states: states,
-                initState: initState,
-                finalStates: finStates,
-                transitions: transitions,
-                comment: "NFA"
-            );
-
-            NFA.Accepts("aaab");
-
-            jsonObject = JsonConvert.SerializeObject(NFA, Formatting.Indented);
-
-
-            string regex = "*(|(*(.(a,b)),c))";
-
-            List<Token> tokens = Parser.ParseRegex(regex);
-
-
-            Console.ReadLine();
+           
+            ReadFile();
 
         }
 
-        private void ReadFile()
+        public static void ReadFile()
         {
             int counter = 0;
             string line;
 
             // Read the file and display it line by line.  
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\lyubo\Desktop\math2.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader(@"E:\OneDrive\Education\Programming\C#\Automated Logic 2\tp4\finite4.txt");
+            FiniteStateAutomaton fsm = new FiniteStateAutomaton();
+            bool isDfa = false;
+            bool isFinite = false;
+            List<string> accWords = new List<string>();
+            List<string> rejWords = new List<string>();
+            bool readsTransitions = false;
+            bool readsWords = false;
             while ((line = file.ReadLine()) != null)
             {
-                System.Console.WriteLine(line);
-                counter++;
-            } 
+                if (String.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
 
+                if (readsWords)
+                {
+                    if (line == "end.")
+                    {
+                        readsTransitions = false;
+                        continue;
+                    }
+                    string[] strings = line.Split(",");
+                    if(strings[1] == "y")
+                        accWords.Add(strings[0]);
+                    else
+                        rejWords.Add(strings[0]);
+
+                    continue;
+                }
+
+                if (readsTransitions)
+                {
+                    if (line == "end.")
+                    {
+                        readsTransitions = false;
+                        continue;
+                    }
+                   
+                    string[] strings = line.Split(",");
+                    fsm.Transitions.Add(new Transition(strings[0],strings[1].Split(" ").LastOrDefault(),strings[1].FirstOrDefault()));
+                    continue;
+                }
+                string[] split = line.Split(" ");
+                switch (split[0])
+                {
+                    case "#":
+                        //ignore
+                        break;
+                    case "alphabet:":
+                        fsm.Alphabet = split[1].ToCharArray().ToList();
+                        break;
+                    case "states:":
+                        fsm.States = split[1].Split(",").ToList();
+                        fsm.InitialState = fsm.States.FirstOrDefault();
+                        break;
+                    case "final:":
+                        fsm.FinalStates = split[1].Split(",").ToList();
+                        break;
+                    case "transitions:":
+                        readsTransitions = true;
+                        break;
+                    case "dfa:":
+                        isDfa = split[1] == "y";
+                        break;
+                    case "finite:":
+                        isFinite = split[1] == "y";
+                        break;
+                    case "words:":
+                        readsWords = true;
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            }
+            FSMTestVector testv = new FSMTestVector();
+            testv.FSM = fsm;
+            testv.IsDFA = isDfa;
+            testv.IsFinite = isFinite;
+            testv.AcceptedWords = accWords;
+            testv.RejectedWords = rejWords;
+            
+            List<char> fsmAlphabet = fsm.Alphabet;
+            List<string> fsmStates = fsm.States;
+            string init = fsm.InitialState;
+            List<string> finals = fsm.FinalStates;
+            List<Transition> trans = fsm.Transitions;
             file.Close();
-            System.Console.WriteLine("There were {0} lines.", counter);
-            // Suspend the screen.  
-            System.Console.ReadLine();
         }
 
-        public class JorisTestVector
+        public class FSMTestVector
         {
-            public string Comment { get; set; }
-            public List<char> alphabet { get; set; }
-            public List<string> states { get; set; }
-            public List<string> final { get; set; }
-            public List<Transition> List { get; set; }
-
+            public FiniteStateAutomaton FSM { get; set; }
+            public bool IsDFA { get; set; }
+            public bool IsFinite { get; set; }
+            public List<string> AcceptedWords { get; set; }
+            public List<string> RejectedWords { get; set; }
         }
 
-        public class JorisTransition
+        public class RegexToFSM : FSMTestVector
         {
+            public string regex { get; set; }
         }
-       
+
+
+
 
 
 

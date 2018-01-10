@@ -7,6 +7,7 @@ namespace Automata
 {
     public class PDA
     {
+        public string Comment { get; set; }
         public List<char> InputAlphabet { get; set; }
         public List<char> StackAlphabet { get; set; }
         public List<string> States { get; set; }
@@ -110,5 +111,29 @@ namespace Automata
 
 
         private bool IsFinalState(string state) => FinalStates.Contains(state);
+
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine(Comment);
+            builder.AppendLine();
+            builder.AppendLine($"alphabet: {string.Join(",", InputAlphabet)}");
+            builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
+            builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
+            builder.AppendLine($"transitions:");
+            foreach (var transition in Transitions)
+            {
+                builder.AppendLine(transition.ToString());
+            }
+            builder.AppendLine("end.");
+
+            builder.AppendLine();
+            builder.AppendLine("dfa:n");
+            builder.AppendLine("finite:n");
+
+
+            return builder.ToString();
+        }
     }
 }

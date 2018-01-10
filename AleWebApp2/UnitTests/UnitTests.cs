@@ -106,10 +106,9 @@ namespace UnitTests
         [TestMethod]
         public void TestRegexToNfa()
         {
-            AutomataConstructor constructor = new AutomataConstructor();
             foreach (var regexToFsm in RegexToFSM)
             {
-                FiniteStateAutomaton nfa = constructor.RegexToNfa(regexToFsm.regex);
+                FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regexToFsm.regex);
 
                 Assert.IsTrue(nfa.Alphabet.SequenceEqual(regexToFsm.FSM.Alphabet));
                 Assert.IsTrue(nfa.States.SequenceEqual(regexToFsm.FSM.States));
@@ -177,6 +176,8 @@ namespace UnitTests
             {
                 Assert.IsTrue(nfa.Accepts(s) == false);
             }
+
+            string s1 = nfa.ToString();
         }
 
 

@@ -35,6 +35,11 @@ namespace Automata
             EndState = end;
         }
 
+        public override string ToString()
+        {
+            return string.Format($"{StartState},{InputSymbol} [{StackTopSymbol},{PushSymbols} --> {EndState}");
+        }
+
         public string ToTransitionCaption()
         {
             return $"{InputSymbol}[{StackTopSymbol}/{String.Join(",", PushSymbols.Select(o => o.ToString()).ToArray())}]";

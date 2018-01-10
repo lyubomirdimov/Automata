@@ -25,8 +25,7 @@ namespace AleWebApp2.Controllers
         {
             string regex = "|(_,.(*(a),b))";
 
-            AutomataConstructor constructor = new AutomataConstructor();
-            FiniteStateAutomaton nfa = constructor.RegexToNfa(regex);
+            FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regex);
 
             FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(nfa);
 

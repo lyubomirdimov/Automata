@@ -84,7 +84,7 @@ namespace Automata
                     return false;
             }
 
-           
+
 
             return Accepts(input, new List<string> { InitialState });
         }
@@ -165,9 +165,9 @@ namespace Automata
                 return new FiniteStateAutomaton()
                 {
                     Alphabet = new List<char>(),
-                    States = new List<string>() { "0"},
+                    States = new List<string>() { "0" },
                     InitialState = "0",
-                    FinalStates = new List<string>() { "0"},
+                    FinalStates = new List<string>() { "0" },
                 };
             }
 
@@ -443,9 +443,45 @@ namespace Automata
 
             foreach (Transition transition in transitions)
             {
-                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words,terminating);
+                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating);
             }
 
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine(Comment);
+            builder.AppendLine();
+            builder.AppendLine($"alphabet: {string.Join(",", Alphabet)}");
+            builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
+            builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
+            builder.AppendLine($"transitions:");
+            foreach (var transition in Transitions)
+            {
+                builder.AppendLine(transition.ToString());
+            }
+            builder.AppendLine("end.");
+
+            builder.AppendLine();
+            builder.AppendLine("dfa:" + (IsDFA() ? "y" : "n"));
+            builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
+
+
+            var acceptedWords = AcceptedWords();
+
+            if (acceptedWords.Any())
+            {
+                builder.AppendLine();
+                builder.AppendLine("words:");
+                foreach (string acceptedWord in acceptedWords)
+                {
+                    builder.AppendLine($"{acceptedWord},y");
+                }
+                builder.AppendLine("end.");
+            }
+
+            return builder.ToString();
         }
 
         #region Helpers
