@@ -97,6 +97,38 @@ namespace ConsoleApp
 
         }
 
+        private void ReadFile()
+        {
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.  
+            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\lyubo\Desktop\math2.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                System.Console.WriteLine(line);
+                counter++;
+            } 
+
+            file.Close();
+            System.Console.WriteLine("There were {0} lines.", counter);
+            // Suspend the screen.  
+            System.Console.ReadLine();
+        }
+
+        public class JorisTestVector
+        {
+            public string Comment { get; set; }
+            public List<char> alphabet { get; set; }
+            public List<string> states { get; set; }
+            public List<string> final { get; set; }
+            public List<Transition> List { get; set; }
+
+        }
+
+        public class JorisTransition
+        {
+        }
        
 
 

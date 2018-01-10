@@ -84,6 +84,8 @@ namespace Automata
                     return false;
             }
 
+           
+
             return Accepts(input, new List<string> { InitialState });
         }
 

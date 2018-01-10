@@ -24,7 +24,7 @@ namespace UnitTests
 
         private void Init()
         {
-           
+
             using (WebClient wc = new WebClient())
             {
 
@@ -43,6 +43,7 @@ namespace UnitTests
 
         private void TestVectorsGen()
         {
+
             //AutomataConstructor c = new AutomataConstructor();
             //string regex = "a";
             //var breaking = c.RegexToNfa(regex);
@@ -69,9 +70,9 @@ namespace UnitTests
         }
         [TestMethod]
         public void IsDFATest()
-        {           
+        {
 
-            foreach (var fsm in RegexToFSM.Where(x=>x.IsDFA))
+            foreach (var fsm in RegexToFSM.Where(x => x.IsDFA))
             {
                 Assert.IsTrue(fsm.FSM.IsDFA());
             }
@@ -85,7 +86,7 @@ namespace UnitTests
         [TestMethod]
         public void IsNFATest()
         {
-            foreach (var testVector in RegexToFSM.Where(x=>x.IsDFA == false))
+            foreach (var testVector in RegexToFSM.Where(x => x.IsDFA == false))
             {
                 Assert.IsFalse(testVector.FSM.IsDFA());
             }
@@ -123,26 +124,61 @@ namespace UnitTests
 
         }
 
-     
+
         [TestMethod]
         public void TestIsFinite()
         {
-            
+
 
         }
 
         [TestMethod]
         public void TestAcceptedWords()
         {
-           
+
         }
 
         [TestMethod]
         public void TestPDAAccepts()
         {
-           
+
 
         }
+
+        [TestMethod]
+        public void TestJorisTestVector()
+        {
+            FiniteStateAutomaton nfa = new FiniteStateAutomaton();
+            nfa.Alphabet = new List<char>() { 'a', 'b', 's' };
+            nfa.States = new List<string>() { "A", "D", "B", "C" };
+            nfa.InitialState = "A";
+            nfa.FinalStates = new List<string>() { "A" };
+            nfa.Transitions = new List<Transition>()
+            {
+                new Transition("A","B",'a'),
+                new Transition("A","C",'a'),
+                new Transition("B","A",'b'),
+                new Transition("C","B",'b'),
+                new Transition("C","D",'b'),
+                new Transition("D","B",'b'),
+            };
+
+            Assert.IsFalse(nfa.IsDFA());
+            Assert.IsTrue(nfa.IsInfinite());
+
+            List<string> words = new List<string>() {"ababb", "ab", "abbbabababb", "" };
+            List<string> notAccepted = new List<string>() { "abbbb", "aa", "a" };
+
+            foreach (var word in words)
+            {
+                Assert.IsTrue(nfa.Accepts(word));
+            }
+            foreach (string s in notAccepted)
+            {
+                Assert.IsTrue(nfa.Accepts(s) == false);
+            }
+        }
+
 
     }
 
