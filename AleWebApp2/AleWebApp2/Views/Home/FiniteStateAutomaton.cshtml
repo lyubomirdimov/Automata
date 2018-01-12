@@ -11,6 +11,21 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="FiniteStateAutomaton">
+                            <div class="form-group row">
+                                
+                                <div class="col-md-8">
+                                    <input type="file" name="files"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-warning" value="Upload">Upload File</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
                         <div class="form-group row">
                             <div class="col-8">
                                 <input class="form-control" id="txt_InputString" placeholder="Fill Input String">
@@ -97,7 +112,7 @@
                                 }
                             }
                         </div>
-                        
+
                         <div class="col-12">
                             <label> Regex to Infix </label>
                             @Model.RegularExpressionToInfix
@@ -135,7 +150,7 @@
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-xs-12">
-                        <svg id="svg" width="1400" >
+                        <svg id="svg" width="1400">
                             <g></g>
                         </svg>
                     </div>

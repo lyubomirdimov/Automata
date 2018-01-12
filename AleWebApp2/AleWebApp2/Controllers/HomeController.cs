@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using AleWebApp2.Models;
 using Automata;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 
@@ -20,7 +22,7 @@ namespace AleWebApp2.Controllers
         }
 
         #region FiniteStateAutomaton
-        
+
         public IActionResult FiniteStateAutomaton()
         {
             string regex = "|(_,.(*(a),b))";
@@ -32,6 +34,15 @@ namespace AleWebApp2.Controllers
             return View(model);
         }
 
+        public IActionResult UploadFile(IFormFile file)
+        {
+            if (file.Length <= 0)
+                return RedirectToAction("FiniteStateAutomaton");
+
+            FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(FileParser.FileToFSM(file));
+
+            return View("FiniteStateAutomaton",model);
+        }
         public IActionResult FSMAccepts(string fsm, string input)
         {
             if (input == null) input = string.Empty;
@@ -77,7 +88,7 @@ namespace AleWebApp2.Controllers
         public IActionResult PDA()
         {
 
-            
+
             PDAViewModel model = new PDAViewModel();
             model.PDA = getPDA();
             model.PDAString = JsonConvert.SerializeObject(getPDA());
