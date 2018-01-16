@@ -84,8 +84,6 @@ namespace Automata
                     return false;
             }
 
-
-
             return Accepts(input, new List<string> { InitialState });
         }
 
@@ -373,7 +371,7 @@ namespace Automata
             while (workingSet.Any())
             {
                 string current = workingSet[0];
-                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states))
+                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states, true))
                 {
                     return true;
                 }
@@ -381,7 +379,7 @@ namespace Automata
             return false;
         }
 
-        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates)
+        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates, bool isEpsilonCycle)
         {
             MoveVertex(current, workingSet, inRecursionSet);
             List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == current && terminatingStates.Contains(x.EndState)).ToList();
@@ -390,10 +388,13 @@ namespace Automata
                 if (totallyVisitedSet.Contains(trans.EndState))
                     continue;
 
-                if (inRecursionSet.Contains(trans.EndState))
+                if (inRecursionSet.Contains(trans.EndState) &&  !isEpsilonCycle)
                     return true;
 
-                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates))
+                if (trans.Symbol != Constants.Epsilon)
+                    isEpsilonCycle = false;
+
+                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates, isEpsilonCycle))
                     return true;
             }
 

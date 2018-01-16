@@ -11,11 +11,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="FiniteStateAutomaton">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadFile">
                             <div class="form-group row">
 
                                 <div class="col-md-8">
-                                    <input type="file" name="files" />
+                                    <input type="file" name="file" />
                                 </div>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-warning" value="Upload">Upload File</button>
@@ -168,7 +168,6 @@
             // Check Accepts button click
             $("#btn_CheckAccepts").click(function() {
                 var input = $("#txt_InputString").val();
-                var fsm = '@Html.Raw(JsonConvert.SerializeObject(Model.FSM))';
 
                 $.ajax({
                     type: "GET",
