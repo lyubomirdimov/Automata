@@ -468,7 +468,7 @@ namespace Automata
             builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
 
 
-            var acceptedWords = AcceptedWords();
+            List<string> acceptedWords = AcceptedWords();
 
             if (acceptedWords.Any())
             {

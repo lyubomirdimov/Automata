@@ -9,11 +9,11 @@ namespace Automata
 
             @"^                                         # Start of line
                   (                                     # Either
-                      [0-9A-Za-z_](?![0-9A-Za-z_]) |        # A predicate
-                      (?<couple>[|.]\((?!,))|        # Start of couple
+                      [0-9A-Za-z_](?![0-9A-Za-z_]) |    # A predicate
+                      (?<couple>[|.]\((?!,))|           # Start of couple
                       (?<comma-couple>,(?!\)))|         # Looks for comma followed by couple. Pops off the couple stack.
                       (?<dBracket-comma>\))|            # Looks for ending bracket following comma. pops off comma stack. 
-                      (?<single>\*\((?!\)))|             # Start of single function.
+                      (?<single>\*\((?!\)))|            # Start of single function.
                       (?<uBracket-single>\)))           # Looks for ending bracket for unary. Pops off the single stack. 
                   +                                     # Any number of times.
                   (?(couple)(?!))                       # Assert couple stack is empty. All have a comma.

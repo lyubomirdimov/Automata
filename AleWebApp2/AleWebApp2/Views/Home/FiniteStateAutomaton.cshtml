@@ -13,9 +13,9 @@
                     <div class="col-12">
                         <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="FiniteStateAutomaton">
                             <div class="form-group row">
-                                
+
                                 <div class="col-md-8">
-                                    <input type="file" name="files"/>
+                                    <input type="file" name="files" />
                                 </div>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-warning" value="Upload">Upload File</button>
@@ -63,7 +63,6 @@
                 <div class="row">
                     <div class="col-12">
                         <form id="form_toDfa" asp-action="NfaToDfa">
-                            <input type="hidden" id="hf_toDfa_fsm" name="fsm" />
                             <div class="form-group row justify-content-end">
                                 <div class="col-4">
                                     <button id="btn_ToDfa" class="btn btn-info">Convert To Dfa</button>
@@ -175,7 +174,7 @@
                     type: "GET",
                     url: "@Url.Action("FSMAccepts")",
                     contentType: "application/json; charset=utf-8",
-                    data: { fsm: fsm, input: input },
+                    data: { input: input },
                     dataType: "json",
                     success: function(data) {
                         if (data === true) {
@@ -191,11 +190,7 @@
 
             // To Dfa button click
             $("#btn_ToDfa").click(function() {
-                var fsm = '@Html.Raw(JsonConvert.SerializeObject(Model.FSM))';
-                    $("#hf_toDfa_fsm").val(fsm);
                     $("#form_toDfa").submit();
-
-
             });
 
             $("#btn_rndRegex").click(function() {

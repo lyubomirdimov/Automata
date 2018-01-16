@@ -30,7 +30,7 @@ namespace AleWebApp2.Controllers
             FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regex);
 
             FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(nfa);
-
+            SetFSMSession(model.FSM);
             return View(model);
         }
 
@@ -40,21 +40,22 @@ namespace AleWebApp2.Controllers
                 return RedirectToAction("FiniteStateAutomaton");
 
             FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(FileParser.FileToFSM(file));
-
-            return View("FiniteStateAutomaton",model);
+            SetFSMSession(model.FSM);
+            return View("FiniteStateAutomaton", model);
         }
-        public IActionResult FSMAccepts(string fsm, string input)
+        public IActionResult FSMAccepts(string input)
         {
             if (input == null) input = string.Empty;
-            FiniteStateAutomaton finiteStateAutomaton = JsonConvert.DeserializeObject<FiniteStateAutomaton>(fsm);
+
+            FiniteStateAutomaton finiteStateAutomaton = GetFSMSession();
             return Json(finiteStateAutomaton.Accepts(input));
         }
 
-        public IActionResult NfaToDfa(string fsm)
+        public IActionResult NfaToDfa()
         {
-            if (fsm == null) return Error();
-            FiniteStateAutomaton finiteStateAutomaton = JsonConvert.DeserializeObject<FiniteStateAutomaton>(fsm);
+            FiniteStateAutomaton finiteStateAutomaton = GetFSMSession();
             FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(finiteStateAutomaton.ToDfa());
+            SetFSMSession(model.FSM);
             return View("FiniteStateAutomaton", model);
         }
 
@@ -62,7 +63,21 @@ namespace AleWebApp2.Controllers
         {
             if (model.RegularExpression == null) model.RegularExpression = Constants.Epsilon.ToString();
             FiniteStateAutomatonViewModel newModel = new FiniteStateAutomatonViewModel(model.RegularExpression);
+            SetFSMSession(newModel.FSM);
             return View("FiniteStateAutomaton", newModel);
+        }
+
+        private static string _fsmKey = "fsm";
+        private void SetFSMSession(FiniteStateAutomaton fsm)
+        {
+            this.HttpContext.Session.SetString(_fsmKey, JsonConvert.SerializeObject(fsm));
+        }
+
+        private FiniteStateAutomaton GetFSMSession()
+        {
+            string fsm = this.HttpContext.Session.GetString(_fsmKey);
+            return JsonConvert.DeserializeObject<FiniteStateAutomaton>(fsm);
+
         }
 
         /// <summary>
@@ -81,28 +96,29 @@ namespace AleWebApp2.Controllers
             string prefixTree = tree.ToPrefixNotation();
             return Json(prefixTree);
         }
+
+
         #endregion
 
         #region PDA
 
         public IActionResult PDA()
         {
-
-
             PDAViewModel model = new PDAViewModel();
-            model.PDA = getPDA();
-            model.PDAString = JsonConvert.SerializeObject(getPDA());
+            model.PDA = DefaultPDA();
+
+            SetPDASession(model.PDA);
             return View(model);
         }
 
         public IActionResult PDAAccepts(string input)
         {
             if (input == null) input = string.Empty;
-            PDA pushDownAutomaton = getPDA();
+            PDA pushDownAutomaton = GetPDASession();
             return Json(pushDownAutomaton.Accepts(input));
         }
 
-        private PDA getPDA()
+        private PDA DefaultPDA()
         {
             PDA pda = new PDA
             {
@@ -130,6 +146,19 @@ namespace AleWebApp2.Controllers
                 }
             };
             return pda;
+        }
+
+        private static string _pdaKey = "pda";
+        private void SetPDASession(PDA pda)
+        {
+            this.HttpContext.Session.SetString(_pdaKey, JsonConvert.SerializeObject(pda));
+        }
+
+        private PDA GetPDASession()
+        {
+            string pda = this.HttpContext.Session.GetString(_pdaKey);
+            return JsonConvert.DeserializeObject<PDA>(pda);
+
         }
         #endregion
 

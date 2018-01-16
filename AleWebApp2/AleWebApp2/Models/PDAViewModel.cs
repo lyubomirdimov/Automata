@@ -11,6 +11,5 @@ namespace AleWebApp2.Models
     {
 
         public PDA PDA { get; set; }
-        public string PDAString { get; set; }
     }
 }

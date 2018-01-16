@@ -58,13 +58,12 @@
             // Check Accepts button click
             $("#btn_CheckAccepts").click(function() {
                 var input = $("#txt_InputString").val();
-                var pda = '@Model.PDAString';
 
                 $.ajax({
                     type: "GET",
                     url: '@Url.Action("PDAAccepts")',
                     contentType: "application/json; charset=utf-8",
-                    data: { /*pda: pda,*/ input: input },
+                    data: { input: input },
                     dataType: "json",
                     success: function(data) {
                         if (data === true) {
