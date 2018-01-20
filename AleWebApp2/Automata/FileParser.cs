@@ -91,7 +91,7 @@ namespace Automata
                             readsWords = true;
                             break;
                         default:
-                            throw new Exception();
+                            break;
                     }
                 }
             }

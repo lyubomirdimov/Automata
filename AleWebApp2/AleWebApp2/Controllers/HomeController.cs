@@ -36,7 +36,7 @@ namespace AleWebApp2.Controllers
 
         public IActionResult UploadFile(IFormFile file)
         {
-            if (file.Length <= 0)
+            if(file == null ||file.Length <= 0)
                 return RedirectToAction("FiniteStateAutomaton");
 
             FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(FileParser.FileToFSM(file));
