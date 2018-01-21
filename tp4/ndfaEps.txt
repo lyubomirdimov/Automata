@@ -1,0 +1,47 @@
+# ndfa with epsilons
+
+alphabet: abcdefg
+states: A,B,C,D,E,F,G,H,J,Z
+final: Z
+transitions:
+A,a --> B
+A,_ --> B
+A,_ --> G
+B,b --> C
+B,b --> Z
+C,c --> Z
+C,c --> D
+D,d --> E
+D,_ --> H
+D,_ --> J
+J,_ --> D
+E,e --> Z
+E,_ --> Z
+E,_ --> F
+F,f --> H
+G,_ --> C
+H,_ --> Z
+end.
+
+finite: y
+dfa: n
+
+words:
+ab,y
+abc,y
+abcd,y
+abcde,y
+abcdf,y
+b,y
+bc,y
+bcd,y
+bcde,y
+bcdf,y
+c,y
+cd,y
+cde,y
+cdf,y
+a,n
+abcdef,n 
+d,n
+end.

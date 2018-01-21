@@ -1,0 +1,9 @@
+alphabet: xy
+states: X,Y,Z
+final: X
+
+transitions:
+X,x --> Y
+Y,y --> X
+Z,R --> X
+end.

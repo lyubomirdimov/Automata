@@ -1,0 +1,11 @@
+# inevitable deadlock
+
+automatonA: cfa1A.txt
+automatonB: cfa1B.txt
+
+words:
+a|,y
+aaTa|xxxxRx,n
+end.
+
+deadlock: y

@@ -1,0 +1,43 @@
+# 3.2a  a^n b^m c^(n+m)
+
+alphabet: abc
+stack: x
+states: S,B,C
+final: S,C
+transitions:
+S,a [_,x] --> S
+S,b [_,x] --> B
+B,b [_,x] --> B
+B,c [x,_] --> C
+C,c [x,_] --> C
+S,c [x,_] --> C
+end.
+
+finite: n
+dfa: n
+
+words:
+,y
+ac,y
+bc,y
+abcc,y
+abccc,n
+aaaaaccccc,y
+bbbbcccc,y
+aaabbbbbcccccccc,y
+abbccc,y
+c,n
+bacc,n
+abccc,n
+a,n
+b,n
+aabcc,n
+bbbbccc,n
+bbccc,n
+aaaaacccc,n
+aaaaccc,n
+aaaaabbbbbbbbcccccccccccccc,n
+aabccca,n
+aabcccb,n
+bug,y
+end.

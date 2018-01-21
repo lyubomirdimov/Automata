@@ -1,0 +1,33 @@
+# incorrect dfa/finite/word (y must be n)
+
+alphabet: ab
+states: A,B,C
+final: C
+
+transitions:
+A,a --> A
+A,a --> B
+A,b --> B
+B,a --> B
+B,b --> B
+B,b --> C
+A,_ --> A
+B,_ --> B
+C,_ --> C
+end.
+
+dfa:y
+finite:y
+
+words:
+ab,y
+ababb,y
+abbbabababb,y
+bbbbabababb,y
+aaabbbaaaabb,y
+,n
+a,n
+aa,n
+bug,y
+abbba,y
+end.

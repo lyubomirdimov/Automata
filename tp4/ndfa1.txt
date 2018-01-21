@@ -1,0 +1,50 @@
+# all kind of epsilon transitions, to see if words are accepted properly
+
+alphabet: abc
+states: A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,Z
+final: C,D,H,J,Z 
+
+transitions:
+A,a --> B
+A,a --> C
+B,a --> D
+D,_ --> D
+C,a --> E
+A,b --> F
+F,_ --> I
+I,b --> J
+A,_ --> G
+G,b --> H
+A,c --> K
+K,_ --> L
+L,_ --> K
+K,c --> M
+M,_ --> N
+N,c --> O
+O,_ --> M
+M,_ --> P
+P,c --> Q
+Q,_ --> Z
+A,_ --> R
+R,_ --> S
+S,c --> T
+T,_ --> U
+U,_ --> Z
+end.
+
+dfa:n
+finite:n
+
+words:
+a,y
+aa,y
+b,y
+bb,y
+c,y
+ccc,y
+cccc,y
+,n
+cc,n
+aaa,n
+bbb,n
+end.

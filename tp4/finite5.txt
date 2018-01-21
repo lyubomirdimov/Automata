@@ -1,0 +1,25 @@
+# reachable final without cycle ABCD and separate connected cycle without final AEF
+
+alphabet: ab
+states: A,B,C,D,E,F
+final: D
+transitions:
+A,a --> B
+B,a --> C
+C,a --> D
+A,b --> E
+E,a --> F
+F,a --> E
+end.
+
+finite: y
+dfa: n
+
+words:
+aaa,y
+ba,n
+baa,n
+baaa,n
+aaaa,n
+aa,n
+end.

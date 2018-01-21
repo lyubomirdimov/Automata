@@ -6,7 +6,7 @@ namespace Automata
 
     public static class Constants
     {
-        public static char Epsilon = 'ε';
+        public static char Epsilon = 'ϵ';
     }
     
     /// <summary>
@@ -102,7 +102,7 @@ namespace Automata
                 case TokenType.Union:
                     return "|";
                 case TokenType.Epsion:
-                    return "ε";
+                    return Constants.Epsilon.ToString();
                 case TokenType.KleeneStar:
                     return "*";
                 case TokenType.Letter:

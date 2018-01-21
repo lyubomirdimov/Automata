@@ -1,0 +1,21 @@
+# reachable final with cycle ABCD
+
+alphabet: a
+states: A,B,C,D
+final: D
+transitions:
+A,a --> B
+B,a --> C
+C,a --> D
+D,a --> C
+end.
+
+finite: n
+dfa: y
+
+words:
+aaa,y
+aa,n
+aaaa,n
+bug,y
+end.

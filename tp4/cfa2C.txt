@@ -1,0 +1,17 @@
+# with (avoidable) deadlock
+
+automatonA: cfa2A.txt
+automatonB: cfa2B.txt
+
+words:
+a|,y
+aba|,y
+abababa|xyxyxyxy,y
+aRa|xR,y
+aTa|xT,y
+aTaTaTaTa|xTxTxTxT,y
+aTa|xR,n
+aRa|xT,n
+end.
+
+deadlock: y

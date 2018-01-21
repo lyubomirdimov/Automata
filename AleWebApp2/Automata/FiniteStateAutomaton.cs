@@ -371,7 +371,7 @@ namespace Automata
             while (workingSet.Any())
             {
                 string current = workingSet[0];
-                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states, true))
+                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states))
                 {
                     return true;
                 }
@@ -379,7 +379,7 @@ namespace Automata
             return false;
         }
 
-        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates, bool isEpsilonCycle)
+        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates)
         {
             MoveVertex(current, workingSet, inRecursionSet);
             List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == current && terminatingStates.Contains(x.EndState)).ToList();
@@ -388,18 +388,55 @@ namespace Automata
                 if (totallyVisitedSet.Contains(trans.EndState))
                     continue;
 
-                if (inRecursionSet.Contains(trans.EndState) &&  !isEpsilonCycle)
-                    return true;
+                if (inRecursionSet.Contains(trans.EndState))
+                {
+                    if (IsEpsilonCycle(current, trans.EndState) == false)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
 
-                if (trans.Symbol != Constants.Epsilon)
-                    isEpsilonCycle = false;
 
-                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates, isEpsilonCycle))
+                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates))
                     return true;
             }
 
             MoveVertex(current, inRecursionSet, totallyVisitedSet);
             return false;
+        }
+
+        private bool IsEpsilonCycle(string from, string to)
+        {
+            List<string> epsilonReacheable = new List<string>();
+            EpsilonClosureForState(to, epsilonReacheable);
+
+            if (epsilonReacheable.Contains(from) == false)
+                return false;
+
+            List<string> nonEpsilonReacheable = new List<string>();
+            NonEpsilonClosureForState(to, nonEpsilonReacheable);
+
+            if (nonEpsilonReacheable.Contains(from))
+                return false;
+
+            return true;
+        }
+
+        private void NonEpsilonClosureForState(string currentState, List<string> states)
+        {
+            if (states.Contains(currentState)) return;
+
+            states.Add(currentState);
+
+            List<Transition> transForCurrentState = Transitions.FindAll(x => x.StartState == currentState && x.Symbol != Constants.Epsilon);
+            foreach (Transition trans in transForCurrentState)
+            {
+                EpsilonClosureForState(trans.EndState, states);
+            }
         }
 
         private void MoveVertex(string vertex, List<string> source, List<string> destination)
@@ -452,35 +489,35 @@ namespace Automata
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(Comment);
-            builder.AppendLine();
-            builder.AppendLine($"alphabet: {string.Join(",", Alphabet)}");
-            builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
-            builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
-            builder.AppendLine($"transitions:");
-            foreach (var transition in Transitions)
-            {
-                builder.AppendLine(transition.ToString());
-            }
-            builder.AppendLine("end.");
+            //builder.AppendLine(Comment);
+            //builder.AppendLine();
+            //builder.AppendLine($"alphabet: {string.Join(",", Alphabet)}");
+            //builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
+            //builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
+            //builder.AppendLine($"transitions:");
+            //foreach (var transition in Transitions)
+            //{
+            //    builder.AppendLine(transition.ToString());
+            //}
+            //builder.AppendLine("end.");
 
-            builder.AppendLine();
-            builder.AppendLine("dfa:" + (IsDFA() ? "y" : "n"));
-            builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
+            //builder.AppendLine();
+            //builder.AppendLine("dfa:" + (IsDFA() ? "y" : "n"));
+            //builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
 
 
-            List<string> acceptedWords = AcceptedWords();
+            //List<string> acceptedWords = AcceptedWords();
 
-            if (acceptedWords.Any())
-            {
-                builder.AppendLine();
-                builder.AppendLine("words:");
-                foreach (string acceptedWord in acceptedWords)
-                {
-                    builder.AppendLine($"{acceptedWord},y");
-                }
-                builder.AppendLine("end.");
-            }
+            //if (acceptedWords.Any())
+            //{
+            //    builder.AppendLine();
+            //    builder.AppendLine("words:");
+            //    foreach (string acceptedWord in acceptedWords)
+            //    {
+            //        builder.AppendLine($"{acceptedWord},y");
+            //    }
+            //    builder.AppendLine("end.");
+            //}
 
             return builder.ToString();
         }

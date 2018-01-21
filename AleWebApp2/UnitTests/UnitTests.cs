@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -134,7 +135,21 @@ namespace UnitTests
         [TestMethod]
         public void TestAcceptedWords()
         {
-
+            StreamReader stream = new StreamReader(@"E:\SelfDrive\Repositories\ALE2\tp4\ndfa1.txt");
+            FiniteStateAutomaton fsm = FileParser.FileToFSM(reader: stream);
+            stream.Close();
+            Assert.IsFalse(fsm.IsDFA());
+            Assert.IsTrue(fsm.IsInfinite());
+            Assert.IsTrue(fsm.Accepts("a"));
+            Assert.IsTrue(fsm.Accepts("aa"));
+            Assert.IsTrue(fsm.Accepts("b"));
+            Assert.IsTrue(fsm.Accepts("bb"));
+            Assert.IsTrue(fsm.Accepts("c"));
+            Assert.IsTrue(fsm.Accepts("ccc"));
+            Assert.IsTrue(fsm.Accepts("cccc"));
+            Assert.IsFalse(fsm.Accepts("cc"));
+            Assert.IsTrue(fsm.Accepts("aaa"));
+            Assert.IsTrue(fsm.Accepts("bbb"));
         }
 
         [TestMethod]
