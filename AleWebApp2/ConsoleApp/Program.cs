@@ -13,48 +13,31 @@ namespace ConsoleApp
         static void Main(string[] args)
         {
 
-            FiniteStateAutomaton fsm = ReadFile();
-            bool good = false;
-            Console.WriteLine(fsm.IsInfinite() == false);
-            Console.WriteLine(fsm.IsDFA());
-            
+            FSMFileObject fsm = ReadFile();
+            Console.WriteLine(fsm.FSM.IsInfinite() != fsm.IsFinite ? $"passed IsFinite" : $"failed IsFinite");
+            Console.WriteLine(fsm.FSM.IsDFA() == fsm.IsDfa ? $"passed IsDFA" : $"failed IsDFA");
+            foreach (string fsmAcceptedWord in fsm.AcceptedWords)
+            {
+                Console.WriteLine(fsm.FSM.Accepts(fsmAcceptedWord) ? "passed" : "failed");
+            }
+            foreach (string rejected in fsm.RejectedWords)
+            {
+                Console.WriteLine(fsm.FSM.Accepts(rejected) == false ? "passed" : "failed");
+            }
             Console.ReadLine();
         }
 
-        public static FiniteStateAutomaton ReadFile()
+        public static FSMFileObject ReadFile()
         {
             int counter = 0;
             string line;
 
             // Read the file and display it line by line.  
-            StreamReader stream = new StreamReader(@"E:\SelfDrive\Repositories\ALE2\tp4\nfaeps.txt");
-            FiniteStateAutomaton fsm = FileParser.FileToFSM(reader: stream);
+            StreamReader stream = new StreamReader(@"../Automata/FSMs/fsm2.txt");
+            FSMFileObject fsm = FileParser.FileToFSM(reader: stream);
             stream.Close();
             return fsm;
 
         }
-
-        public class FSMTestVector
-        {
-            public FiniteStateAutomaton FSM { get; set; }
-            public bool IsDFA { get; set; }
-            public bool IsFinite { get; set; }
-            public List<string> AcceptedWords { get; set; }
-            public List<string> RejectedWords { get; set; }
-        }
-
-        public class RegexToFSM : FSMTestVector
-        {
-            public string regex { get; set; }
-        }
-
-
-
-
-
-
-
-
-
     }
 }

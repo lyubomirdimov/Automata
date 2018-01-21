@@ -1,0 +1,34 @@
+alphabet: abc
+states: A,B,C,D,E,F,G,H
+final: A,H
+transitions:
+A,_ --> A
+A,a --> B
+B,c --> D
+B,_ --> C
+B,c --> E
+B,a --> H
+D,c --> C
+C,a --> H
+E,_ --> C
+E,_ --> F
+F,_ --> G
+F,_ --> E
+G,_ --> E
+H,_ --> H
+end.
+
+finite: y
+dfa: n
+
+words:
+,y
+aa,y
+aca,y
+acca,y
+a,n
+ac,n
+aaa,n
+ab,n
+aaaa,n
+end.

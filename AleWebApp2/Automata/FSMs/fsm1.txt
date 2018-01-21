@@ -1,0 +1,27 @@
+
+alphabet: abc
+states: A,B,C,D
+final: D
+transitions:
+A,a --> B
+A,b --> B
+A,c --> C
+B,b --> A
+B,a --> C
+C,a --> D
+C,a --> A
+D,b --> C
+end.
+
+finite: n
+dfa: n
+
+words:
+aaa,y
+a,n
+ab,n
+,n
+bb,n
+ababaaaba,y
+ababaababa,n
+end.

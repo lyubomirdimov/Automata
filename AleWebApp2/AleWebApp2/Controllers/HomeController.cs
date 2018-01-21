@@ -38,7 +38,8 @@ namespace AleWebApp2.Controllers
         {
             if (file == null || file.Length <= 0)
                 return RedirectToAction("FiniteStateAutomaton");
-            FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(FileParser.FileToFSM(file));
+            FSMFileObject fsmFileObject = FileParser.FileToFSM(file);
+            FiniteStateAutomatonViewModel model = new FiniteStateAutomatonViewModel(fsmFileObject.FSM);
             SetFSMSession(model.FSM);
             return View("FiniteStateAutomaton", model);
         }
@@ -109,7 +110,16 @@ namespace AleWebApp2.Controllers
             SetPDASession(model.PDA);
             return View(model);
         }
+        public IActionResult UploadPDA(IFormFile file)
+        {
+            if (file == null || file.Length <= 0)
+                return RedirectToAction("PDA");
 
+            PdaFileObject pdaFileObject = FileParser.FileToPDA(file);
+            PDAViewModel model = new PDAViewModel(pdaFileObject.Pda);
+            SetPDASession(model.PDA);
+            return View("PDA", model);
+        }
         public IActionResult PDAAccepts(string input)
         {
             if (input == null) input = string.Empty;
@@ -119,6 +129,7 @@ namespace AleWebApp2.Controllers
 
         private PDA DefaultPDA()
         {
+
             PDA pda = new PDA
             {
                 InputAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },

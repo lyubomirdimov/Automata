@@ -3,6 +3,32 @@
 @using Newtonsoft.Json
 @model PDAViewModel
 
+
+
+<div class="row mt-4 justify-content-center">
+    <div class="col-6">
+        <div class="card  bg-muted ">
+            <h5 class="card-header card-header bg-inverse text-white"><i class=" mdi mdi-cube-outline"></i> Input</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadPDA">
+                            <div class="form-group row">
+
+                                <div class="col-md-8">
+                                    <input type="file" name="file" />
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-warning" value="Upload">Upload File</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row mt-4 justify-content-center">
     <div class="col-6">
         <div class="card  bg-muted ">
@@ -25,7 +51,7 @@
                         <i id="ic_doesNotAccept" class="text-danger  mdi mdi-close-circle" style="display: none"></i>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -52,7 +78,7 @@
 
 
 @section Scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
 
         $(function() {
             // Check Accepts button click
@@ -217,5 +243,5 @@
         }
 
 
-</script>
+    </script>
 }

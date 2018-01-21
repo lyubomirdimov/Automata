@@ -17,6 +17,10 @@ namespace UnitTests
         public List<PDATestVectors> PDAs { get; set; }
         public List<RegexToFSM> RegexToFSM { get; set; }
         public List<RegexToFSM> RegexToDFA { get; set; }
+        public List<PdaFileObject> PdaFileObjects { get; set; } = new List<PdaFileObject>();
+        public List<FSMFileObject> FSMFileObjects { get; set; } = new List<FSMFileObject>();
+        private static string FsmFolderPath = @"../../../../Automata/FSMs/";
+        private static string PDAFolderPath = @"../../../../Automata/PDAs";
 
         public UnitTests()
         {
@@ -28,7 +32,6 @@ namespace UnitTests
 
             using (WebClient wc = new WebClient())
             {
-
                 string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/PDAs.json");
                 PDAs = JsonConvert.DeserializeObject<List<PDATestVectors>>(json);
 
@@ -37,38 +40,10 @@ namespace UnitTests
 
                 json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToDFA.json");
                 RegexToDFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
-
             }
-
         }
 
-        private void TestVectorsGen()
-        {
 
-            //AutomataConstructor c = new AutomataConstructor();
-            //string regex = "a";
-            //var breaking = c.RegexToNfa(regex);
-            //var stateAutomaton = breaking.ToDfa();
-            //var breaks = stateAutomaton.IsDFA();
-            //breaks = breaking.IsDFA();
-
-            //List<RegexToFSM> tsts = new List<RegexToFSM>();
-            //for (int i = 0; i < 300; i++)
-            //{
-            //    var tree = TreeConstructor.ConstructRandomTree();
-            //    var fsm = c.RegexToNfa(tree.ToPrefixNotation());
-            //    fsm = fsm.ToDfa();
-            //    RegexToFSM rgfx = new RegexToFSM();
-            //    rgfx.FSM = fsm;
-            //    rgfx.regex = tree.ToPrefixNotation();
-            //    rgfx.IsDFA = fsm.IsDFA();
-            //    rgfx.IsFinite = fsm.IsInfinite() == false;
-            //    rgfx.Words = fsm.AcceptedWords();
-            //    tsts.Add(rgfx);
-            //}
-
-            //var serializeObject = JsonConvert.SerializeObject(tsts,Formatting.Indented);
-        }
         [TestMethod]
         public void IsDFATest()
         {
@@ -82,6 +57,8 @@ namespace UnitTests
                 Assert.IsTrue(automaton.FSM.IsDFA());
             }
 
+            FSMFileObjects = new List<FSMFileObject>();
+            StreamReader stream = new StreamReader(@"../");
         }
 
         [TestMethod]
@@ -124,39 +101,34 @@ namespace UnitTests
 
         }
 
-
         [TestMethod]
-        public void TestIsFinite()
+        public void TestManualVectors()
         {
+            DirectoryInfo fsmDirectory = new DirectoryInfo(FsmFolderPath);
+            DirectoryInfo pdaDirectory = new DirectoryInfo(PDAFolderPath);
 
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+            foreach (FileInfo file in pdaDirectory.GetFiles("*.txt"))
+            {
+                PdaFileObjects.Add(FileParser.FileToPDA(reader: file.OpenText()));
+            }
 
-        }
-
-        [TestMethod]
-        public void TestAcceptedWords()
-        {
-            StreamReader stream = new StreamReader(@"E:\SelfDrive\Repositories\ALE2\tp4\ndfa1.txt");
-            FiniteStateAutomaton fsm = FileParser.FileToFSM(reader: stream);
-            stream.Close();
-            Assert.IsFalse(fsm.IsDFA());
-            Assert.IsTrue(fsm.IsInfinite());
-            Assert.IsTrue(fsm.Accepts("a"));
-            Assert.IsTrue(fsm.Accepts("aa"));
-            Assert.IsTrue(fsm.Accepts("b"));
-            Assert.IsTrue(fsm.Accepts("bb"));
-            Assert.IsTrue(fsm.Accepts("c"));
-            Assert.IsTrue(fsm.Accepts("ccc"));
-            Assert.IsTrue(fsm.Accepts("cccc"));
-            Assert.IsFalse(fsm.Accepts("cc"));
-            Assert.IsTrue(fsm.Accepts("aaa"));
-            Assert.IsTrue(fsm.Accepts("bbb"));
-        }
-
-        [TestMethod]
-        public void TestPDAAccepts()
-        {
-
-
+            foreach (var fsmFileObject in FSMFileObjects)
+            {
+                Assert.IsTrue(fsmFileObject.IsFinite != fsmFileObject.FSM.IsInfinite());
+                Assert.IsTrue(fsmFileObject.IsDfa == fsmFileObject.FSM.IsDFA());
+                foreach (string fsmAcceptedWord in fsmFileObject.AcceptedWords)
+                {
+                    Assert.IsTrue(fsmFileObject.FSM.Accepts(fsmAcceptedWord));
+                }
+                foreach (string rejected in fsmFileObject.RejectedWords)
+                {
+                    Assert.IsFalse(fsmFileObject.FSM.Accepts(rejected));
+                }
+            }
         }
 
     }

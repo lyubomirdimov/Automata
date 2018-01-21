@@ -7,13 +7,14 @@ namespace Automata
 {
     public class PDA
     {
-        public string Comment { get; set; }
-        public List<char> InputAlphabet { get; set; }
-        public List<char> StackAlphabet { get; set; }
-        public List<string> States { get; set; }
-        public List<TransitionFunction> Transitions { get; set; }
-        public string InitialState { get; set; }
+        public string Comment { get; set; } 
+        public List<char> InputAlphabet { get; set; } = new List<char>();
+        public List<char> StackAlphabet { get; set; } = new List<char>();
+        public List<string> States { get; set; } = new List<string>();
+        public List<TransitionFunction> Transitions { get; set; } = new List<TransitionFunction>();
+        public string InitialState { get; set; } 
         public List<string> FinalStates { get; set; } = new List<string>();
+        public Stack<char> InitStack { get; set; } = new Stack<char>();
 
         public bool Accepts(string input)
         {
@@ -24,7 +25,7 @@ namespace Automata
                     return false;
             }
 
-            return Accepts(input, InitialState, new Stack<char>());
+            return Accepts(input, InitialState, InitStack);
         }
 
         private bool Accepts(string input, string currentState, Stack<char> stack)
@@ -32,29 +33,10 @@ namespace Automata
             TransitionFunction function;
             char popedSymbol;
             List<char> pushSymbols;
+            char currentInput;
+            currentInput = string.IsNullOrEmpty(input) ? Constants.Epsilon : input[0];
 
-            // Iterations Completed, check if it is accepted
-            if (input.Length <= 0)
-            {
-                if (stack.Any())
-                    return false;
-
-                if (IsFinalState(currentState))
-                    return true;
-
-                // Check for Epsilon Closure
-                function = Transitions.Find(x => x.StartState == currentState && x.InputSymbol == Constants.Epsilon && x.StackTopSymbol == Constants.Epsilon);
-                if (function == null)
-                    return IsFinalState(currentState) && !stack.Any();
-
-                pushSymbols = function.PushSymbols.Where(c => c != Constants.Epsilon).ToList();
-                pushSymbols.ForEach(stack.Push);
-                return Accepts(input, function.EndState, stack);
-            }
-
-            char currentInput = input[0];
-
-            if (stack.Any())
+            if (stack.Any() && currentInput != Constants.Epsilon)
             // 1. transition whose [symbol + pop stack] matches the [current input symbol + current top stack] (if the stack is not empty)
             {
                 popedSymbol = stack.Pop();
@@ -70,13 +52,16 @@ namespace Automata
                 stack.Push(popedSymbol);
             }
 
-            // 2.transition with epsilon pop stack whose symbol matches the current input symbol
-            function = Transitions.Find(x => x.StartState == currentState && x.InputSymbol == currentInput);
-            if (function != null)
+            if (currentInput != Constants.Epsilon)
             {
-                pushSymbols = function.PushSymbols.Where(c => c != Constants.Epsilon).ToList();
-                pushSymbols.ForEach(stack.Push);
-                return Accepts(input.Substring(1), function.EndState, stack);
+                // 2.transition with epsilon pop stack whose symbol matches the current input symbol
+                function = Transitions.Find(x => x.StartState == currentState && x.InputSymbol == currentInput && x.StackTopSymbol == Constants.Epsilon);
+                if (function != null)
+                {
+                    pushSymbols = function.PushSymbols.Where(c => c != Constants.Epsilon).ToList();
+                    pushSymbols.ForEach(stack.Push);
+                    return Accepts(input.Substring(1), function.EndState, stack);
+                }
             }
 
 
@@ -89,7 +74,7 @@ namespace Automata
                 {
                     pushSymbols = function.PushSymbols.Where(c => c != Constants.Epsilon).ToList();
                     pushSymbols.ForEach(stack.Push);
-                    return Accepts(input.Substring(1), function.EndState, stack);
+                    return Accepts(input, function.EndState, stack);
                 }
 
                 // Push the poped symbol back to the stack
@@ -105,7 +90,23 @@ namespace Automata
                 return Accepts(input, function.EndState, stack);
             }
 
-            return Accepts(input, currentState, stack);
+            // Iterations Completed, check if it is accepted
+            if (input.Length <= 0)
+            {
+                if (IsFinalState(currentState) && !stack.Any())
+                    return true;
+
+                //function = Transitions.Find(x => x.StartState == currentState && x.InputSymbol == Constants.Epsilon && x.StackTopSymbol == Constants.Epsilon);
+                //if (function == null)
+                //    return IsFinalState(currentState) && !stack.Any();
+
+                //pushSymbols = function.PushSymbols.Where(c => c != Constants.Epsilon).ToList();
+                //pushSymbols.ForEach(stack.Push);
+                //return Accepts(input, function.EndState, stack);
+            }
+
+            // Halted
+            return false;
 
         }
 
@@ -113,27 +114,27 @@ namespace Automata
         private bool IsFinalState(string state) => FinalStates.Contains(state);
 
 
-        public override string ToString()
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.AppendLine(Comment);
-            builder.AppendLine();
-            builder.AppendLine($"alphabet: {string.Join(",", InputAlphabet)}");
-            builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
-            builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
-            builder.AppendLine($"transitions:");
-            foreach (var transition in Transitions)
-            {
-                builder.AppendLine(transition.ToString());
-            }
-            builder.AppendLine("end.");
+        //public override string ToString()
+        //{
+        //    StringBuilder builder = new StringBuilder();
+        //    builder.AppendLine(Comment);
+        //    builder.AppendLine();
+        //    builder.AppendLine($"alphabet: {string.Join(",", InputAlphabet)}");
+        //    builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
+        //    builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
+        //    builder.AppendLine($"transitions:");
+        //    foreach (var transition in Transitions)
+        //    {
+        //        builder.AppendLine(transition.ToString());
+        //    }
+        //    builder.AppendLine("end.");
 
-            builder.AppendLine();
-            builder.AppendLine("dfa:n");
-            builder.AppendLine("finite:n");
+        //    builder.AppendLine();
+        //    builder.AppendLine("dfa:n");
+        //    builder.AppendLine("finite:n");
 
 
-            return builder.ToString();
-        }
+        //    return builder.ToString();
+        //}
     }
 }

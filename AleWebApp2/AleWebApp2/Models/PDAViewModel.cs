@@ -11,5 +11,14 @@ namespace AleWebApp2.Models
     {
 
         public PDA PDA { get; set; }
+
+        public PDAViewModel()
+        {
+            
+        }
+        public PDAViewModel(PDA pda)
+        {
+            PDA = pda;
+        }
     }
 }

@@ -484,41 +484,41 @@ namespace Automata
 
         }
 
-        public override string ToString()
-        {
-            StringBuilder builder = new StringBuilder();
-            //builder.AppendLine(Comment);
-            //builder.AppendLine();
-            //builder.AppendLine($"alphabet: {string.Join(",", Alphabet)}");
-            //builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
-            //builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
-            //builder.AppendLine($"transitions:");
-            //foreach (var transition in Transitions)
-            //{
-            //    builder.AppendLine(transition.ToString());
-            //}
-            //builder.AppendLine("end.");
+        //public override string ToString()
+        //{
+        //    StringBuilder builder = new StringBuilder();
+        //    builder.AppendLine(Comment);
+        //    builder.AppendLine();
+        //    builder.AppendLine($"alphabet: {string.Join(",", Alphabet)}");
+        //    builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
+        //    builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
+        //    builder.AppendLine($"transitions:");
+        //    foreach (var transition in Transitions)
+        //    {
+        //        builder.AppendLine(transition.ToString());
+        //    }
+        //    builder.AppendLine("end.");
 
-            //builder.AppendLine();
-            //builder.AppendLine("dfa:" + (IsDFA() ? "y" : "n"));
-            //builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
+        //    builder.AppendLine();
+        //    builder.AppendLine("dfa:" + (IsDFA() ? "y" : "n"));
+        //    builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
 
 
-            //List<string> acceptedWords = AcceptedWords();
+        //    List<string> acceptedWords = AcceptedWords();
 
-            //if (acceptedWords.Any())
-            //{
-            //    builder.AppendLine();
-            //    builder.AppendLine("words:");
-            //    foreach (string acceptedWord in acceptedWords)
-            //    {
-            //        builder.AppendLine($"{acceptedWord},y");
-            //    }
-            //    builder.AppendLine("end.");
-            //}
+        //    if (acceptedWords.Any())
+        //    {
+        //        builder.AppendLine();
+        //        builder.AppendLine("words:");
+        //        foreach (string acceptedWord in acceptedWords)
+        //        {
+        //            builder.AppendLine($"{acceptedWord},y");
+        //        }
+        //        builder.AppendLine("end.");
+        //    }
 
-            return builder.ToString();
-        }
+        //    return builder.ToString();
+        //}
 
         #region Helpers
 
