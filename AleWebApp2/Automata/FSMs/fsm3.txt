@@ -19,3 +19,11 @@ end.
 
 dfa:n
 finite:n
+
+words:
+ab,y
+aaaab,y
+aaab,y
+abb,n
+abbb,n
+end.

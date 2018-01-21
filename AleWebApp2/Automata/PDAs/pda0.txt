@@ -23,3 +23,8 @@ end.
 
 dfa:n
 finite:n
+
+words:
+
+
+end.
