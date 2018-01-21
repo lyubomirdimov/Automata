@@ -15,23 +15,56 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            FSMFileObject fsm = ReadFile();
-            Console.WriteLine(fsm.FSM.IsInfinite() != fsm.IsFinite ? $"passed IsFinite" : $"failed IsFinite");
-            Console.WriteLine(fsm.FSM.IsDFA() == fsm.IsDfa ? $"passed IsDFA" : $"failed IsDFA");
-            foreach (string fsmAcceptedWord in fsm.AcceptedWords)
-            {
-                Console.WriteLine(fsm.FSM.Accepts(fsmAcceptedWord) ? "passed" : "failed");
-            }
-            foreach (string rejected in fsm.RejectedWords)
-            {
-                Console.WriteLine(fsm.FSM.Accepts(rejected) == false ? "passed" : "failed");
-            }
+            //FSMFileObject fsm = ReadFile();
+            //Console.WriteLine(fsm.FSM.IsInfinite() != fsm.IsFinite ? $"passed IsFinite" : $"failed IsFinite");
+            //Console.WriteLine(fsm.FSM.IsDFA() == fsm.IsDfa ? $"passed IsDFA" : $"failed IsDFA");
+            //foreach (string fsmAcceptedWord in fsm.AcceptedWords)
+            //{
+            //    Console.WriteLine(fsm.FSM.Accepts(fsmAcceptedWord) ? "passed" : "failed");
+            //}
+            //foreach (string rejected in fsm.RejectedWords)
+            //{
+            //    Console.WriteLine(fsm.FSM.Accepts(rejected) == false ? "passed" : "failed");
+            //}
 
-            var words = fsm.FSM.AcceptedWords();
-            Console.ReadLine();
+            //var words = fsm.FSM.AcceptedWords();
+            //Console.ReadLine();
             //TestVectorsGen();
             // RE to DFA
 
+
+            //PDA pda = new PDA();
+            //pda.Comment = " Regular Expression pda";
+            //pda.InputAlphabet = new List<char>() { 'a', 'b', '%', '(', ')', '.', '|', '*' };
+            //pda.StackAlphabet = new List<char>() { 'p', '(', ')', '%' };
+            //pda.States = new List<string>() { "q0", "q1", "q2", "q3", "q4", "q5" };
+            //pda.InitialState = "q0";
+            //pda.FinalStates = new List<string>() { "q1", "q5" };
+            //pda.Transitions = new List<TransitionFunction>()
+            //{
+            //    new TransitionFunction("q0",Constants.Epsilon,Constants.Epsilon,new List<char>(){'p'},"q1" ),
+            //    new TransitionFunction("q1",'a','p',new List<char>(){Constants.Epsilon},"q1" ),
+            //    new TransitionFunction("q1",'b','p',new List<char>(){Constants.Epsilon},"q1" ),
+            //    new TransitionFunction("q1",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
+
+
+            //    new TransitionFunction("q2",'.','p',new List<char>(){ ')','p','%','p','(' },"q3" ),
+            //    new TransitionFunction("q2",'|','p',new List<char>(){ ')', 'p', '%', 'p', '(' },"q3" ),
+            //    new TransitionFunction("q2",'*','p',new List<char>(){ ')', 'p', '(' },"q4" ),
+
+            //    new TransitionFunction("q3",Constants.Epsilon,Constants.Epsilon,new List<char>(){Constants.Epsilon},"q5" ),
+
+            //    new TransitionFunction("q4",Constants.Epsilon,Constants.Epsilon,new List<char>(){Constants.Epsilon},"q5" ),
+
+            //    new TransitionFunction("q5",'a','p',new List<char>(){Constants.Epsilon },"q5" ),
+            //    new TransitionFunction("q5",'b','p',new List<char>(){Constants.Epsilon },"q5" ),
+            //    new TransitionFunction("q5",'(','(',new List<char>(){Constants.Epsilon },"q5" ),
+            //    new TransitionFunction("q5",')',')',new List<char>(){Constants.Epsilon },"q5" ),
+            //    new TransitionFunction("q5",'%','%',new List<char>(){Constants.Epsilon },"q5" ),
+            //    new TransitionFunction("q5",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
+
+            //};
+            //FileParser.PDAToFile(@"../Automata/PDAs/pdaRegex.txt",pda);
         }
 
         public static FSMFileObject ReadFile()

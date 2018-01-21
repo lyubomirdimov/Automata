@@ -53,12 +53,12 @@ namespace Automata
             {
                 pushSymbols = PushSymbols;
             }
-            return $"{StartState},{inputSymbol} [{stackTopSymbol},{String.Join(",", pushSymbols.Select(o => o.ToString()).ToArray())}] --> {EndState}";
+            return $"{StartState},{inputSymbol} [{stackTopSymbol},{String.Join("", pushSymbols.Select(o => o.ToString()).ToArray())}] --> {EndState}";
         }
 
         public string ToTransitionCaption()
         {
-            return $"{InputSymbol}[{StackTopSymbol}/{String.Join(",", PushSymbols.Select(o => o.ToString()).ToArray())}]";
+            return $"{InputSymbol}[{StackTopSymbol}/{String.Join("", PushSymbols.Select(o => o.ToString()).ToArray())}]";
         }
     }
 }

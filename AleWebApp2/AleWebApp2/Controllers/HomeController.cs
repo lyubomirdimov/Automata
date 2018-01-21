@@ -130,7 +130,38 @@ namespace AleWebApp2.Controllers
         private PDA DefaultPDA()
         {
 
-            PDA pda = new PDA
+            PDA pda = new PDA();
+            pda.InputAlphabet = new List<char>() { 'a', 'b', ',', '(', ')', '.', '|', '*' };
+            pda.StackAlphabet = new List<char>() { 'p', '(', ')', '_' };
+            pda.States = new List<string>() { "q0", "q1", "q2", "q3", "q4", "q5" };
+            pda.InitialState = "q0";
+            pda.FinalStates = new List<string>() { "q1", "q5" };
+            pda.Transitions = new List<TransitionFunction>()
+            {
+                new TransitionFunction("q0",Constants.Epsilon,Constants.Epsilon,new List<char>(){'p'},"q1" ),
+                new TransitionFunction("q1",'a','p',new List<char>(){Constants.Epsilon},"q1" ),
+                new TransitionFunction("q1",'b','p',new List<char>(){Constants.Epsilon},"q1" ),
+                new TransitionFunction("q1",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
+
+
+                new TransitionFunction("q2",'.','p',new List<char>(){ ')','p','_','p','(' },"q3" ),
+                new TransitionFunction("q2",'|','p',new List<char>(){ ')', 'p', '_', 'p', '(' },"q3" ),
+                new TransitionFunction("q2",'*','p',new List<char>(){ ')', 'p', '(' },"q4" ),
+
+                new TransitionFunction("q3",Constants.Epsilon,Constants.Epsilon,new List<char>(){Constants.Epsilon},"q5" ),
+
+                new TransitionFunction("q4",Constants.Epsilon,Constants.Epsilon,new List<char>(){Constants.Epsilon},"q5" ),
+
+                new TransitionFunction("q5",'a','p',new List<char>(){Constants.Epsilon },"q5" ),
+                new TransitionFunction("q5",'b','p',new List<char>(){Constants.Epsilon },"q5" ),
+                new TransitionFunction("q5",'(','(',new List<char>(){Constants.Epsilon },"q5" ),
+                new TransitionFunction("q5",')',')',new List<char>(){Constants.Epsilon },"q5" ),
+                new TransitionFunction("q5",',','_',new List<char>(){Constants.Epsilon },"q5" ),
+                new TransitionFunction("q5",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
+
+            };
+            return pda;
+            pda = new PDA
             {
                 InputAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
                 StackAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
