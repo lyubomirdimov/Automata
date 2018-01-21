@@ -120,11 +120,17 @@ namespace UnitTests
         {
             foreach (var fsmTestVector in RegexToFSM)
             {
-                Assert.IsTrue(fsmTestVector.Words.SequenceEqual(fsmTestVector.FSM.AcceptedWords()));
+                foreach (string word in fsmTestVector.Words)
+                {
+                    Assert.IsTrue(fsmTestVector.FSM.Accepts(word));
+                }
             }
             foreach (var automaton in RegexToDFA)
             {
-                Assert.IsTrue(automaton.Words.SequenceEqual(automaton.FSM.AcceptedWords()));
+                foreach (string automatonWord in automaton.Words)
+                {
+                    Assert.IsTrue(automaton.FSM.Accepts(automatonWord));
+                }
             }
 
 
@@ -184,6 +190,7 @@ namespace UnitTests
         [TestMethod]
         public void TestRegexToNfa()
         {
+            // NOTE: THIS test could fail, because of a static variable _Counter. 
             foreach (var regexToFsm in RegexToFSM)
             {
                 FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regexToFsm.regex);

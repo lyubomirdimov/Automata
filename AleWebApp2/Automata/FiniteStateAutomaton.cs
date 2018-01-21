@@ -484,8 +484,6 @@ namespace Automata
 
             foreach (Transition transition in transitions)
             {
-                // Epsilon Loop prevention
-                if (inRecursion.Contains(transition.EndState)) continue;
 
                 AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating, inRecursion);
             }
