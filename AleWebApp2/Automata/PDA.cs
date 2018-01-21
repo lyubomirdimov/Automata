@@ -14,7 +14,6 @@ namespace Automata
         public List<TransitionFunction> Transitions { get; set; } = new List<TransitionFunction>();
         public string InitialState { get; set; } 
         public List<string> FinalStates { get; set; } = new List<string>();
-        public Stack<char> InitStack { get; set; } = new Stack<char>();
 
         public bool Accepts(string input)
         {
@@ -25,7 +24,7 @@ namespace Automata
                     return false;
             }
 
-            return Accepts(input, InitialState, InitStack);
+            return Accepts(input, InitialState, new Stack<char>());
         }
 
         private bool Accepts(string input, string currentState, Stack<char> stack)

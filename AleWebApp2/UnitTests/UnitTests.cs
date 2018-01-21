@@ -102,18 +102,13 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void TestManualVectors()
+        public void TestManualFsms()
         {
             DirectoryInfo fsmDirectory = new DirectoryInfo(FsmFolderPath);
-            DirectoryInfo pdaDirectory = new DirectoryInfo(PDAFolderPath);
 
             foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
             {
                 FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
-            }
-            foreach (FileInfo file in pdaDirectory.GetFiles("*.txt"))
-            {
-                PdaFileObjects.Add(FileParser.FileToPDA(reader: file.OpenText()));
             }
 
             foreach (var fsmFileObject in FSMFileObjects)
@@ -127,6 +122,32 @@ namespace UnitTests
                 foreach (string rejected in fsmFileObject.RejectedWords)
                 {
                     Assert.IsFalse(fsmFileObject.FSM.Accepts(rejected));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestManualPdas()
+        {
+            DirectoryInfo pdaDirectory = new DirectoryInfo(PDAFolderPath);
+
+            foreach (FileInfo file in pdaDirectory.GetFiles("*.txt"))
+            {
+                PdaFileObjects.Add(FileParser.FileToPDA(reader: file.OpenText()));
+            }
+
+            bool accepts;
+            foreach (var pdaFileObject in PdaFileObjects)
+            {
+                foreach (string accepted in pdaFileObject.AcceptedWords)
+                {
+                    accepts = pdaFileObject.Pda.Accepts(accepted);
+                    Assert.IsTrue(accepts);
+                }
+                foreach (string rejected in pdaFileObject.RejectedWords)
+                {
+                    accepts = pdaFileObject.Pda.Accepts(rejected);
+                    Assert.IsFalse(accepts);
                 }
             }
         }
