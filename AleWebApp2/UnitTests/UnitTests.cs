@@ -196,9 +196,8 @@ namespace UnitTests
                 FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regexToFsm.regex);
 
                 Assert.IsTrue(nfa.Alphabet.SequenceEqual(regexToFsm.FSM.Alphabet));
-                Assert.IsTrue(nfa.States.SequenceEqual(regexToFsm.FSM.States));
-                Assert.IsTrue(nfa.InitialState.Equals(regexToFsm.FSM.InitialState));
-                Assert.IsTrue(nfa.FinalStates.SequenceEqual(regexToFsm.FSM.FinalStates));
+                Assert.IsTrue(nfa.States.Count.Equals(regexToFsm.FSM.States.Count));
+                Assert.IsTrue(nfa.FinalStates.Count.Equals(regexToFsm.FSM.FinalStates.Count));
             }
 
         }
