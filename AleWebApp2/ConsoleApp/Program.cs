@@ -16,6 +16,7 @@ namespace ConsoleApp
             FiniteStateAutomaton fsm = ReadFile();
             bool good = false;
             Console.WriteLine(fsm.IsInfinite() == false);
+            Console.WriteLine(fsm.IsDFA());
             
             Console.ReadLine();
         }
@@ -26,7 +27,7 @@ namespace ConsoleApp
             string line;
 
             // Read the file and display it line by line.  
-            StreamReader stream = new StreamReader(@"E:\SelfDrive\Repositories\ALE2\tp4\finite7.txt");
+            StreamReader stream = new StreamReader(@"E:\SelfDrive\Repositories\ALE2\tp4\nfaeps.txt");
             FiniteStateAutomaton fsm = FileParser.FileToFSM(reader: stream);
             stream.Close();
             return fsm;

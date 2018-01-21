@@ -371,7 +371,8 @@ namespace Automata
             while (workingSet.Any())
             {
                 string current = workingSet[0];
-                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states))
+                List<Transition> currentPath = new List<Transition>();
+                if (Dfs(current, workingSet, inRecursionSet, totallyVisitedSet, states, currentPath))
                 {
                     return true;
                 }
@@ -379,65 +380,62 @@ namespace Automata
             return false;
         }
 
-        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates)
+        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates, List<Transition> currentPath)
         {
             MoveVertex(current, workingSet, inRecursionSet);
             List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == current && terminatingStates.Contains(x.EndState)).ToList();
             foreach (var trans in transitionsFromState)
             {
+
                 if (totallyVisitedSet.Contains(trans.EndState))
                     continue;
 
+                currentPath.Add(trans);
+
                 if (inRecursionSet.Contains(trans.EndState))
                 {
-                    if (IsEpsilonCycle(current, trans.EndState) == false)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    if (!IsEpsilonCycle(trans.EndState, currentPath)) return true;
+
+                    currentPath.Remove(trans);
+                    continue;
                 }
 
 
-                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates))
+                if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates, new List<Transition>(currentPath)))
+                {
                     return true;
+                }
+                else
+                {
+                    currentPath.Remove(trans);
+                }
             }
 
             MoveVertex(current, inRecursionSet, totallyVisitedSet);
             return false;
         }
 
-        private bool IsEpsilonCycle(string from, string to)
+        private bool IsEpsilonCycle(string to, List<Transition> currentPath)
         {
-            List<string> epsilonReacheable = new List<string>();
-            EpsilonClosureForState(to, epsilonReacheable);
+            Transition start = currentPath.Find(x => x.IsFrom(to));
+            bool fin = true;
+            List<Transition> alreadyObserved = new List<Transition>();
+            while (fin)
+            {
+                if (start.Symbol != Constants.Epsilon)
+                    return false;
 
-            if (epsilonReacheable.Contains(from) == false)
-                return false;
+                start = currentPath.Find(x => x.IsFrom(start.EndState) && alreadyObserved.Contains(x) == false);
+                alreadyObserved.Add(start);
 
-            List<string> nonEpsilonReacheable = new List<string>();
-            NonEpsilonClosureForState(to, nonEpsilonReacheable);
-
-            if (nonEpsilonReacheable.Contains(from))
-                return false;
+                if (start.IsFrom(to))
+                    fin = false;
+            }
 
             return true;
         }
 
-        private void NonEpsilonClosureForState(string currentState, List<string> states)
-        {
-            if (states.Contains(currentState)) return;
 
-            states.Add(currentState);
-
-            List<Transition> transForCurrentState = Transitions.FindAll(x => x.StartState == currentState && x.Symbol != Constants.Epsilon);
-            foreach (Transition trans in transForCurrentState)
-            {
-                EpsilonClosureForState(trans.EndState, states);
-            }
-        }
 
         private void MoveVertex(string vertex, List<string> source, List<string> destination)
         {
