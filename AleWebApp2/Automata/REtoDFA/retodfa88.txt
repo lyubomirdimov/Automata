@@ -1,16 +1,13 @@
-# *(.(*(b),c))
+# *(.(c,*(c)))
 
-alphabet: bc
+alphabet: c
 states: 0,1,2
-final: 2
-transitions:
-0,b --> 1
-0,c --> 2
-1,b --> 1
+final: 1,2
+
+dfa: y
+finite: n
+transitions: 
+0,c --> 1
 1,c --> 2
-2,b --> 1
 2,c --> 2
 end.
-
-dfa:y
-finite:n

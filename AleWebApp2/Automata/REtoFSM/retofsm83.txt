@@ -1,0 +1,20 @@
+# |(b,d)
+
+alphabet: bd
+states: qi819,qf819,qi820,qf820,qi821,qf821
+final: qf819
+
+dfa: n
+finite: y
+transitions: 
+qi820,b --> qf820
+qi821,d --> qf821
+qi819,_ --> qi820
+qi819,_ --> qi821
+qf820,_ --> qf819
+qf821,_ --> qf819
+end.
+
+words: 
+b,y
+end.

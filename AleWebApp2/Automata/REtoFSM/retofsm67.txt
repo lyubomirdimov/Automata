@@ -1,16 +1,16 @@
-# .(b,b)
+# .(a,a)
 
-alphabet: b
-states: qi379,qi380,qf380
-final: qf380
-transitions:
-qi379,b --> qi380
-qi380,b --> qf380
+alphabet: a
+states: qi699,qi700,qf700
+final: qf700
+
+dfa: n
+finite: y
+transitions: 
+qi699,a --> qi700
+qi700,a --> qf700
 end.
 
-dfa:n
-finite:y
-
-words:
-bb,y
+words: 
+aa,y
 end.

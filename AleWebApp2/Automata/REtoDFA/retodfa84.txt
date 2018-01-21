@@ -1,0 +1,22 @@
+# .(d,c)
+
+alphabet: dc
+states: 0,1,2,3
+final: 3
+
+dfa: y
+finite: y
+transitions: 
+0,d --> 1
+0,c --> 2
+1,d --> 2
+1,c --> 3
+2,d --> 2
+2,c --> 2
+3,d --> 2
+3,c --> 2
+end.
+
+words: 
+dc,y
+end.

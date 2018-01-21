@@ -1,16 +1,36 @@
-# .(*(b),b)
+# |(.(*(|(|(b,|(a,c)),c)),d),_)
 
-alphabet: b
-states: qi2,qi3,qf3,qi4,qf4
-final: qf4
-transitions:
-qi3,b --> qf3
-qi2,_ --> qi4
-qi2,_ --> qi3
-qf3,_ --> qi4
-qf3,_ --> qi3
-qi4,b --> qf4
+alphabet: bacd
+states: qi1,qf1,qi4,qf4,qi5,qf5,qi6,qf6,qi7,qf7,qi8,qf8,qi9,qf9,qi10,qf10,qi3,qi11,qf11,qi12,qf12
+final: qf1
+
+dfa: n
+finite: n
+transitions: 
+qi6,b --> qf6
+qi8,a --> qf8
+qi9,c --> qf9
+qi7,_ --> qi8
+qi7,_ --> qi9
+qf8,_ --> qf7
+qf9,_ --> qf7
+qi5,_ --> qi6
+qi5,_ --> qi7
+qf6,_ --> qf5
+qf7,_ --> qf5
+qi10,c --> qf10
+qi4,_ --> qi5
+qi4,_ --> qi10
+qf5,_ --> qf4
+qf10,_ --> qf4
+qi3,_ --> qi11
+qi3,_ --> qi4
+qf4,_ --> qi11
+qf4,_ --> qi4
+qi11,d --> qf11
+qi12,_ --> qf12
+qi1,_ --> qi3
+qi1,_ --> qi12
+qf11,_ --> qf1
+qf12,_ --> qf1
 end.
-
-dfa:n
-finite:n

@@ -1,0 +1,20 @@
+# |(a,_)
+
+alphabet: a
+states: qi773,qf773,qi774,qf774,qi775,qf775
+final: qf773
+
+dfa: n
+finite: y
+transitions: 
+qi774,a --> qf774
+qi775,_ --> qf775
+qi773,_ --> qi774
+qi773,_ --> qi775
+qf774,_ --> qf773
+qf775,_ --> qf773
+end.
+
+words: 
+a,y
+end.

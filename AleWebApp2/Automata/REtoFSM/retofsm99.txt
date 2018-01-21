@@ -1,0 +1,15 @@
+# *(a)
+
+alphabet: a
+states: qi1061,qi1062,qf1062,qf1061
+final: qf1061
+
+dfa: n
+finite: n
+transitions: 
+qi1062,a --> qf1062
+qi1061,_ --> qf1061
+qi1061,_ --> qi1062
+qf1062,_ --> qf1061
+qf1062,_ --> qi1062
+end.

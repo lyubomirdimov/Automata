@@ -1,70 +1,19 @@
-# |(.(a,|(|(.(*(.(.(.(_,.(*(.(d,b)),|(|(|(_,|(*(c),a)),b),_))),b),c)),c),|(c,d)),b)),_)
+# *(_)
 
-alphabet: adbc
-states: qi146,qf146,qi148,qi149,qf149,qi150,qf150,qi156,qi160,qi161,qf161,qi158,qi162,qi163,qf163,qi164,qf164,qi165,qf165,qi166,qf166,qi168,qf168,qi167,qf167,qi169,qf169,qi170,qf170,qi171,qf171,qi172,qi173,qf173,qi152,qi174,qf174,qi175,qf175,qi176,qf176,qi177,qf177,qi178,qf178,qi179,qf179
-final: qf146
-transitions:
-qi148,a --> qi149
-qi156,_ --> qi158
-qi160,d --> qi161
-qi161,b --> qf161
-qi158,_ --> qi162
-qi158,_ --> qi160
-qf161,_ --> qi162
-qf161,_ --> qi160
-qi165,_ --> qf165
-qi168,c --> qf168
-qi167,_ --> qf167
-qi167,_ --> qi168
-qf168,_ --> qf167
-qf168,_ --> qi168
-qi169,a --> qf169
-qi166,_ --> qi167
-qi166,_ --> qi169
-qf167,_ --> qf166
-qf169,_ --> qf166
-qi164,_ --> qi165
-qi164,_ --> qi166
-qf165,_ --> qf164
-qf166,_ --> qf164
-qi170,b --> qf170
-qi163,_ --> qi164
-qi163,_ --> qi170
-qf164,_ --> qf163
-qf170,_ --> qf163
-qi171,_ --> qf171
-qi162,_ --> qi163
-qi162,_ --> qi171
-qf163,_ --> qi172
-qf171,_ --> qi172
-qi172,b --> qi173
-qi173,c --> qf173
-qi152,_ --> qi174
-qi152,_ --> qi156
-qf173,_ --> qi174
-qf173,_ --> qi156
-qi174,c --> qf174
-qi176,c --> qf176
-qi177,d --> qf177
-qi175,_ --> qi176
-qi175,_ --> qi177
-qf176,_ --> qf175
-qf177,_ --> qf175
-qi150,_ --> qi152
-qi150,_ --> qi175
-qf174,_ --> qf150
-qf175,_ --> qf150
-qi178,b --> qf178
-qi149,_ --> qi150
-qi149,_ --> qi178
-qf150,_ --> qf149
-qf178,_ --> qf149
-qi179,_ --> qf179
-qi146,_ --> qi148
-qi146,_ --> qi179
-qf149,_ --> qf146
-qf179,_ --> qf146
+alphabet: 
+states: qi338,qi339,qf339,qf338
+final: qf338
+
+dfa: n
+finite: y
+transitions: 
+qi339,_ --> qf339
+qi338,_ --> qf338
+qi338,_ --> qi339
+qf339,_ --> qf338
+qf339,_ --> qi339
 end.
 
-dfa:n
-finite:n
+words: 
+,y
+end.

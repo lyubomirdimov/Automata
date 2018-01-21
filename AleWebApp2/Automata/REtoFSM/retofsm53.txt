@@ -1,0 +1,21 @@
+# .(c,|(d,*(b)))
+
+alphabet: cdb
+states: qi556,qi557,qf557,qi558,qf558,qi560,qf560,qi559,qf559
+final: qf557
+
+dfa: n
+finite: n
+transitions: 
+qi556,c --> qi557
+qi558,d --> qf558
+qi560,b --> qf560
+qi559,_ --> qf559
+qi559,_ --> qi560
+qf560,_ --> qf559
+qf560,_ --> qi560
+qi557,_ --> qi558
+qi557,_ --> qi559
+qf558,_ --> qf557
+qf559,_ --> qf557
+end.

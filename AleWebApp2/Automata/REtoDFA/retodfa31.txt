@@ -1,12 +1,22 @@
-# .(_,*(b))
+# .(b,c)
 
-alphabet: b
-states: 0,1
-final: 1
-transitions:
+alphabet: bc
+states: 0,1,2,3
+final: 3
+
+dfa: y
+finite: y
+transitions: 
 0,b --> 1
-1,b --> 1
+0,c --> 2
+1,b --> 2
+1,c --> 3
+2,b --> 2
+2,c --> 2
+3,b --> 2
+3,c --> 2
 end.
 
-dfa:y
-finite:n
+words: 
+bc,y
+end.

@@ -1,20 +1,24 @@
-# |(c,_)
+# *(|(*(c),d))
 
-alphabet: c
-states: qi123,qf123,qi124,qf124,qi125,qf125
-final: qf123
-transitions:
-qi124,c --> qf124
-qi125,_ --> qf125
-qi123,_ --> qi124
-qi123,_ --> qi125
-qf124,_ --> qf123
-qf125,_ --> qf123
-end.
+alphabet: cd
+states: qi316,qi317,qf317,qi319,qf319,qi318,qf318,qi320,qf320,qf316
+final: qf316
 
-dfa:n
-finite:y
-
-words:
-c,y
+dfa: n
+finite: n
+transitions: 
+qi319,c --> qf319
+qi318,_ --> qf318
+qi318,_ --> qi319
+qf319,_ --> qf318
+qf319,_ --> qi319
+qi320,d --> qf320
+qi317,_ --> qi318
+qi317,_ --> qi320
+qf318,_ --> qf317
+qf320,_ --> qf317
+qi316,_ --> qf316
+qi316,_ --> qi317
+qf317,_ --> qf316
+qf317,_ --> qi317
 end.

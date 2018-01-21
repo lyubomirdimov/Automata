@@ -125,24 +125,24 @@ namespace Automata
             builder.AppendLine($"alphabet: {string.Join("", fsm.Alphabet)}");
             builder.AppendLine($"states: {fsm.InitialState},{String.Join(",", fsm.States.Where(x => x != fsm.InitialState).ToArray())}");
             builder.AppendLine($"final: {String.Join(",", fsm.FinalStates.ToArray())}");
-            builder.AppendLine($"transitions:");
+
+            builder.AppendLine();
+            builder.AppendLine("dfa: " + (fsm.IsDFA() ? "y" : "n"));
+            builder.AppendLine("finite: " + (fsm.IsInfinite() ? "n" : "y"));
+
+            builder.AppendLine($"transitions: ");
             foreach (var transition in fsm.Transitions)
             {
                 builder.AppendLine(transition.ToPrefixString());
             }
             builder.AppendLine("end.");
 
-            builder.AppendLine();
-            builder.AppendLine("dfa:" + (fsm.IsDFA() ? "y" : "n"));
-            builder.AppendLine("finite:" + (fsm.IsInfinite() ? "n" : "y"));
-
-
             List<string> acceptedWords = fsm.AcceptedWords();
 
             if (acceptedWords.Any())
             {
                 builder.AppendLine();
-                builder.AppendLine("words:");
+                builder.AppendLine("words: ");
                 foreach (string acceptedWord in acceptedWords)
                 {
                     builder.AppendLine($"{acceptedWord},y");
@@ -288,16 +288,19 @@ namespace Automata
             builder.AppendLine($"stack: {string.Join("", pda.StackAlphabet)}");
             builder.AppendLine($"states: {pda.InitialState},{String.Join(",", pda.States.Where(x => x != pda.InitialState).ToArray())}");
             builder.AppendLine($"final: {String.Join(",", pda.FinalStates.ToArray())}");
-            builder.AppendLine($"transitions:");
+
+
+            builder.AppendLine();
+            builder.AppendLine("dfa: n");
+            builder.AppendLine("finite: n");
+
+            builder.AppendLine($"transitions: ");
             foreach (var transition in pda.Transitions)
             {
                 builder.AppendLine(transition.ToPrefixString());
             }
             builder.AppendLine("end.");
 
-            builder.AppendLine();
-            builder.AppendLine("dfa:n");
-            builder.AppendLine("finite:n");
 
 
             File.WriteAllText(path, builder.ToString());
@@ -307,6 +310,7 @@ namespace Automata
     }
     public class FSMFileObject
     {
+        public string Comment { get; set; }
         public FiniteStateAutomaton FSM { get; set; }
         public bool IsDfa { get; set; }
         public bool IsFinite { get; set; }

@@ -51,6 +51,7 @@ namespace Automata
             if (States.Any() == false) return false;
             if (InitialState == null) return false;
             if (FinalStates.Any() == false) return false;
+            if (Alphabet.Any() == false && Transitions.Any()) return false;
 
             foreach (string state in States)
             {
@@ -461,7 +462,7 @@ namespace Automata
 
             List<string> inRecursionSet = new List<string>();
 
-            AcceptedWords(InitialState, currentInput, result, terminating,inRecursionSet);
+            AcceptedWords(InitialState, currentInput, result, terminating, inRecursionSet);
 
             return result;
         }
@@ -470,7 +471,7 @@ namespace Automata
         /// Returns all accepted words. 
         /// Important notice: Method assumes that the NFA is Finite
         /// </summary>
-        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating,List<string> inRecursion)
+        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating, List<string> inRecursion)
         {
             if (IsFinalState(state) && words.Contains(currentInput) == false)
                 words.Add(currentInput);
@@ -484,9 +485,9 @@ namespace Automata
             foreach (Transition transition in transitions)
             {
                 // Epsilon Loop prevention
-                if(inRecursion.Contains(transition.EndState)) continue;
+                if (inRecursion.Contains(transition.EndState)) continue;
 
-                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating,inRecursion);
+                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating, inRecursion);
             }
 
         }

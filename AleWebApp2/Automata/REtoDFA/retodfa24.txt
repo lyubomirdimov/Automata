@@ -1,15 +1,23 @@
-# _
+# |(.(_,|(_,c)),d)
 
-alphabet: 
-states: qi149,qf149
-final: qf149
-transitions:
-qi149,_ --> qf149
+alphabet: cd
+states: 0,1,2,3
+final: 1,2
+
+dfa: y
+finite: y
+transitions: 
+0,c --> 1
+0,d --> 2
+1,c --> 3
+1,d --> 3
+2,c --> 3
+2,d --> 3
+3,c --> 3
+3,d --> 3
 end.
 
-dfa:y
-finite:y
-
-words:
-,y
+words: 
+c,y
+d,y
 end.

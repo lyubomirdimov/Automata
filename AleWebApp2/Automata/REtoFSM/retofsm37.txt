@@ -1,0 +1,15 @@
+# *(b)
+
+alphabet: b
+states: qi368,qi369,qf369,qf368
+final: qf368
+
+dfa: n
+finite: n
+transitions: 
+qi369,b --> qf369
+qi368,_ --> qf368
+qi368,_ --> qi369
+qf369,_ --> qf368
+qf369,_ --> qi369
+end.

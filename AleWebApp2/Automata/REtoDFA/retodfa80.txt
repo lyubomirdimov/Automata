@@ -1,22 +1,12 @@
-# |(|(*(.(d,d)),|(_,a)),d)
+# *(a)
 
-alphabet: da
-states: 0,1,2,3,4,5
-final: 1,2,3
-transitions:
-0,d --> 1
-0,a --> 2
-1,d --> 3
-1,a --> 4
-2,d --> 4
-2,a --> 4
-3,d --> 5
-3,a --> 4
-4,d --> 4
-4,a --> 4
-5,d --> 3
-5,a --> 4
+alphabet: a
+states: 0,1
+final: 1
+
+dfa: y
+finite: n
+transitions: 
+0,a --> 1
+1,a --> 1
 end.
-
-dfa:y
-finite:n

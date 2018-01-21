@@ -1,17 +1,36 @@
-# .(d,.(c,*(a)))
+# .(|(.(d,*(a)),b),|(a,|(b,*(c))))
 
-alphabet: dca
-states: qi43,qi45,qi47,qf47,qi46,qf46
-final: qf46
-transitions:
-qi43,d --> qi45
-qi45,c --> qi46
-qi47,a --> qf47
-qi46,_ --> qf46
-qi46,_ --> qi47
-qf47,_ --> qf46
-qf47,_ --> qi47
+alphabet: dabc
+states: qi186,qi188,qi190,qf190,qi189,qf189,qi191,qf191,qi192,qf192,qi193,qf193,qi194,qf194,qi195,qf195,qi197,qf197,qi196,qf196
+final: qf192
+
+dfa: n
+finite: n
+transitions: 
+qi188,d --> qi189
+qi190,a --> qf190
+qi189,_ --> qf189
+qi189,_ --> qi190
+qf190,_ --> qf189
+qf190,_ --> qi190
+qi191,b --> qf191
+qi186,_ --> qi188
+qi186,_ --> qi191
+qf189,_ --> qi192
+qf191,_ --> qi192
+qi193,a --> qf193
+qi195,b --> qf195
+qi197,c --> qf197
+qi196,_ --> qf196
+qi196,_ --> qi197
+qf197,_ --> qf196
+qf197,_ --> qi197
+qi194,_ --> qi195
+qi194,_ --> qi196
+qf195,_ --> qf194
+qf196,_ --> qf194
+qi192,_ --> qi193
+qi192,_ --> qi194
+qf193,_ --> qf192
+qf194,_ --> qf192
 end.
-
-dfa:n
-finite:n

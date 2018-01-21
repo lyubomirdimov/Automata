@@ -1,0 +1,22 @@
+# .(*(c),|(b,.(d,d)))
+
+alphabet: cbd
+states: qi304,qi305,qf305,qi306,qf306,qi307,qf307,qi309,qi310,qf310
+final: qf306
+
+dfa: n
+finite: n
+transitions: 
+qi305,c --> qf305
+qi304,_ --> qi306
+qi304,_ --> qi305
+qf305,_ --> qi306
+qf305,_ --> qi305
+qi307,b --> qf307
+qi309,d --> qi310
+qi310,d --> qf310
+qi306,_ --> qi307
+qi306,_ --> qi309
+qf307,_ --> qf306
+qf310,_ --> qf306
+end.

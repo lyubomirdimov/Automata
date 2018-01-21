@@ -1,0 +1,15 @@
+# a
+
+alphabet: a
+states: qi772,qf772
+final: qf772
+
+dfa: n
+finite: y
+transitions: 
+qi772,a --> qf772
+end.
+
+words: 
+a,y
+end.

@@ -1,25 +1,25 @@
-# |(_,|(*(b),b))
+# |(*(c),|(_,b))
 
-alphabet: b
-states: qi510,qf510,qi511,qf511,qi512,qf512,qi514,qf514,qi513,qf513,qi515,qf515
-final: qf510
-transitions:
-qi511,_ --> qf511
-qi514,b --> qf514
-qi513,_ --> qf513
-qi513,_ --> qi514
-qf514,_ --> qf513
-qf514,_ --> qi514
-qi515,b --> qf515
-qi512,_ --> qi513
-qi512,_ --> qi515
-qf513,_ --> qf512
-qf515,_ --> qf512
-qi510,_ --> qi511
-qi510,_ --> qi512
-qf511,_ --> qf510
-qf512,_ --> qf510
+alphabet: cb
+states: qi945,qf945,qi947,qf947,qi946,qf946,qi948,qf948,qi949,qf949,qi950,qf950
+final: qf945
+
+dfa: n
+finite: n
+transitions: 
+qi947,c --> qf947
+qi946,_ --> qf946
+qi946,_ --> qi947
+qf947,_ --> qf946
+qf947,_ --> qi947
+qi949,_ --> qf949
+qi950,b --> qf950
+qi948,_ --> qi949
+qi948,_ --> qi950
+qf949,_ --> qf948
+qf950,_ --> qf948
+qi945,_ --> qi946
+qi945,_ --> qi948
+qf946,_ --> qf945
+qf948,_ --> qf945
 end.
-
-dfa:n
-finite:n

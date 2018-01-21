@@ -1,33 +1,25 @@
-# |(_,.(d,.(c,|(.(.(d,*(_)),c),a))))
+# .(.(|(.(b,b),.(b,_)),c),.(a,c))
 
-alphabet: dca
-states: qi91,qf91,qi92,qf92,qi94,qi96,qi97,qf97,qi100,qi102,qf102,qi101,qi103,qf103,qi104,qf104
-final: qf91
-transitions:
-qi92,_ --> qf92
-qi94,d --> qi96
-qi96,c --> qi97
-qi100,d --> qi101
-qi102,_ --> qf102
-qi101,_ --> qi103
-qi101,_ --> qi102
-qf102,_ --> qi103
-qf102,_ --> qi102
-qi103,c --> qf103
-qi104,a --> qf104
-qi97,_ --> qi100
-qi97,_ --> qi104
-qf103,_ --> qf97
-qf104,_ --> qf97
-qi91,_ --> qi92
-qi91,_ --> qi94
-qf92,_ --> qf91
-qf97,_ --> qf91
+alphabet: bca
+states: qi292,qi294,qi295,qf295,qi297,qi298,qf298,qi299,qi301,qi302,qf302
+final: qf302
+
+dfa: n
+finite: y
+transitions: 
+qi294,b --> qi295
+qi295,b --> qf295
+qi297,b --> qi298
+qi298,_ --> qf298
+qi292,_ --> qi294
+qi292,_ --> qi297
+qf295,_ --> qi299
+qf298,_ --> qi299
+qi299,c --> qi301
+qi301,a --> qi302
+qi302,c --> qf302
 end.
 
-dfa:n
-finite:y
-
-words:
-,y
+words: 
+bbcac,y
 end.

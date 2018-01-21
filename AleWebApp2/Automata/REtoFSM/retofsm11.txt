@@ -1,0 +1,15 @@
+# *(a)
+
+alphabet: a
+states: qi113,qi114,qf114,qf113
+final: qf113
+
+dfa: n
+finite: n
+transitions: 
+qi114,a --> qf114
+qi113,_ --> qf113
+qi113,_ --> qi114
+qf114,_ --> qf113
+qf114,_ --> qi114
+end.

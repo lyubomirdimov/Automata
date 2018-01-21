@@ -1,0 +1,20 @@
+# |(_,b)
+
+alphabet: b
+states: qi214,qf214,qi215,qf215,qi216,qf216
+final: qf214
+
+dfa: n
+finite: y
+transitions: 
+qi215,_ --> qf215
+qi216,b --> qf216
+qi214,_ --> qi215
+qi214,_ --> qi216
+qf215,_ --> qf214
+qf216,_ --> qf214
+end.
+
+words: 
+,y
+end.

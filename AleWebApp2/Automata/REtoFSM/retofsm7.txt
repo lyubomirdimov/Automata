@@ -1,0 +1,25 @@
+# |(|(b,a),a)
+
+alphabet: ba
+states: qi81,qf81,qi82,qf82,qi83,qf83,qi84,qf84,qi85,qf85
+final: qf81
+
+dfa: n
+finite: y
+transitions: 
+qi83,b --> qf83
+qi84,a --> qf84
+qi82,_ --> qi83
+qi82,_ --> qi84
+qf83,_ --> qf82
+qf84,_ --> qf82
+qi85,a --> qf85
+qi81,_ --> qi82
+qi81,_ --> qi85
+qf82,_ --> qf81
+qf85,_ --> qf81
+end.
+
+words: 
+b,y
+end.

@@ -1,16 +1,16 @@
 # .(d,a)
 
 alphabet: da
-states: qi413,qi414,qf414
-final: qf414
-transitions:
-qi413,d --> qi414
-qi414,a --> qf414
+states: qi790,qi791,qf791
+final: qf791
+
+dfa: n
+finite: y
+transitions: 
+qi790,d --> qi791
+qi791,a --> qf791
 end.
 
-dfa:n
-finite:y
-
-words:
+words: 
 da,y
 end.

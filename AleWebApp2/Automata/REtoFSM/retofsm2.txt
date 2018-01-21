@@ -1,0 +1,20 @@
+# |(_,*(d))
+
+alphabet: d
+states: qi21,qf21,qi22,qf22,qi24,qf24,qi23,qf23
+final: qf21
+
+dfa: n
+finite: n
+transitions: 
+qi22,_ --> qf22
+qi24,d --> qf24
+qi23,_ --> qf23
+qi23,_ --> qi24
+qf24,_ --> qf23
+qf24,_ --> qi24
+qi21,_ --> qi22
+qi21,_ --> qi23
+qf22,_ --> qf21
+qf23,_ --> qf21
+end.

@@ -1,25 +1,18 @@
-# .(_,.(.(.(d,.(b,_)),*(a)),a))
+# |(*(a),d)
 
-alphabet: dba
-states: 0,1,2,3,4
-final: 4
-transitions:
-0,d --> 1
-0,b --> 2
-0,a --> 2
-1,d --> 2
-1,b --> 3
-1,a --> 2
-2,d --> 2
-2,b --> 2
-2,a --> 2
-3,d --> 2
-3,b --> 2
-3,a --> 4
-4,d --> 2
-4,b --> 2
-4,a --> 4
+alphabet: ad
+states: 0,1,2,3
+final: 1,2
+
+dfa: y
+finite: n
+transitions: 
+0,a --> 1
+0,d --> 2
+1,a --> 1
+1,d --> 3
+2,a --> 3
+2,d --> 3
+3,a --> 3
+3,d --> 3
 end.
-
-dfa:y
-finite:n

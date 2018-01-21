@@ -1,0 +1,16 @@
+# .(b,_)
+
+alphabet: b
+states: qi336,qi337,qf337
+final: qf337
+
+dfa: n
+finite: y
+transitions: 
+qi336,b --> qi337
+qi337,_ --> qf337
+end.
+
+words: 
+b,y
+end.

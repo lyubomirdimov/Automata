@@ -1,0 +1,20 @@
+# .(d,*(_))
+
+alphabet: d
+states: qi441,qi443,qf443,qi442,qf442
+final: qf442
+
+dfa: n
+finite: y
+transitions: 
+qi441,d --> qi442
+qi443,_ --> qf443
+qi442,_ --> qf442
+qi442,_ --> qi443
+qf443,_ --> qf442
+qf443,_ --> qi443
+end.
+
+words: 
+d,y
+end.

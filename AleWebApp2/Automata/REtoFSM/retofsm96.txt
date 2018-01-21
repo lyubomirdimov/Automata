@@ -1,17 +1,15 @@
-# .(.(a,a),d)
+# *(b)
 
-alphabet: ad
-states: qi519,qi520,qi521,qf521
-final: qf521
-transitions:
-qi519,a --> qi520
-qi520,a --> qi521
-qi521,d --> qf521
-end.
+alphabet: b
+states: qi953,qi954,qf954,qf953
+final: qf953
 
-dfa:n
-finite:y
-
-words:
-aad,y
+dfa: n
+finite: n
+transitions: 
+qi954,b --> qf954
+qi953,_ --> qf953
+qi953,_ --> qi954
+qf954,_ --> qf953
+qf954,_ --> qi954
 end.

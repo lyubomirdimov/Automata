@@ -1,0 +1,21 @@
+# .(|(_,c),b)
+
+alphabet: cb
+states: qi777,qi778,qf778,qi779,qf779,qi780,qf780
+final: qf780
+
+dfa: n
+finite: y
+transitions: 
+qi778,_ --> qf778
+qi779,c --> qf779
+qi777,_ --> qi778
+qi777,_ --> qi779
+qf778,_ --> qi780
+qf779,_ --> qi780
+qi780,b --> qf780
+end.
+
+words: 
+b,y
+end.

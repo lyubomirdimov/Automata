@@ -1,0 +1,20 @@
+# .(.(*(b),c),b)
+
+alphabet: bc
+states: 0,1,2,3,4
+final: 3
+
+dfa: y
+finite: n
+transitions: 
+0,b --> 1
+0,c --> 2
+1,b --> 1
+1,c --> 2
+2,b --> 3
+2,c --> 4
+3,b --> 4
+3,c --> 4
+4,b --> 4
+4,c --> 4
+end.

@@ -1,0 +1,15 @@
+# *(a)
+
+alphabet: a
+states: qi217,qi218,qf218,qf217
+final: qf217
+
+dfa: n
+finite: n
+transitions: 
+qi218,a --> qf218
+qi217,_ --> qf217
+qi217,_ --> qi218
+qf218,_ --> qf217
+qf218,_ --> qi218
+end.

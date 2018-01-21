@@ -1,31 +1,16 @@
-# |(.(|(*(b),_),c),|(a,_))
+# .(_,b)
 
-alphabet: bca
-states: qi355,qf355,qi357,qi359,qf359,qi358,qf358,qi360,qf360,qi361,qf361,qi362,qf362,qi363,qf363,qi364,qf364
-final: qf355
-transitions:
-qi359,b --> qf359
-qi358,_ --> qf358
-qi358,_ --> qi359
-qf359,_ --> qf358
-qf359,_ --> qi359
-qi360,_ --> qf360
-qi357,_ --> qi358
-qi357,_ --> qi360
-qf358,_ --> qi361
-qf360,_ --> qi361
-qi361,c --> qf361
-qi363,a --> qf363
-qi364,_ --> qf364
-qi362,_ --> qi363
-qi362,_ --> qi364
-qf363,_ --> qf362
-qf364,_ --> qf362
-qi355,_ --> qi357
-qi355,_ --> qi362
-qf361,_ --> qf355
-qf362,_ --> qf355
+alphabet: b
+states: qi688,qi689,qf689
+final: qf689
+
+dfa: n
+finite: y
+transitions: 
+qi688,_ --> qi689
+qi689,b --> qf689
 end.
 
-dfa:n
-finite:n
+words: 
+b,y
+end.

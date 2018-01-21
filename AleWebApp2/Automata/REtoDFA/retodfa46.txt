@@ -1,31 +1,12 @@
-# .(*(.(b,a)),.(|(*(a),.(_,a)),c))
+# .(*(.(a,_)),a)
 
-alphabet: bac
-states: 0,1,2,3,4,5,6
-final: 3
-transitions:
-0,b --> 1
-0,a --> 2
-0,c --> 3
-1,b --> 4
-1,a --> 5
-1,c --> 4
-2,b --> 4
-2,a --> 6
-2,c --> 3
-3,b --> 4
-3,a --> 4
-3,c --> 4
-4,b --> 4
-4,a --> 4
-4,c --> 4
-5,b --> 1
-5,a --> 2
-5,c --> 3
-6,b --> 4
-6,a --> 6
-6,c --> 3
+alphabet: a
+states: 0,1
+final: 1
+
+dfa: y
+finite: n
+transitions: 
+0,a --> 1
+1,a --> 1
 end.
-
-dfa:y
-finite:n

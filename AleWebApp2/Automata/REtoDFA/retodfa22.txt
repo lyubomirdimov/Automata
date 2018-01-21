@@ -1,12 +1,12 @@
-# *(.(_,*(d)))
+# *(c)
 
-alphabet: d
+alphabet: c
 states: 0,1
 final: 1
-transitions:
-0,d --> 1
-1,d --> 1
-end.
 
-dfa:y
-finite:n
+dfa: y
+finite: n
+transitions: 
+0,c --> 1
+1,c --> 1
+end.

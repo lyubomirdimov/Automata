@@ -1,0 +1,26 @@
+# .(|(_,*(.(c,*(d)))),d)
+
+alphabet: cd
+states: qi324,qi325,qf325,qi328,qi330,qf330,qi329,qf329,qi326,qf326,qi331,qf331
+final: qf331
+
+dfa: n
+finite: n
+transitions: 
+qi325,_ --> qf325
+qi328,c --> qi329
+qi330,d --> qf330
+qi329,_ --> qf329
+qi329,_ --> qi330
+qf330,_ --> qf329
+qf330,_ --> qi330
+qi326,_ --> qf326
+qi326,_ --> qi328
+qf329,_ --> qf326
+qf329,_ --> qi328
+qi324,_ --> qi325
+qi324,_ --> qi326
+qf325,_ --> qi331
+qf326,_ --> qi331
+qi331,d --> qf331
+end.

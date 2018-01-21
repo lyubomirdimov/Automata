@@ -1,0 +1,24 @@
+# *(|(_,_))
+
+alphabet: 
+states: qi620,qi621,qf621,qi622,qf622,qi623,qf623,qf620
+final: qf620
+
+dfa: n
+finite: y
+transitions: 
+qi622,_ --> qf622
+qi623,_ --> qf623
+qi621,_ --> qi622
+qi621,_ --> qi623
+qf622,_ --> qf621
+qf623,_ --> qf621
+qi620,_ --> qf620
+qi620,_ --> qi621
+qf621,_ --> qf620
+qf621,_ --> qi621
+end.
+
+words: 
+,y
+end.

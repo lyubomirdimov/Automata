@@ -1,17 +1,20 @@
-# |(a,a)
+# |(d,|(*(b),b))
 
-alphabet: a
-states: 0,1,2
-final: 1
-transitions:
-0,a --> 1
-1,a --> 2
-2,a --> 2
-end.
+alphabet: db
+states: 0,1,2,3,4
+final: 1,2,4
 
-dfa:y
-finite:y
-
-words:
-a,y
+dfa: y
+finite: n
+transitions: 
+0,d --> 1
+0,b --> 2
+1,d --> 3
+1,b --> 3
+2,d --> 3
+2,b --> 4
+3,d --> 3
+3,b --> 3
+4,d --> 3
+4,b --> 4
 end.

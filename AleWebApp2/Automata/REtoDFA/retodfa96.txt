@@ -1,0 +1,12 @@
+# .(|(_,*(c)),c)
+
+alphabet: c
+states: 0,1
+final: 1
+
+dfa: y
+finite: n
+transitions: 
+0,c --> 1
+1,c --> 1
+end.

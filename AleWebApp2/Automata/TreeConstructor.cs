@@ -79,7 +79,7 @@ namespace Automata
                 return new Node(Guid.NewGuid(), new Token(chars[r]));
             }
             counter++;
-            Node node = new Node(Guid.NewGuid(), RandomToken());
+            Node node = new Node(Guid.NewGuid(), RandomToken(counter));
 
             if (node.Token.IsOperation)
             {
@@ -102,10 +102,14 @@ namespace Automata
             return node;
         }
 
-        private static Token RandomToken()
+        private static Token RandomToken(int counter)
         {
             List<char> chars;
-            if (PreviousKleeineStar)
+            if (counter == 1)
+            {
+                chars = "|.*".ToList();
+            }
+            else if (PreviousKleeineStar)
             {
                 chars = "|.abcd_|.".ToList();
             }

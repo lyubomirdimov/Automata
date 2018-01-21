@@ -1,0 +1,26 @@
+# |(.(|(_,*(a)),c),c)
+
+alphabet: ac
+states: qi13,qf13,qi15,qi16,qf16,qi18,qf18,qi17,qf17,qi19,qf19,qi20,qf20
+final: qf13
+
+dfa: n
+finite: n
+transitions: 
+qi16,_ --> qf16
+qi18,a --> qf18
+qi17,_ --> qf17
+qi17,_ --> qi18
+qf18,_ --> qf17
+qf18,_ --> qi18
+qi15,_ --> qi16
+qi15,_ --> qi17
+qf16,_ --> qi19
+qf17,_ --> qi19
+qi19,c --> qf19
+qi20,c --> qf20
+qi13,_ --> qi15
+qi13,_ --> qi20
+qf19,_ --> qf13
+qf20,_ --> qf13
+end.

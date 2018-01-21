@@ -1,0 +1,16 @@
+# .(_,*(d))
+
+alphabet: d
+states: qi87,qi89,qf89,qi88,qf88
+final: qf88
+
+dfa: n
+finite: n
+transitions: 
+qi87,_ --> qi88
+qi89,d --> qf89
+qi88,_ --> qf88
+qi88,_ --> qi89
+qf89,_ --> qf88
+qf89,_ --> qi89
+end.

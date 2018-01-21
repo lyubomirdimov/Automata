@@ -1,0 +1,20 @@
+# |(_,c)
+
+alphabet: c
+states: qi587,qf587,qi588,qf588,qi589,qf589
+final: qf587
+
+dfa: n
+finite: y
+transitions: 
+qi588,_ --> qf588
+qi589,c --> qf589
+qi587,_ --> qi588
+qi587,_ --> qi589
+qf588,_ --> qf587
+qf589,_ --> qf587
+end.
+
+words: 
+,y
+end.

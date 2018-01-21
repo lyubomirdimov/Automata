@@ -1,0 +1,42 @@
+# |(|(*(|(.(*(.(a,c)),.(b,_)),d)),.(*(d),b)),a)
+
+alphabet: acbd
+states: qi406,qf406,qi407,qf407,qi409,qf409,qi413,qi414,qf414,qi411,qi416,qi417,qf417,qi418,qf418,qi408,qf408,qi421,qf421,qi420,qi422,qf422,qi423,qf423
+final: qf406
+
+dfa: n
+finite: n
+transitions: 
+qi413,a --> qi414
+qi414,c --> qf414
+qi411,_ --> qi416
+qi411,_ --> qi413
+qf414,_ --> qi416
+qf414,_ --> qi413
+qi416,b --> qi417
+qi417,_ --> qf417
+qi418,d --> qf418
+qi409,_ --> qi411
+qi409,_ --> qi418
+qf417,_ --> qf409
+qf418,_ --> qf409
+qi408,_ --> qf408
+qi408,_ --> qi409
+qf409,_ --> qf408
+qf409,_ --> qi409
+qi421,d --> qf421
+qi420,_ --> qi422
+qi420,_ --> qi421
+qf421,_ --> qi422
+qf421,_ --> qi421
+qi422,b --> qf422
+qi407,_ --> qi408
+qi407,_ --> qi420
+qf408,_ --> qf407
+qf422,_ --> qf407
+qi423,a --> qf423
+qi406,_ --> qi407
+qi406,_ --> qi423
+qf407,_ --> qf406
+qf423,_ --> qf406
+end.

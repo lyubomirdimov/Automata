@@ -1,0 +1,15 @@
+# *(c)
+
+alphabet: c
+states: qi25,qi26,qf26,qf25
+final: qf25
+
+dfa: n
+finite: n
+transitions: 
+qi26,c --> qf26
+qi25,_ --> qf25
+qi25,_ --> qi26
+qf26,_ --> qf25
+qf26,_ --> qi26
+end.

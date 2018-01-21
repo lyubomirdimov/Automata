@@ -1,18 +1,20 @@
-# .(c,c)
+# .(.(_,a),.(d,*(a)))
 
-alphabet: c
-states: 0,1,2,3
-final: 2
-transitions:
-0,c --> 1
-1,c --> 2
-2,c --> 3
-3,c --> 3
-end.
+alphabet: ad
+states: 0,1,2,3,4
+final: 3,4
 
-dfa:y
-finite:y
-
-words:
-cc,y
+dfa: y
+finite: n
+transitions: 
+0,a --> 1
+0,d --> 2
+1,a --> 2
+1,d --> 3
+2,a --> 2
+2,d --> 2
+3,a --> 4
+3,d --> 2
+4,a --> 4
+4,d --> 2
 end.

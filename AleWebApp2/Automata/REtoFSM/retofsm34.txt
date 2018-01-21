@@ -1,0 +1,16 @@
+# .(b,b)
+
+alphabet: b
+states: qi356,qi357,qf357
+final: qf357
+
+dfa: n
+finite: y
+transitions: 
+qi356,b --> qi357
+qi357,b --> qf357
+end.
+
+words: 
+bb,y
+end.

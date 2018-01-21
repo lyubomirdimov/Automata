@@ -1,20 +1,20 @@
-# |(b,_)
+# |(d,d)
 
-alphabet: b
-states: qi49,qf49,qi50,qf50,qi51,qf51
-final: qf49
-transitions:
-qi50,b --> qf50
-qi51,_ --> qf51
-qi49,_ --> qi50
-qi49,_ --> qi51
-qf50,_ --> qf49
-qf51,_ --> qf49
+alphabet: d
+states: qi200,qf200,qi201,qf201,qi202,qf202
+final: qf200
+
+dfa: n
+finite: y
+transitions: 
+qi201,d --> qf201
+qi202,d --> qf202
+qi200,_ --> qi201
+qi200,_ --> qi202
+qf201,_ --> qf200
+qf202,_ --> qf200
 end.
 
-dfa:n
-finite:y
-
-words:
-b,y
+words: 
+d,y
 end.

@@ -1,0 +1,22 @@
+# .(.(_,|(a,*(c))),_)
+
+alphabet: ac
+states: qi360,qi361,qi362,qf362,qi364,qf364,qi363,qf363,qi365,qf365
+final: qf365
+
+dfa: n
+finite: n
+transitions: 
+qi360,_ --> qi361
+qi362,a --> qf362
+qi364,c --> qf364
+qi363,_ --> qf363
+qi363,_ --> qi364
+qf364,_ --> qf363
+qf364,_ --> qi364
+qi361,_ --> qi362
+qi361,_ --> qi363
+qf362,_ --> qi365
+qf363,_ --> qi365
+qi365,_ --> qf365
+end.

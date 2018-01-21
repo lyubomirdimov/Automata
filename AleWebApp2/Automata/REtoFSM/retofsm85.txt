@@ -1,45 +1,15 @@
-# |(*(.(|(d,.(.(c,b),a)),|(c,|(.(_,a),.(c,_))))),|(d,d))
+# *(c)
 
-alphabet: dcba
-states: qi463,qf463,qi466,qi467,qf467,qi470,qi471,qi472,qf472,qi473,qf473,qi474,qf474,qi475,qf475,qi477,qi478,qf478,qi480,qi481,qf481,qi464,qf464,qi482,qf482,qi483,qf483,qi484,qf484
-final: qf463
-transitions:
-qi467,d --> qf467
-qi470,c --> qi471
-qi471,b --> qi472
-qi472,a --> qf472
-qi466,_ --> qi467
-qi466,_ --> qi470
-qf467,_ --> qi473
-qf472,_ --> qi473
-qi474,c --> qf474
-qi477,_ --> qi478
-qi478,a --> qf478
-qi480,c --> qi481
-qi481,_ --> qf481
-qi475,_ --> qi477
-qi475,_ --> qi480
-qf478,_ --> qf475
-qf481,_ --> qf475
-qi473,_ --> qi474
-qi473,_ --> qi475
-qf474,_ --> qf473
-qf475,_ --> qf473
-qi464,_ --> qf464
-qi464,_ --> qi466
-qf473,_ --> qf464
-qf473,_ --> qi466
-qi483,d --> qf483
-qi484,d --> qf484
-qi482,_ --> qi483
-qi482,_ --> qi484
-qf483,_ --> qf482
-qf484,_ --> qf482
-qi463,_ --> qi464
-qi463,_ --> qi482
-qf464,_ --> qf463
-qf482,_ --> qf463
+alphabet: c
+states: qi826,qi827,qf827,qf826
+final: qf826
+
+dfa: n
+finite: n
+transitions: 
+qi827,c --> qf827
+qi826,_ --> qf826
+qi826,_ --> qi827
+qf827,_ --> qf826
+qf827,_ --> qi827
 end.
-
-dfa:n
-finite:n

@@ -1,20 +1,22 @@
-# |(c,d)
+# .(a,.(c,|(b,b)))
 
-alphabet: cd
-states: qi450,qf450,qi451,qf451,qi452,qf452
-final: qf450
-transitions:
-qi451,c --> qf451
-qi452,d --> qf452
-qi450,_ --> qi451
-qi450,_ --> qi452
-qf451,_ --> qf450
-qf452,_ --> qf450
+alphabet: acb
+states: qi800,qi802,qi803,qf803,qi804,qf804,qi805,qf805
+final: qf803
+
+dfa: n
+finite: y
+transitions: 
+qi800,a --> qi802
+qi802,c --> qi803
+qi804,b --> qf804
+qi805,b --> qf805
+qi803,_ --> qi804
+qi803,_ --> qi805
+qf804,_ --> qf803
+qf805,_ --> qf803
 end.
 
-dfa:n
-finite:y
-
-words:
-c,y
+words: 
+acb,y
 end.

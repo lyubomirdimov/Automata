@@ -1,23 +1,17 @@
-# |(c,a)
+# .(*(_),a)
 
-alphabet: ca
-states: 0,1,2,3
-final: 1,2
-transitions:
-0,c --> 1
-0,a --> 2
-1,c --> 3
-1,a --> 3
-2,c --> 3
-2,a --> 3
-3,c --> 3
-3,a --> 3
+alphabet: a
+states: 0,1,2
+final: 1
+
+dfa: y
+finite: y
+transitions: 
+0,a --> 1
+1,a --> 2
+2,a --> 2
 end.
 
-dfa:y
-finite:y
-
-words:
-c,y
+words: 
 a,y
 end.

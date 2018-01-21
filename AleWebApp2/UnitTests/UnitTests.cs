@@ -21,6 +21,8 @@ namespace UnitTests
         public List<FSMFileObject> FSMFileObjects { get; set; } = new List<FSMFileObject>();
         private static string FsmFolderPath = @"../../../../Automata/FSMs/";
         private static string PDAFolderPath = @"../../../../Automata/PDAs";
+        private static string REtoFSMFolderPath = @"../../../../Automata/REtoFSM/";
+        private static string REtoDFAFolderPath = @"../../../../Automata/REtoDFA/";
 
         public UnitTests()
         {
@@ -48,15 +50,59 @@ namespace UnitTests
         public void IsDFATest()
         {
 
-            foreach (var fsm in RegexToFSM.Where(x => x.IsDFA))
-            {
-                Assert.IsTrue(fsm.FSM.IsDFA());
-            }
             foreach (var automaton in RegexToDFA)
             {
                 Assert.IsTrue(automaton.FSM.IsDFA());
             }
+            foreach (var fsm in RegexToFSM.Where(x => x.IsDFA))
+            {
+                Assert.IsTrue(fsm.FSM.IsDFA());
+            }
 
+            // Manual FSM
+            DirectoryInfo fsmDirectory = new DirectoryInfo(FsmFolderPath);
+
+            FSMFileObjects = new List<FSMFileObject>();
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+
+            foreach (var fsmFileObject in FSMFileObjects)
+            {
+                Assert.IsTrue(fsmFileObject.IsDfa == fsmFileObject.FSM.IsDFA());
+            }
+
+            // RE to FSM
+            fsmDirectory = new DirectoryInfo(REtoFSMFolderPath);
+
+            FSMFileObjects = new List<FSMFileObject>();
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+
+            for (var i = 0; i < FSMFileObjects.Count; i++)
+            {
+                var fsmFileObject = FSMFileObjects[i];
+                Assert.IsTrue(fsmFileObject.IsDfa == fsmFileObject.FSM.IsDFA());
+            }
+
+
+            // RE to DFA
+            fsmDirectory = new DirectoryInfo(REtoDFAFolderPath);
+
+            FSMFileObjects = new List<FSMFileObject>();
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+
+            for (var i = 0; i < FSMFileObjects.Count; i++)
+            {
+                var fsmFileObject = FSMFileObjects[i];
+                Assert.IsTrue(fsmFileObject.IsDfa == fsmFileObject.FSM.IsDFA());
+            }
         }
 
         [TestMethod]
@@ -76,6 +122,62 @@ namespace UnitTests
             {
                 Assert.IsTrue(fsmTestVector.Words.SequenceEqual(fsmTestVector.FSM.AcceptedWords()));
             }
+            foreach (var automaton in RegexToDFA)
+            {
+                Assert.IsTrue(automaton.Words.SequenceEqual(automaton.FSM.AcceptedWords()));
+            }
+
+
+            // Manual FSM
+            DirectoryInfo fsmDirectory = new DirectoryInfo(FsmFolderPath);
+
+            FSMFileObjects = new List<FSMFileObject>();
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+
+            foreach (var fsmFileObject in FSMFileObjects)
+            {
+                foreach (var acceptedWord in fsmFileObject.AcceptedWords)
+                {
+                    fsmFileObject.FSM.Accepts(acceptedWord);
+                }
+            }
+
+            // RE to FSM
+            fsmDirectory = new DirectoryInfo(REtoFSMFolderPath);
+
+            FSMFileObjects = new List<FSMFileObject>();
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+            foreach (var fsmFileObject in FSMFileObjects)
+            {
+                foreach (var acceptedWord in fsmFileObject.AcceptedWords)
+                {
+                    fsmFileObject.FSM.Accepts(acceptedWord);
+                }
+            }
+
+
+            // RE to DFA
+            fsmDirectory = new DirectoryInfo(REtoDFAFolderPath);
+
+            FSMFileObjects = new List<FSMFileObject>();
+            foreach (FileInfo file in fsmDirectory.GetFiles("*.txt"))
+            {
+                FSMFileObjects.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+
+            foreach (var fsmFileObject in FSMFileObjects)
+            {
+                foreach (var acceptedWord in fsmFileObject.AcceptedWords)
+                {
+                    fsmFileObject.FSM.Accepts(acceptedWord);
+                }
+            }
         }
 
 
@@ -91,12 +193,21 @@ namespace UnitTests
                 Assert.IsTrue(nfa.InitialState.Equals(regexToFsm.FSM.InitialState));
                 Assert.IsTrue(nfa.FinalStates.SequenceEqual(regexToFsm.FSM.FinalStates));
             }
+
         }
 
         [TestMethod]
         public void TestRegexToDfa()
         {
-
+            foreach (var regexToFsm in RegexToDFA)
+            {
+                FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regexToFsm.regex);
+                FiniteStateAutomaton dfa = nfa.ToDfa();
+                Assert.IsTrue(dfa.Alphabet.SequenceEqual(regexToFsm.FSM.Alphabet));
+                Assert.IsTrue(dfa.States.SequenceEqual(regexToFsm.FSM.States));
+                Assert.IsTrue(dfa.InitialState.Equals(regexToFsm.FSM.InitialState));
+                Assert.IsTrue(dfa.FinalStates.SequenceEqual(regexToFsm.FSM.FinalStates));
+            }
         }
 
         [TestMethod]
@@ -124,8 +235,10 @@ namespace UnitTests
             }
         }
 
+       
+
         [TestMethod]
-        public void TestManualPdas()
+        public void TestPDAAccepts()
         {
             DirectoryInfo pdaDirectory = new DirectoryInfo(PDAFolderPath);
 
@@ -149,7 +262,6 @@ namespace UnitTests
                 }
             }
         }
-
     }
 
     public class FSMTestVector

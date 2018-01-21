@@ -1,0 +1,16 @@
+# .(a,_)
+
+alphabet: a
+states: qi119,qi120,qf120
+final: qf120
+
+dfa: n
+finite: y
+transitions: 
+qi119,a --> qi120
+qi120,_ --> qf120
+end.
+
+words: 
+a,y
+end.

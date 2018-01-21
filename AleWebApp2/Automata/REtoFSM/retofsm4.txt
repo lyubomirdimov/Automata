@@ -1,0 +1,87 @@
+# *(|(|(*(|(*(_),.(|(a,|(c,a)),|(b,|(a,*(_)))))),|(.(c,|(|(*(b),.(d,.(b,_))),.(.(a,c),c))),d)),a))
+
+alphabet: acbd
+states: qi27,qi28,qf28,qi29,qf29,qi31,qf31,qi33,qf33,qi32,qf32,qi35,qi36,qf36,qi37,qf37,qi38,qf38,qi39,qf39,qi40,qf40,qi41,qf41,qi42,qf42,qi43,qf43,qi45,qf45,qi44,qf44,qi30,qf30,qi46,qf46,qi48,qi49,qf49,qi50,qf50,qi52,qf52,qi51,qf51,qi54,qi56,qi57,qf57,qi60,qi61,qi62,qf62,qi63,qf63,qi64,qf64,qf27
+final: qf27
+
+dfa: n
+finite: n
+transitions: 
+qi33,_ --> qf33
+qi32,_ --> qf32
+qi32,_ --> qi33
+qf33,_ --> qf32
+qf33,_ --> qi33
+qi36,a --> qf36
+qi38,c --> qf38
+qi39,a --> qf39
+qi37,_ --> qi38
+qi37,_ --> qi39
+qf38,_ --> qf37
+qf39,_ --> qf37
+qi35,_ --> qi36
+qi35,_ --> qi37
+qf36,_ --> qi40
+qf37,_ --> qi40
+qi41,b --> qf41
+qi43,a --> qf43
+qi45,_ --> qf45
+qi44,_ --> qf44
+qi44,_ --> qi45
+qf45,_ --> qf44
+qf45,_ --> qi45
+qi42,_ --> qi43
+qi42,_ --> qi44
+qf43,_ --> qf42
+qf44,_ --> qf42
+qi40,_ --> qi41
+qi40,_ --> qi42
+qf41,_ --> qf40
+qf42,_ --> qf40
+qi31,_ --> qi32
+qi31,_ --> qi35
+qf32,_ --> qf31
+qf40,_ --> qf31
+qi30,_ --> qf30
+qi30,_ --> qi31
+qf31,_ --> qf30
+qf31,_ --> qi31
+qi48,c --> qi49
+qi52,b --> qf52
+qi51,_ --> qf51
+qi51,_ --> qi52
+qf52,_ --> qf51
+qf52,_ --> qi52
+qi54,d --> qi56
+qi56,b --> qi57
+qi57,_ --> qf57
+qi50,_ --> qi51
+qi50,_ --> qi54
+qf51,_ --> qf50
+qf57,_ --> qf50
+qi60,a --> qi61
+qi61,c --> qi62
+qi62,c --> qf62
+qi49,_ --> qi50
+qi49,_ --> qi60
+qf50,_ --> qf49
+qf62,_ --> qf49
+qi63,d --> qf63
+qi46,_ --> qi48
+qi46,_ --> qi63
+qf49,_ --> qf46
+qf63,_ --> qf46
+qi29,_ --> qi30
+qi29,_ --> qi46
+qf30,_ --> qf29
+qf46,_ --> qf29
+qi64,a --> qf64
+qi28,_ --> qi29
+qi28,_ --> qi64
+qf29,_ --> qf28
+qf64,_ --> qf28
+qi27,_ --> qf27
+qi27,_ --> qi28
+qf28,_ --> qf27
+qf28,_ --> qi28
+end.

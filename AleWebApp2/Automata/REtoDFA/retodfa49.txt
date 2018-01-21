@@ -1,18 +1,18 @@
-# .(*(a),b)
+# .(c,c)
 
-alphabet: ab
+alphabet: c
 states: 0,1,2,3
 final: 2
-transitions:
-0,a --> 1
-0,b --> 2
-1,a --> 1
-1,b --> 2
-2,a --> 3
-2,b --> 3
-3,a --> 3
-3,b --> 3
+
+dfa: y
+finite: y
+transitions: 
+0,c --> 1
+1,c --> 2
+2,c --> 3
+3,c --> 3
 end.
 
-dfa:y
-finite:n
+words: 
+cc,y
+end.

@@ -1,0 +1,31 @@
+# .(|(d,|(|(c,c),d)),d)
+
+alphabet: dc
+states: qi807,qi808,qf808,qi809,qf809,qi810,qf810,qi811,qf811,qi812,qf812,qi813,qf813,qi814,qf814
+final: qf814
+
+dfa: n
+finite: y
+transitions: 
+qi808,d --> qf808
+qi811,c --> qf811
+qi812,c --> qf812
+qi810,_ --> qi811
+qi810,_ --> qi812
+qf811,_ --> qf810
+qf812,_ --> qf810
+qi813,d --> qf813
+qi809,_ --> qi810
+qi809,_ --> qi813
+qf810,_ --> qf809
+qf813,_ --> qf809
+qi807,_ --> qi808
+qi807,_ --> qi809
+qf808,_ --> qi814
+qf809,_ --> qi814
+qi814,d --> qf814
+end.
+
+words: 
+dd,y
+end.

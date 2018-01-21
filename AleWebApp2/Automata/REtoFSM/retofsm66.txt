@@ -1,40 +1,26 @@
-# *(|(b,.(|(c,|(d,|(_,d))),*(c))))
+# |(_,|(b,.(c,*(d))))
 
 alphabet: bcd
-states: qi365,qi366,qf366,qi367,qf367,qi369,qi370,qf370,qi371,qf371,qi372,qf372,qi373,qf373,qi374,qf374,qi375,qf375,qi377,qf377,qi376,qf376,qf365
-final: qf365
-transitions:
-qi367,b --> qf367
-qi370,c --> qf370
-qi372,d --> qf372
-qi374,_ --> qf374
-qi375,d --> qf375
-qi373,_ --> qi374
-qi373,_ --> qi375
-qf374,_ --> qf373
-qf375,_ --> qf373
-qi371,_ --> qi372
-qi371,_ --> qi373
-qf372,_ --> qf371
-qf373,_ --> qf371
-qi369,_ --> qi370
-qi369,_ --> qi371
-qf370,_ --> qi376
-qf371,_ --> qi376
-qi377,c --> qf377
-qi376,_ --> qf376
-qi376,_ --> qi377
-qf377,_ --> qf376
-qf377,_ --> qi377
-qi366,_ --> qi367
-qi366,_ --> qi369
-qf367,_ --> qf366
-qf376,_ --> qf366
-qi365,_ --> qf365
-qi365,_ --> qi366
-qf366,_ --> qf365
-qf366,_ --> qi366
-end.
+states: qi690,qf690,qi691,qf691,qi692,qf692,qi693,qf693,qi695,qi697,qf697,qi696,qf696
+final: qf690
 
-dfa:n
-finite:n
+dfa: n
+finite: n
+transitions: 
+qi691,_ --> qf691
+qi693,b --> qf693
+qi695,c --> qi696
+qi697,d --> qf697
+qi696,_ --> qf696
+qi696,_ --> qi697
+qf697,_ --> qf696
+qf697,_ --> qi697
+qi692,_ --> qi693
+qi692,_ --> qi695
+qf693,_ --> qf692
+qf696,_ --> qf692
+qi690,_ --> qi691
+qi690,_ --> qi692
+qf691,_ --> qf690
+qf692,_ --> qf690
+end.

@@ -1,17 +1,18 @@
-# .(_,a)
+# .(b,b)
 
-alphabet: a
-states: 0,1,2
-final: 1
-transitions:
-0,a --> 1
-1,a --> 2
-2,a --> 2
+alphabet: b
+states: 0,1,2,3
+final: 2
+
+dfa: y
+finite: y
+transitions: 
+0,b --> 1
+1,b --> 2
+2,b --> 3
+3,b --> 3
 end.
 
-dfa:y
-finite:y
-
-words:
-a,y
+words: 
+bb,y
 end.

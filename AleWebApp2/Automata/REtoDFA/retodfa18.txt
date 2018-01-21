@@ -1,18 +1,22 @@
-# |(.(c,*(a)),_)
+# *(|(*(a),|(.(*(b),.(_,*(b))),d)))
 
-alphabet: ca
+alphabet: abd
 states: 0,1,2,3
-final: 1,3
-transitions:
-0,c --> 1
-0,a --> 2
-1,c --> 2
-1,a --> 3
-2,c --> 2
-2,a --> 2
-3,c --> 2
-3,a --> 3
-end.
+final: 1,2,3
 
-dfa:y
-finite:n
+dfa: y
+finite: n
+transitions: 
+0,a --> 1
+0,b --> 2
+0,d --> 3
+1,a --> 1
+1,b --> 2
+1,d --> 3
+2,a --> 1
+2,b --> 2
+2,d --> 3
+3,a --> 1
+3,b --> 2
+3,d --> 3
+end.

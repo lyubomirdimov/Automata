@@ -1,0 +1,30 @@
+# |(*(_),.(a,|(a,c)))
+
+alphabet: ac
+states: qi535,qf535,qi537,qf537,qi536,qf536,qi539,qi540,qf540,qi541,qf541,qi542,qf542
+final: qf535
+
+dfa: n
+finite: y
+transitions: 
+qi537,_ --> qf537
+qi536,_ --> qf536
+qi536,_ --> qi537
+qf537,_ --> qf536
+qf537,_ --> qi537
+qi539,a --> qi540
+qi541,a --> qf541
+qi542,c --> qf542
+qi540,_ --> qi541
+qi540,_ --> qi542
+qf541,_ --> qf540
+qf542,_ --> qf540
+qi535,_ --> qi536
+qi535,_ --> qi539
+qf536,_ --> qf535
+qf540,_ --> qf535
+end.
+
+words: 
+,y
+end.

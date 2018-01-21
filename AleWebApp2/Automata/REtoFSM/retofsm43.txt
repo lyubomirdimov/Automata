@@ -1,0 +1,26 @@
+# .(|(d,a),|(d,_))
+
+alphabet: da
+states: qi434,qi435,qf435,qi436,qf436,qi437,qf437,qi438,qf438,qi439,qf439
+final: qf437
+
+dfa: n
+finite: y
+transitions: 
+qi435,d --> qf435
+qi436,a --> qf436
+qi434,_ --> qi435
+qi434,_ --> qi436
+qf435,_ --> qi437
+qf436,_ --> qi437
+qi438,d --> qf438
+qi439,_ --> qf439
+qi437,_ --> qi438
+qi437,_ --> qi439
+qf438,_ --> qf437
+qf439,_ --> qf437
+end.
+
+words: 
+dd,y
+end.

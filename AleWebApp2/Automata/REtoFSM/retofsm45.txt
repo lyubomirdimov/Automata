@@ -1,15 +1,48 @@
-# _
+# .(.(_,|(|(a,.(|(.(*(_),|(a,_)),_),|(*(d),c))),c)),_)
 
-alphabet: 
-states: qi199,qf199
-final: qf199
-transitions:
-qi199,_ --> qf199
-end.
+alphabet: adc
+states: qi446,qi447,qi448,qf448,qi449,qf449,qi451,qi454,qf454,qi453,qi455,qf455,qi456,qf456,qi457,qf457,qi458,qf458,qi459,qf459,qi461,qf461,qi460,qf460,qi462,qf462,qi463,qf463,qi464,qf464
+final: qf464
 
-dfa:y
-finite:y
-
-words:
-,y
+dfa: n
+finite: n
+transitions: 
+qi446,_ --> qi447
+qi449,a --> qf449
+qi454,_ --> qf454
+qi453,_ --> qi455
+qi453,_ --> qi454
+qf454,_ --> qi455
+qf454,_ --> qi454
+qi456,a --> qf456
+qi457,_ --> qf457
+qi455,_ --> qi456
+qi455,_ --> qi457
+qf456,_ --> qf455
+qf457,_ --> qf455
+qi458,_ --> qf458
+qi451,_ --> qi453
+qi451,_ --> qi458
+qf455,_ --> qi459
+qf458,_ --> qi459
+qi461,d --> qf461
+qi460,_ --> qf460
+qi460,_ --> qi461
+qf461,_ --> qf460
+qf461,_ --> qi461
+qi462,c --> qf462
+qi459,_ --> qi460
+qi459,_ --> qi462
+qf460,_ --> qf459
+qf462,_ --> qf459
+qi448,_ --> qi449
+qi448,_ --> qi451
+qf449,_ --> qf448
+qf459,_ --> qf448
+qi463,c --> qf463
+qi447,_ --> qi448
+qi447,_ --> qi463
+qf448,_ --> qi464
+qf463,_ --> qi464
+qi464,_ --> qf464
 end.

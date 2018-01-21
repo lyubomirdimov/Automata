@@ -1,0 +1,20 @@
+# |(d,a)
+
+alphabet: da
+states: qi681,qf681,qi682,qf682,qi683,qf683
+final: qf681
+
+dfa: n
+finite: y
+transitions: 
+qi682,d --> qf682
+qi683,a --> qf683
+qi681,_ --> qi682
+qi681,_ --> qi683
+qf682,_ --> qf681
+qf683,_ --> qf681
+end.
+
+words: 
+d,y
+end.

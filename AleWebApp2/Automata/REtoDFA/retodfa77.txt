@@ -1,18 +1,20 @@
-# |(*(b),a)
+# *(.(.(_,_),|(*(.(b,a)),a)))
 
 alphabet: ba
-states: 0,1,2,3
-final: 1,2
-transitions:
+states: 0,1,2,3,4
+final: 2,4
+
+dfa: y
+finite: n
+transitions: 
 0,b --> 1
 0,a --> 2
-1,b --> 1
-1,a --> 3
-2,b --> 3
-2,a --> 3
+1,b --> 3
+1,a --> 4
+2,b --> 1
+2,a --> 2
 3,b --> 3
 3,a --> 3
+4,b --> 1
+4,a --> 2
 end.
-
-dfa:y
-finite:n

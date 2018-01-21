@@ -1,0 +1,16 @@
+# *(.(b,_))
+
+alphabet: b
+states: qi203,qi205,qi206,qf206,qf203
+final: qf203
+
+dfa: n
+finite: n
+transitions: 
+qi205,b --> qi206
+qi206,_ --> qf206
+qi203,_ --> qf203
+qi203,_ --> qi205
+qf206,_ --> qf203
+qf206,_ --> qi205
+end.

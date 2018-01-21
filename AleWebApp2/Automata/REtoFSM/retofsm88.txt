@@ -1,0 +1,20 @@
+# |(c,_)
+
+alphabet: c
+states: qi913,qf913,qi914,qf914,qi915,qf915
+final: qf913
+
+dfa: n
+finite: y
+transitions: 
+qi914,c --> qf914
+qi915,_ --> qf915
+qi913,_ --> qi914
+qi913,_ --> qi915
+qf914,_ --> qf913
+qf915,_ --> qf913
+end.
+
+words: 
+c,y
+end.
