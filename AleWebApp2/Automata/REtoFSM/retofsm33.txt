@@ -1,0 +1,26 @@
+# .(c,.(|(*(_),b),_))
+
+alphabet: cb
+states: qi181,qi183,qi185,qf185,qi184,qf184,qi186,qf186,qi187,qf187
+final: qf187
+transitions:
+qi181,c --> qi183
+qi185,_ --> qf185
+qi184,_ --> qf184
+qi184,_ --> qi185
+qf185,_ --> qf184
+qf185,_ --> qi185
+qi186,b --> qf186
+qi183,_ --> qi184
+qi183,_ --> qi186
+qf184,_ --> qi187
+qf186,_ --> qi187
+qi187,_ --> qf187
+end.
+
+dfa:n
+finite:y
+
+words:
+c,y
+end.

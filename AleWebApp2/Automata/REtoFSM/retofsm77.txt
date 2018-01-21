@@ -1,0 +1,26 @@
+# |(.(b,c),|(d,b))
+
+alphabet: bcd
+states: qi415,qf415,qi417,qi418,qf418,qi419,qf419,qi420,qf420,qi421,qf421
+final: qf415
+transitions:
+qi417,b --> qi418
+qi418,c --> qf418
+qi420,d --> qf420
+qi421,b --> qf421
+qi419,_ --> qi420
+qi419,_ --> qi421
+qf420,_ --> qf419
+qf421,_ --> qf419
+qi415,_ --> qi417
+qi415,_ --> qi419
+qf418,_ --> qf415
+qf419,_ --> qf415
+end.
+
+dfa:n
+finite:y
+
+words:
+bc,y
+end.

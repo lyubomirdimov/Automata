@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Automata\Automata.csproj" />
+    <ProjectReference Include="..\UnitTests\UnitTests.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,16 @@
+# .(*(d),a)
+
+alphabet: da
+states: qi234,qi235,qf235,qi236,qf236
+final: qf236
+transitions:
+qi235,d --> qf235
+qi234,_ --> qi236
+qi234,_ --> qi235
+qf235,_ --> qi236
+qf235,_ --> qi235
+qi236,a --> qf236
+end.
+
+dfa:n
+finite:n

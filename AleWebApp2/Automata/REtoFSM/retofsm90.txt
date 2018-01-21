@@ -1,0 +1,40 @@
+# |(_,|(|(c,|(|(d,a),c)),c))
+
+alphabet: cda
+states: qi494,qf494,qi495,qf495,qi496,qf496,qi497,qf497,qi498,qf498,qi499,qf499,qi500,qf500,qi501,qf501,qi502,qf502,qi503,qf503,qi504,qf504
+final: qf494
+transitions:
+qi495,_ --> qf495
+qi498,c --> qf498
+qi501,d --> qf501
+qi502,a --> qf502
+qi500,_ --> qi501
+qi500,_ --> qi502
+qf501,_ --> qf500
+qf502,_ --> qf500
+qi503,c --> qf503
+qi499,_ --> qi500
+qi499,_ --> qi503
+qf500,_ --> qf499
+qf503,_ --> qf499
+qi497,_ --> qi498
+qi497,_ --> qi499
+qf498,_ --> qf497
+qf499,_ --> qf497
+qi504,c --> qf504
+qi496,_ --> qi497
+qi496,_ --> qi504
+qf497,_ --> qf496
+qf504,_ --> qf496
+qi494,_ --> qi495
+qi494,_ --> qi496
+qf495,_ --> qf494
+qf496,_ --> qf494
+end.
+
+dfa:n
+finite:y
+
+words:
+,y
+end.

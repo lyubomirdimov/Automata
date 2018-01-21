@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="REtoDFA\" />
+    <Folder Include="REtoFSM\" />
     <Folder Include="PDAs\" />
   </ItemGroup>
 

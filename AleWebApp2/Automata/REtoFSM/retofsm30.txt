@@ -1,0 +1,34 @@
+# |(.(.(.(.(.(*(|(*(b),b)),d),_),b),_),d),c)
+
+alphabet: bdc
+states: qi128,qf128,qi135,qf135,qi137,qf137,qi136,qf136,qi138,qf138,qi134,qi139,qi140,qi141,qi142,qi143,qf143,qi144,qf144
+final: qf128
+transitions:
+qi137,b --> qf137
+qi136,_ --> qf136
+qi136,_ --> qi137
+qf137,_ --> qf136
+qf137,_ --> qi137
+qi138,b --> qf138
+qi135,_ --> qi136
+qi135,_ --> qi138
+qf136,_ --> qf135
+qf138,_ --> qf135
+qi134,_ --> qi139
+qi134,_ --> qi135
+qf135,_ --> qi139
+qf135,_ --> qi135
+qi139,d --> qi140
+qi140,_ --> qi141
+qi141,b --> qi142
+qi142,_ --> qi143
+qi143,d --> qf143
+qi144,c --> qf144
+qi128,_ --> qi134
+qi128,_ --> qi144
+qf143,_ --> qf128
+qf144,_ --> qf128
+end.
+
+dfa:n
+finite:n

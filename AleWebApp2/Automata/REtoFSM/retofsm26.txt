@@ -1,0 +1,34 @@
+# .(*(.(_,|(b,*(.(d,.(d,a)))))),.(|(_,_),b))
+
+alphabet: bda
+states: qi107,qi109,qi110,qf110,qi111,qf111,qi114,qi116,qi117,qf117,qi112,qf112,qi119,qi120,qf120,qi121,qf121,qi122,qf122
+final: qf122
+transitions:
+qi109,_ --> qi110
+qi111,b --> qf111
+qi114,d --> qi116
+qi116,d --> qi117
+qi117,a --> qf117
+qi112,_ --> qf112
+qi112,_ --> qi114
+qf117,_ --> qf112
+qf117,_ --> qi114
+qi110,_ --> qi111
+qi110,_ --> qi112
+qf111,_ --> qf110
+qf112,_ --> qf110
+qi107,_ --> qi119
+qi107,_ --> qi109
+qf110,_ --> qi119
+qf110,_ --> qi109
+qi120,_ --> qf120
+qi121,_ --> qf121
+qi119,_ --> qi120
+qi119,_ --> qi121
+qf120,_ --> qi122
+qf121,_ --> qi122
+qi122,b --> qf122
+end.
+
+dfa:n
+finite:n

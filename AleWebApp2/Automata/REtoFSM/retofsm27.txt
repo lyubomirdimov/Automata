@@ -1,0 +1,20 @@
+# |(c,_)
+
+alphabet: c
+states: qi123,qf123,qi124,qf124,qi125,qf125
+final: qf123
+transitions:
+qi124,c --> qf124
+qi125,_ --> qf125
+qi123,_ --> qi124
+qi123,_ --> qi125
+qf124,_ --> qf123
+qf125,_ --> qf123
+end.
+
+dfa:n
+finite:y
+
+words:
+c,y
+end.

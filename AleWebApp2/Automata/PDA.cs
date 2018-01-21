@@ -94,14 +94,6 @@ namespace Automata
             {
                 if (IsFinalState(currentState) && !stack.Any())
                     return true;
-
-                //function = Transitions.Find(x => x.StartState == currentState && x.InputSymbol == Constants.Epsilon && x.StackTopSymbol == Constants.Epsilon);
-                //if (function == null)
-                //    return IsFinalState(currentState) && !stack.Any();
-
-                //pushSymbols = function.PushSymbols.Where(c => c != Constants.Epsilon).ToList();
-                //pushSymbols.ForEach(stack.Push);
-                //return Accepts(input, function.EndState, stack);
             }
 
             // Halted
@@ -113,27 +105,6 @@ namespace Automata
         private bool IsFinalState(string state) => FinalStates.Contains(state);
 
 
-        //public override string ToString()
-        //{
-        //    StringBuilder builder = new StringBuilder();
-        //    builder.AppendLine(Comment);
-        //    builder.AppendLine();
-        //    builder.AppendLine($"alphabet: {string.Join(",", InputAlphabet)}");
-        //    builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
-        //    builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
-        //    builder.AppendLine($"transitions:");
-        //    foreach (var transition in Transitions)
-        //    {
-        //        builder.AppendLine(transition.ToString());
-        //    }
-        //    builder.AppendLine("end.");
-
-        //    builder.AppendLine();
-        //    builder.AppendLine("dfa:n");
-        //    builder.AppendLine("finite:n");
-
-
-        //    return builder.ToString();
-        //}
+     
     }
 }

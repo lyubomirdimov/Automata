@@ -446,6 +446,7 @@ namespace Automata
 
         public List<string> AcceptedWords()
         {
+
             if (IsInfinite())
                 return new List<string>();
 
@@ -458,7 +459,9 @@ namespace Automata
             List<string> terminating = new List<string>(recheable);
             terminating = GetStatesReachingFinalState(terminating);
 
-            AcceptedWords(InitialState, currentInput, result, terminating);
+            List<string> inRecursionSet = new List<string>();
+
+            AcceptedWords(InitialState, currentInput, result, terminating,inRecursionSet);
 
             return result;
         }
@@ -467,11 +470,12 @@ namespace Automata
         /// Returns all accepted words. 
         /// Important notice: Method assumes that the NFA is Finite
         /// </summary>
-        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating)
+        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating,List<string> inRecursion)
         {
-            if (IsFinalState(state))
+            if (IsFinalState(state) && words.Contains(currentInput) == false)
                 words.Add(currentInput);
 
+            inRecursion.Add(state);
             // Start From Initial State
             List<Transition> transitions = Transitions.Where(x => x.IsFrom(state)
                                                             && terminating.Contains(x.StartState)
@@ -479,46 +483,14 @@ namespace Automata
 
             foreach (Transition transition in transitions)
             {
-                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating);
+                // Epsilon Loop prevention
+                if(inRecursion.Contains(transition.EndState)) continue;
+
+                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating,inRecursion);
             }
 
         }
 
-        //public override string ToString()
-        //{
-        //    StringBuilder builder = new StringBuilder();
-        //    builder.AppendLine(Comment);
-        //    builder.AppendLine();
-        //    builder.AppendLine($"alphabet: {string.Join(",", Alphabet)}");
-        //    builder.AppendLine($"states: {String.Join(",", States.ToArray())}");
-        //    builder.AppendLine($"final: {String.Join(",", FinalStates.ToArray())}");
-        //    builder.AppendLine($"transitions:");
-        //    foreach (var transition in Transitions)
-        //    {
-        //        builder.AppendLine(transition.ToString());
-        //    }
-        //    builder.AppendLine("end.");
-
-        //    builder.AppendLine();
-        //    builder.AppendLine("dfa:" + (IsDFA() ? "y" : "n"));
-        //    builder.AppendLine("finite:" + (IsInfinite() ? "n" : "y"));
-
-
-        //    List<string> acceptedWords = AcceptedWords();
-
-        //    if (acceptedWords.Any())
-        //    {
-        //        builder.AppendLine();
-        //        builder.AppendLine("words:");
-        //        foreach (string acceptedWord in acceptedWords)
-        //        {
-        //            builder.AppendLine($"{acceptedWord},y");
-        //        }
-        //        builder.AppendLine("end.");
-        //    }
-
-        //    return builder.ToString();
-        //}
 
         #region Helpers
 

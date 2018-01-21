@@ -1,0 +1,21 @@
+# .(*(d),|(b,d))
+
+alphabet: db
+states: qi456,qi457,qf457,qi458,qf458,qi459,qf459,qi460,qf460
+final: qf458
+transitions:
+qi457,d --> qf457
+qi456,_ --> qi458
+qi456,_ --> qi457
+qf457,_ --> qi458
+qf457,_ --> qi457
+qi459,b --> qf459
+qi460,d --> qf460
+qi458,_ --> qi459
+qi458,_ --> qi460
+qf459,_ --> qf458
+qf460,_ --> qf458
+end.
+
+dfa:n
+finite:n

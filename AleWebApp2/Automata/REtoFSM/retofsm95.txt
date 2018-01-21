@@ -1,0 +1,15 @@
+# b
+
+alphabet: b
+states: qi516,qf516
+final: qf516
+transitions:
+qi516,b --> qf516
+end.
+
+dfa:n
+finite:y
+
+words:
+b,y
+end.

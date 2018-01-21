@@ -1,0 +1,25 @@
+# |(_,|(*(b),b))
+
+alphabet: b
+states: qi510,qf510,qi511,qf511,qi512,qf512,qi514,qf514,qi513,qf513,qi515,qf515
+final: qf510
+transitions:
+qi511,_ --> qf511
+qi514,b --> qf514
+qi513,_ --> qf513
+qi513,_ --> qi514
+qf514,_ --> qf513
+qf514,_ --> qi514
+qi515,b --> qf515
+qi512,_ --> qi513
+qi512,_ --> qi515
+qf513,_ --> qf512
+qf515,_ --> qf512
+qi510,_ --> qi511
+qi510,_ --> qi512
+qf511,_ --> qf510
+qf512,_ --> qf510
+end.
+
+dfa:n
+finite:n

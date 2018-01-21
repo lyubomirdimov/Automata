@@ -1,0 +1,18 @@
+# .(c,c)
+
+alphabet: c
+states: 0,1,2,3
+final: 2
+transitions:
+0,c --> 1
+1,c --> 2
+2,c --> 3
+3,c --> 3
+end.
+
+dfa:y
+finite:y
+
+words:
+cc,y
+end.

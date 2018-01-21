@@ -1,0 +1,21 @@
+# |(.(b,d),b)
+
+alphabet: bd
+states: qi407,qf407,qi409,qi410,qf410,qi411,qf411
+final: qf407
+transitions:
+qi409,b --> qi410
+qi410,d --> qf410
+qi411,b --> qf411
+qi407,_ --> qi409
+qi407,_ --> qi411
+qf410,_ --> qf407
+qf411,_ --> qf407
+end.
+
+dfa:n
+finite:y
+
+words:
+bd,y
+end.

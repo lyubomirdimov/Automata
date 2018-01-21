@@ -1,0 +1,16 @@
+# .(a,a)
+
+alphabet: a
+states: qi282,qi283,qf283
+final: qf283
+transitions:
+qi282,a --> qi283
+qi283,a --> qf283
+end.
+
+dfa:n
+finite:y
+
+words:
+aa,y
+end.

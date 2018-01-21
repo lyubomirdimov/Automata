@@ -1,0 +1,31 @@
+# *(|(*(|(d,.(.(d,d),c))),b))
+
+alphabet: dcb
+states: qi288,qi289,qf289,qi291,qf291,qi292,qf292,qi295,qi296,qi297,qf297,qi290,qf290,qi298,qf298,qf288
+final: qf288
+transitions:
+qi292,d --> qf292
+qi295,d --> qi296
+qi296,d --> qi297
+qi297,c --> qf297
+qi291,_ --> qi292
+qi291,_ --> qi295
+qf292,_ --> qf291
+qf297,_ --> qf291
+qi290,_ --> qf290
+qi290,_ --> qi291
+qf291,_ --> qf290
+qf291,_ --> qi291
+qi298,b --> qf298
+qi289,_ --> qi290
+qi289,_ --> qi298
+qf290,_ --> qf289
+qf298,_ --> qf289
+qi288,_ --> qf288
+qi288,_ --> qi289
+qf289,_ --> qf288
+qf289,_ --> qi289
+end.
+
+dfa:n
+finite:n

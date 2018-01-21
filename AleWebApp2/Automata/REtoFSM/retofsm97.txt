@@ -1,0 +1,16 @@
+# .(b,_)
+
+alphabet: b
+states: qi523,qi524,qf524
+final: qf524
+transitions:
+qi523,b --> qi524
+qi524,_ --> qf524
+end.
+
+dfa:n
+finite:y
+
+words:
+b,y
+end.

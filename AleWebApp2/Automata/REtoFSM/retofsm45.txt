@@ -1,0 +1,15 @@
+# _
+
+alphabet: 
+states: qi199,qf199
+final: qf199
+transitions:
+qi199,_ --> qf199
+end.
+
+dfa:y
+finite:y
+
+words:
+,y
+end.

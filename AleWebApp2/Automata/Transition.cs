@@ -20,6 +20,12 @@ namespace Automata
             return string.Format("{0},{1} --> {2}", StartState, Symbol, EndState);
         }
 
+        public string ToPrefixString()
+        {
+            char symbol = Symbol == Constants.Epsilon ? '_' : Symbol;
+            return string.Format("{0},{1} --> {2}", StartState, symbol, EndState);
+        }
+
         public bool IsFrom(string state)
         {
             return StartState == state;

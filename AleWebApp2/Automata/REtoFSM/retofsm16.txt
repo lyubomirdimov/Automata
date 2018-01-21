@@ -1,0 +1,17 @@
+# .(d,.(c,*(a)))
+
+alphabet: dca
+states: qi43,qi45,qi47,qf47,qi46,qf46
+final: qf46
+transitions:
+qi43,d --> qi45
+qi45,c --> qi46
+qi47,a --> qf47
+qi46,_ --> qf46
+qi46,_ --> qi47
+qf47,_ --> qf46
+qf47,_ --> qi47
+end.
+
+dfa:n
+finite:n

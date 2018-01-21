@@ -1,0 +1,16 @@
+# .(*(b),b)
+
+alphabet: b
+states: qi2,qi3,qf3,qi4,qf4
+final: qf4
+transitions:
+qi3,b --> qf3
+qi2,_ --> qi4
+qi2,_ --> qi3
+qf3,_ --> qi4
+qf3,_ --> qi3
+qi4,b --> qf4
+end.
+
+dfa:n
+finite:n

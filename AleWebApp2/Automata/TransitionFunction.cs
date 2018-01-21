@@ -15,18 +15,18 @@ namespace Automata
 
         public TransitionFunction()
         {
-            
+
         }
-        public TransitionFunction(string startState,char inputSymbol,string end)
+        public TransitionFunction(string startState, char inputSymbol, string end)
         {
             StartState = startState;
             InputSymbol = inputSymbol;
             StackTopSymbol = Constants.Epsilon;
-            PushSymbols = new List<char>(){Constants.Epsilon};
+            PushSymbols = new List<char>() { Constants.Epsilon };
             EndState = end;
         }
 
-        public TransitionFunction(string startState, char inputSymbol,char stackTop, List<char> pushSymbols, string end)
+        public TransitionFunction(string startState, char inputSymbol, char stackTop, List<char> pushSymbols, string end)
         {
             StartState = startState;
             InputSymbol = inputSymbol;
@@ -37,7 +37,23 @@ namespace Automata
 
         public override string ToString()
         {
-            return $"{StartState},{InputSymbol}[{StackTopSymbol}/{String.Join(",", PushSymbols.Select(o => o.ToString()).ToArray())} --> {EndState}]";
+            return $"{StartState},{InputSymbol} [{StackTopSymbol}/{String.Join(",", PushSymbols.Select(o => o.ToString()).ToArray())}] --> {EndState}";
+        }
+
+        public string ToPrefixString()
+        {
+            char inputSymbol = InputSymbol == Constants.Epsilon ? '_' : InputSymbol;
+            char stackTopSymbol = StackTopSymbol == Constants.Epsilon ? '_' : StackTopSymbol;
+            List<char> pushSymbols = new List<char>();
+            if (PushSymbols.Count == 1 && PushSymbols.Contains(Constants.Epsilon))
+            {
+                pushSymbols.Add('_');
+            }
+            else
+            {
+                pushSymbols = PushSymbols;
+            }
+            return $"{StartState},{inputSymbol} [{stackTopSymbol},{String.Join(",", pushSymbols.Select(o => o.ToString()).ToArray())}] --> {EndState}";
         }
 
         public string ToTransitionCaption()

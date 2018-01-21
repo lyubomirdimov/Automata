@@ -1,0 +1,17 @@
+# a
+
+alphabet: a
+states: 0,1,2
+final: 1
+transitions:
+0,a --> 1
+1,a --> 2
+2,a --> 2
+end.
+
+dfa:y
+finite:y
+
+words:
+a,y
+end.

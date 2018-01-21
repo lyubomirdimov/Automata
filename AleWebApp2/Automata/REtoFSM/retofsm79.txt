@@ -1,0 +1,20 @@
+# |(c,d)
+
+alphabet: cd
+states: qi450,qf450,qi451,qf451,qi452,qf452
+final: qf450
+transitions:
+qi451,c --> qf451
+qi452,d --> qf452
+qi450,_ --> qi451
+qi450,_ --> qi452
+qf451,_ --> qf450
+qf452,_ --> qf450
+end.
+
+dfa:n
+finite:y
+
+words:
+c,y
+end.

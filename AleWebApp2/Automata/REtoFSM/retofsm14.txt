@@ -1,0 +1,21 @@
+# |(.(d,*(a)),d)
+
+alphabet: da
+states: qi35,qf35,qi37,qi39,qf39,qi38,qf38,qi40,qf40
+final: qf35
+transitions:
+qi37,d --> qi38
+qi39,a --> qf39
+qi38,_ --> qf38
+qi38,_ --> qi39
+qf39,_ --> qf38
+qf39,_ --> qi39
+qi40,d --> qf40
+qi35,_ --> qi37
+qi35,_ --> qi40
+qf38,_ --> qf35
+qf40,_ --> qf35
+end.
+
+dfa:n
+finite:n

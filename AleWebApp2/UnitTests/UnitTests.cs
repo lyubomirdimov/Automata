@@ -57,8 +57,6 @@ namespace UnitTests
                 Assert.IsTrue(automaton.FSM.IsDFA());
             }
 
-            FSMFileObjects = new List<FSMFileObject>();
-            StreamReader stream = new StreamReader(@"../");
         }
 
         [TestMethod]

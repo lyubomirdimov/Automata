@@ -1,0 +1,15 @@
+# c
+
+alphabet: c
+states: qi278,qf278
+final: qf278
+transitions:
+qi278,c --> qf278
+end.
+
+dfa:n
+finite:y
+
+words:
+c,y
+end.

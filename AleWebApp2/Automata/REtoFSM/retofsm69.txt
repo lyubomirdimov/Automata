@@ -1,0 +1,30 @@
+# *(|(.(c,*(.(b,*(c)))),a))
+
+alphabet: cba
+states: qi382,qi383,qf383,qi385,qi388,qi390,qf390,qi389,qf389,qi386,qf386,qi391,qf391,qf382
+final: qf382
+transitions:
+qi385,c --> qi386
+qi388,b --> qi389
+qi390,c --> qf390
+qi389,_ --> qf389
+qi389,_ --> qi390
+qf390,_ --> qf389
+qf390,_ --> qi390
+qi386,_ --> qf386
+qi386,_ --> qi388
+qf389,_ --> qf386
+qf389,_ --> qi388
+qi391,a --> qf391
+qi383,_ --> qi385
+qi383,_ --> qi391
+qf386,_ --> qf383
+qf391,_ --> qf383
+qi382,_ --> qf382
+qi382,_ --> qi383
+qf383,_ --> qf382
+qf383,_ --> qi383
+end.
+
+dfa:n
+finite:n

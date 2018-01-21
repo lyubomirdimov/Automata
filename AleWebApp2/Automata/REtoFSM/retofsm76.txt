@@ -1,0 +1,16 @@
+# .(d,a)
+
+alphabet: da
+states: qi413,qi414,qf414
+final: qf414
+transitions:
+qi413,d --> qi414
+qi414,a --> qf414
+end.
+
+dfa:n
+finite:y
+
+words:
+da,y
+end.

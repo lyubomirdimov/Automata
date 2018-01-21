@@ -1,0 +1,18 @@
+# *(|(c,*(.(b,*(c)))))
+
+alphabet: cb
+states: 0,1,2,3
+final: 1,2,3
+transitions:
+0,c --> 1
+0,b --> 2
+1,c --> 1
+1,b --> 2
+2,c --> 3
+2,b --> 2
+3,c --> 3
+3,b --> 2
+end.
+
+dfa:y
+finite:n

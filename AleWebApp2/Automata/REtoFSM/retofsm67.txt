@@ -1,0 +1,16 @@
+# .(b,b)
+
+alphabet: b
+states: qi379,qi380,qf380
+final: qf380
+transitions:
+qi379,b --> qi380
+qi380,b --> qf380
+end.
+
+dfa:n
+finite:y
+
+words:
+bb,y
+end.

@@ -1,0 +1,21 @@
+# .(*(a),|(b,b))
+
+alphabet: ab
+states: qi402,qi403,qf403,qi404,qf404,qi405,qf405,qi406,qf406
+final: qf404
+transitions:
+qi403,a --> qf403
+qi402,_ --> qi404
+qi402,_ --> qi403
+qf403,_ --> qi404
+qf403,_ --> qi403
+qi405,b --> qf405
+qi406,b --> qf406
+qi404,_ --> qi405
+qi404,_ --> qi406
+qf405,_ --> qf404
+qf406,_ --> qf404
+end.
+
+dfa:n
+finite:n

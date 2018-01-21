@@ -1,0 +1,15 @@
+# d
+
+alphabet: d
+states: qi88,qf88
+final: qf88
+transitions:
+qi88,d --> qf88
+end.
+
+dfa:n
+finite:y
+
+words:
+d,y
+end.

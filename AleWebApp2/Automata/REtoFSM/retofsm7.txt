@@ -1,0 +1,15 @@
+# b
+
+alphabet: b
+states: qi11,qf11
+final: qf11
+transitions:
+qi11,b --> qf11
+end.
+
+dfa:n
+finite:y
+
+words:
+b,y
+end.

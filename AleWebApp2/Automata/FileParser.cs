@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Microsoft.AspNetCore.Http;
 
 namespace Automata
@@ -115,10 +116,42 @@ namespace Automata
             };
             return file;
         }
-        //public static FiniteStateAutomaton FSMToFile()
-        //{
 
-        //}
+        public static void FSMToFile(string path, FiniteStateAutomaton fsm)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"# {fsm.Comment}");
+            builder.AppendLine();
+            builder.AppendLine($"alphabet: {string.Join("", fsm.Alphabet)}");
+            builder.AppendLine($"states: {fsm.InitialState},{String.Join(",", fsm.States.Where(x => x != fsm.InitialState).ToArray())}");
+            builder.AppendLine($"final: {String.Join(",", fsm.FinalStates.ToArray())}");
+            builder.AppendLine($"transitions:");
+            foreach (var transition in fsm.Transitions)
+            {
+                builder.AppendLine(transition.ToPrefixString());
+            }
+            builder.AppendLine("end.");
+
+            builder.AppendLine();
+            builder.AppendLine("dfa:" + (fsm.IsDFA() ? "y" : "n"));
+            builder.AppendLine("finite:" + (fsm.IsInfinite() ? "n" : "y"));
+
+
+            List<string> acceptedWords = fsm.AcceptedWords();
+
+            if (acceptedWords.Any())
+            {
+                builder.AppendLine();
+                builder.AppendLine("words:");
+                foreach (string acceptedWord in acceptedWords)
+                {
+                    builder.AppendLine($"{acceptedWord},y");
+                }
+                builder.AppendLine("end.");
+            }
+            File.WriteAllText(path, builder.ToString());
+
+        }
 
         public static PdaFileObject FileToPDA(IFormFile file)
         {
@@ -245,10 +278,31 @@ namespace Automata
             };
             return fileObject;
         }
-        //public static FiniteStateAutomaton PDAToFile()
-        //{
+        public static void PDAToFile(string path, PDA pda)
+        {
 
-        //}
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"# {pda.Comment}");
+            builder.AppendLine();
+            builder.AppendLine($"alphabet: {string.Join("", pda.InputAlphabet)}");
+            builder.AppendLine($"stack: {string.Join("", pda.StackAlphabet)}");
+            builder.AppendLine($"states: {pda.InitialState},{String.Join(",", pda.States.Where(x => x != pda.InitialState).ToArray())}");
+            builder.AppendLine($"final: {String.Join(",", pda.FinalStates.ToArray())}");
+            builder.AppendLine($"transitions:");
+            foreach (var transition in pda.Transitions)
+            {
+                builder.AppendLine(transition.ToPrefixString());
+            }
+            builder.AppendLine("end.");
+
+            builder.AppendLine();
+            builder.AppendLine("dfa:n");
+            builder.AppendLine("finite:n");
+
+
+            File.WriteAllText(path, builder.ToString());
+
+        }
 
     }
     public class FSMFileObject

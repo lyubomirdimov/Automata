@@ -1,0 +1,29 @@
+# |(b,|(*(_),b))
+
+alphabet: b
+states: qi392,qf392,qi393,qf393,qi394,qf394,qi396,qf396,qi395,qf395,qi397,qf397
+final: qf392
+transitions:
+qi393,b --> qf393
+qi396,_ --> qf396
+qi395,_ --> qf395
+qi395,_ --> qi396
+qf396,_ --> qf395
+qf396,_ --> qi396
+qi397,b --> qf397
+qi394,_ --> qi395
+qi394,_ --> qi397
+qf395,_ --> qf394
+qf397,_ --> qf394
+qi392,_ --> qi393
+qi392,_ --> qi394
+qf393,_ --> qf392
+qf394,_ --> qf392
+end.
+
+dfa:n
+finite:y
+
+words:
+b,y
+end.

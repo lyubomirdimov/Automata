@@ -1,0 +1,15 @@
+# d
+
+alphabet: d
+states: qi48,qf48
+final: qf48
+transitions:
+qi48,d --> qf48
+end.
+
+dfa:n
+finite:y
+
+words:
+d,y
+end.

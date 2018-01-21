@@ -1,0 +1,16 @@
+# .(c,a)
+
+alphabet: ca
+states: qi13,qi14,qf14
+final: qf14
+transitions:
+qi13,c --> qi14
+qi14,a --> qf14
+end.
+
+dfa:n
+finite:y
+
+words:
+ca,y
+end.

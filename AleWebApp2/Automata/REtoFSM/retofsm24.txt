@@ -1,0 +1,33 @@
+# |(_,.(d,.(c,|(.(.(d,*(_)),c),a))))
+
+alphabet: dca
+states: qi91,qf91,qi92,qf92,qi94,qi96,qi97,qf97,qi100,qi102,qf102,qi101,qi103,qf103,qi104,qf104
+final: qf91
+transitions:
+qi92,_ --> qf92
+qi94,d --> qi96
+qi96,c --> qi97
+qi100,d --> qi101
+qi102,_ --> qf102
+qi101,_ --> qi103
+qi101,_ --> qi102
+qf102,_ --> qi103
+qf102,_ --> qi102
+qi103,c --> qf103
+qi104,a --> qf104
+qi97,_ --> qi100
+qi97,_ --> qi104
+qf103,_ --> qf97
+qf104,_ --> qf97
+qi91,_ --> qi92
+qi91,_ --> qi94
+qf92,_ --> qf91
+qf97,_ --> qf91
+end.
+
+dfa:n
+finite:y
+
+words:
+,y
+end.

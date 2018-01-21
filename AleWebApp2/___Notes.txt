@@ -30,6 +30,5 @@ Assignment 6
 Additions 
 	- Create Transition Tables
 
-	// Breaking bad
-	|(|(a,.(.(|(d,a),.(b,b)),c)),_)
-Problem is that I am working with the complete set of states, and not only with terminating sets
+
+.(d,*(_))
