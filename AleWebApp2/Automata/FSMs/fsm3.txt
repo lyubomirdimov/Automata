@@ -1,6 +1,6 @@
 
 
-alphabet: a,b
+alphabet: ab
 states: qi1,qf1,qi2,qf2,qi5,qf5,qi4,qi6,qf6
 final: qf1
 transitions:
@@ -17,8 +17,8 @@ qf2,_ --> qf1
 qf6,_ --> qf1
 end.
 
-dfa:n
-finite:n
+dfa: n
+finite: n
 
 words:
 ab,y

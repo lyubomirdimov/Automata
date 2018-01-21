@@ -437,13 +437,11 @@ namespace Automata
         }
 
 
-
         private void MoveVertex(string vertex, List<string> source, List<string> destination)
         {
             source.Remove(vertex);
             destination.Add(vertex);
         }
-
 
         public List<string> AcceptedWords()
         {
@@ -460,9 +458,8 @@ namespace Automata
             List<string> terminating = new List<string>(recheable);
             terminating = GetStatesReachingFinalState(terminating);
 
-            List<string> inRecursionSet = new List<string>();
 
-            AcceptedWords(InitialState, currentInput, result, terminating, inRecursionSet);
+            AcceptedWords(InitialState, currentInput, result, terminating, new List<string>());
 
             return result;
         }
@@ -471,24 +468,27 @@ namespace Automata
         /// Returns all accepted words. 
         /// Important notice: Method assumes that the NFA is Finite
         /// </summary>
-        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating, List<string> inRecursion)
+        private void AcceptedWords(string state, string currentInput, List<string> words, List<string> terminating, List<string> visited)
         {
             if (IsFinalState(state) && words.Contains(currentInput) == false)
                 words.Add(currentInput);
 
-            inRecursion.Add(state);
+            visited.Add(state);
+
             // Start From Initial State
             List<Transition> transitions = Transitions.Where(x => x.IsFrom(state)
                                                             && terminating.Contains(x.StartState)
                                                             && terminating.Contains(x.EndState)).ToList();
-
             foreach (Transition transition in transitions)
             {
+                if(visited.Contains(transition.EndState))
+                    continue;
 
-                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating, inRecursion);
+                AcceptedWords(transition.EndState, currentInput + transition.SymbolToString(), words, terminating, new List<string>(visited));
             }
 
         }
+
 
 
         #region Helpers

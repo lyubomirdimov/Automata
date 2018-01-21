@@ -15,21 +15,23 @@ namespace ConsoleApp
 
         static void Main(string[] args)
         {
-            //FSMFileObject fsm = ReadFile();
-            //Console.WriteLine(fsm.FSM.IsInfinite() != fsm.IsFinite ? $"passed IsFinite" : $"failed IsFinite");
-            //Console.WriteLine(fsm.FSM.IsDFA() == fsm.IsDfa ? $"passed IsDFA" : $"failed IsDFA");
-            //foreach (string fsmAcceptedWord in fsm.AcceptedWords)
-            //{
-            //    Console.WriteLine(fsm.FSM.Accepts(fsmAcceptedWord) ? "passed" : "failed");
-            //}
-            //foreach (string rejected in fsm.RejectedWords)
-            //{
-            //    Console.WriteLine(fsm.FSM.Accepts(rejected) == false ? "passed" : "failed");
-            //}
-            //Console.ReadLine();
+            FSMFileObject fsm = ReadFile();
+            Console.WriteLine(fsm.FSM.IsInfinite() != fsm.IsFinite ? $"passed IsFinite" : $"failed IsFinite");
+            Console.WriteLine(fsm.FSM.IsDFA() == fsm.IsDfa ? $"passed IsDFA" : $"failed IsDFA");
+            foreach (string fsmAcceptedWord in fsm.AcceptedWords)
+            {
+                Console.WriteLine(fsm.FSM.Accepts(fsmAcceptedWord) ? "passed" : "failed");
+            }
+            foreach (string rejected in fsm.RejectedWords)
+            {
+                Console.WriteLine(fsm.FSM.Accepts(rejected) == false ? "passed" : "failed");
+            }
+
+            var words = fsm.FSM.AcceptedWords();
+            Console.ReadLine();
             //TestVectorsGen();
             // RE to DFA
-         
+
         }
 
         public static FSMFileObject ReadFile()
@@ -52,7 +54,7 @@ namespace ConsoleApp
             string regex = "|(_,.(*(a),b))";
 
             FiniteStateAutomaton nfa = AutomataConstructor.RegexToNfa(regex);
-            FileParser.FSMToFile(@"../Automata/FSMs/fsm3.txt", nfa);
+            FileParser.FSMToFile(@"../Automata/FSMs/fsm2.txt", nfa);
         }
         public static void TestVectorsGen()
         {
@@ -75,33 +77,33 @@ namespace ConsoleApp
 
             //var serializeObject = JsonConvert.SerializeObject(tsts, Formatting.Indented);
 
-            List<PDATestVectors> PDAs;
-            List<RegexToFSM> RegexToFSM;
-            List<RegexToFSM> RegexToDFA;
-            using (WebClient wc = new WebClient())
-            {
+            //List<PDATestVectors> PDAs;
+            //List<RegexToFSM> RegexToFSM;
+            //List<RegexToFSM> RegexToDFA;
+            //using (WebClient wc = new WebClient())
+            //{
 
 
-                string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToFSM.json");
-                RegexToFSM = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
+            //    string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToFSM.json");
+            //    RegexToFSM = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
 
-                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToDFA.json");
-                RegexToDFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
-            }
+            //    json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToDFA.json");
+            //    RegexToDFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
+            //}
 
-            for (var i = 0; i < RegexToFSM.Count; i++)
-            {
-                RegexToFSM regexToFsm = RegexToFSM[i];
-                regexToFsm.FSM.Comment = regexToFsm.regex;
-                FileParser.FSMToFile($"../Automata/REtoFSM/retofsm{i}.txt", regexToFsm.FSM);
-            }
+            //for (var i = 0; i < RegexToFSM.Count; i++)
+            //{
+            //    RegexToFSM regexToFsm = RegexToFSM[i];
+            //    regexToFsm.FSM.Comment = regexToFsm.regex;
+            //    FileParser.FSMToFile($"../Automata/REtoFSM/retofsm{i}.txt", regexToFsm.FSM);
+            //}
 
-            for (var i = 0; i < RegexToDFA.Count; i++)
-            {
-                RegexToFSM rgxToDfa = RegexToDFA[i];
-                rgxToDfa.FSM.Comment = rgxToDfa.regex;
-                FileParser.FSMToFile($"../Automata/REtoDFA/retodfa{i}.txt", rgxToDfa.FSM);
-            }
+            //for (var i = 0; i < RegexToDFA.Count; i++)
+            //{
+            //    RegexToFSM rgxToDfa = RegexToDFA[i];
+            //    rgxToDfa.FSM.Comment = rgxToDfa.regex;
+            //    FileParser.FSMToFile($"../Automata/REtoDFA/retodfa{i}.txt", rgxToDfa.FSM);
+            //}
 
         }
     }
