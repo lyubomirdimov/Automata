@@ -129,64 +129,8 @@ namespace AleWebApp2.Controllers
 
         private PDA DefaultPDA()
         {
-
-            PDA pda = new PDA();
-            pda.InputAlphabet = new List<char>() { 'a', 'b', ',', '(', ')', '.', '|', '*' };
-            pda.StackAlphabet = new List<char>() { 'p', '(', ')', '_' };
-            pda.States = new List<string>() { "q0", "q1", "q2", "q3", "q4", "q5" };
-            pda.InitialState = "q0";
-            pda.FinalStates = new List<string>() { "q1", "q5" };
-            pda.Transitions = new List<TransitionFunction>()
-            {
-                new TransitionFunction("q0",Constants.Epsilon,Constants.Epsilon,new List<char>(){'p'},"q1" ),
-                new TransitionFunction("q1",'a','p',new List<char>(){Constants.Epsilon},"q1" ),
-                new TransitionFunction("q1",'b','p',new List<char>(){Constants.Epsilon},"q1" ),
-                new TransitionFunction("q1",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
-
-
-                new TransitionFunction("q2",'.','p',new List<char>(){ ')','p','_','p','(' },"q3" ),
-                new TransitionFunction("q2",'|','p',new List<char>(){ ')', 'p', '_', 'p', '(' },"q3" ),
-                new TransitionFunction("q2",'*','p',new List<char>(){ ')', 'p', '(' },"q4" ),
-
-                new TransitionFunction("q3",Constants.Epsilon,Constants.Epsilon,new List<char>(){Constants.Epsilon},"q5" ),
-
-                new TransitionFunction("q4",Constants.Epsilon,Constants.Epsilon,new List<char>(){Constants.Epsilon},"q5" ),
-
-                new TransitionFunction("q5",'a','p',new List<char>(){Constants.Epsilon },"q5" ),
-                new TransitionFunction("q5",'b','p',new List<char>(){Constants.Epsilon },"q5" ),
-                new TransitionFunction("q5",'(','(',new List<char>(){Constants.Epsilon },"q5" ),
-                new TransitionFunction("q5",')',')',new List<char>(){Constants.Epsilon },"q5" ),
-                new TransitionFunction("q5",',','_',new List<char>(){Constants.Epsilon },"q5" ),
-                new TransitionFunction("q5",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
-
-            };
-            return pda;
-            pda = new PDA
-            {
-                InputAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
-                StackAlphabet = new List<char>() { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'y' },
-                States = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L" },
-                InitialState = "A",
-                FinalStates = new List<string>() { "D", "E", "F", "G", "I", "K", "L" },
-                Transitions = new List<TransitionFunction>()
-                {
-                    new TransitionFunction("A", 'a', Constants.Epsilon, new List<char>() {'x'}, "B"),
-                    new TransitionFunction("A", 'b', "B"),
-                    new TransitionFunction("A", 'c', Constants.Epsilon, new List<char>() {'y'}, "B"),
-                    new TransitionFunction("B", 'd', "C"),
-                    new TransitionFunction("B", 'd', 'x', new List<char>() {Constants.Epsilon}, "D"),
-                    new TransitionFunction("B", 'e', "E"),
-                    new TransitionFunction("B", Constants.Epsilon, 'x', new List<char>() {Constants.Epsilon}, "F"),
-                    new TransitionFunction("B", Constants.Epsilon, "G"),
-                    new TransitionFunction("C", Constants.Epsilon, Constants.Epsilon, new List<char>() {'x'}, "H"),
-                    new TransitionFunction("E", 'f', 'y', new List<char>() {Constants.Epsilon}, "I"),
-                    new TransitionFunction("F", 'g', "I"),
-                    new TransitionFunction("G", 'g', 'x', new List<char>() {Constants.Epsilon}, "J"),
-                    new TransitionFunction("G", 'e', "K"),
-                    new TransitionFunction("G", 'h', 'y', new List<char>() {Constants.Epsilon}, "L")
-                }
-            };
-            return pda;
+            StreamReader stream = new StreamReader(@"../Automata/PDAs/pdaAlgbr.txt");
+            return FileParser.FileToPDA(reader: stream).Pda;
         }
 
         private static string _pdaKey = "pda";

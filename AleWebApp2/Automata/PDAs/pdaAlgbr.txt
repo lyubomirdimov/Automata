@@ -1,0 +1,36 @@
+# 
+
+alphabet: ab()+-*
+stack: p()%
+states: q0,q1,q2,q3
+final: q1,q3
+
+dfa: n
+finite: n
+transitions: 
+q0,_ [_,p] --> q1
+q1,a [p,_] --> q1
+q1,b [p,_] --> q1
+q1,_ [p,(] --> q2
+q2,( [(,)p%p] --> q3
+q3,a [p,_] --> q3
+q3,b [p,_] --> q3
+q3,( [(,_] --> q3
+q3,) [),_] --> q3
+q3,+ [%,_] --> q3
+q3,- [%,_] --> q3
+q3,* [%,_] --> q3
+q3,_ [p,(] --> q2
+end.
+
+words:
+a,y
+(a+b),y
+(a*(b*(a+b))),y
+(a*(b*(a+b)),n
+(b*a),y
+(b-a),y
+(b),n
+(bb),n
+(bb-b),b
+end.

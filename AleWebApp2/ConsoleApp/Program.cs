@@ -64,7 +64,34 @@ namespace ConsoleApp
             //    new TransitionFunction("q5",Constants.Epsilon,'p',new List<char>(){'p'},"q2" ),
 
             //};
-            //FileParser.PDAToFile(@"../Automata/PDAs/pdaRegex.txt",pda);
+            //PDA pda = new PDA();
+            //pda.InputAlphabet = new List<char>() { 'a', 'b', '(', ')', '+', '-', '*' };
+            //pda.StackAlphabet = new List<char>() { 'p', '(', ')', '%' };
+            //pda.States = new List<string>() { "q0", "q1", "q2", "q3" };
+            //pda.InitialState = "q0";
+            //pda.FinalStates = new List<string>() { "q1", "q3" };
+            //pda.Transitions = new List<TransitionFunction>()
+            //{
+            //    new TransitionFunction("q0",Constants.Epsilon,Constants.Epsilon,new List<char>(){'p'},"q1" ),
+            //    new TransitionFunction("q1",'a','p',new List<char>(){Constants.Epsilon},"q1" ),
+            //    new TransitionFunction("q1",'b','p',new List<char>(){Constants.Epsilon},"q1" ),
+            //    new TransitionFunction("q1",Constants.Epsilon,'p',new List<char>(){'('},"q2" ),
+
+
+            //    new TransitionFunction("q2",'(','(',new List<char>(){ ')','p','%','p' },"q3" ),
+
+
+            //    new TransitionFunction("q3",'a','p',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",'b','p',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",'(','(',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",')',')',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",'+','%',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",'-','%',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",'*','%',new List<char>(){Constants.Epsilon },"q3" ),
+            //    new TransitionFunction("q3",Constants.Epsilon,'p',new List<char>(){'('},"q2" ),
+
+            //};
+            //FileParser.PDAToFile(@"../Automata/PDAs/pdaAlgbr.txt",pda);
         }
 
         public static FSMFileObject ReadFile()
