@@ -11,10 +11,8 @@ namespace Automata
     {
         public string Comment { get; set; }
 
-        // a finite set of states (Q)
         public List<string> States { get; set; } = new List<string>();
 
-        // a finite set of input symbols called the alphabet(Σ)
         public List<char> Alphabet { get; set; } = new List<char>();
 
         public string InitialState { get; set; }
@@ -23,10 +21,7 @@ namespace Automata
 
         public List<Transition> Transitions { get; set; } = new List<Transition>();
 
-        public FiniteStateAutomaton()
-        {
-
-        }
+     
         public FiniteStateAutomaton(
            IEnumerable<char> alphabet,
            IEnumerable<string> states,
@@ -37,12 +32,15 @@ namespace Automata
            )
         {
             Comment = comment;
-
             States = states.ToList();
             Alphabet = alphabet.ToList();
             Transitions = transitions.ToList();
             InitialState = initState;
             FinalStates = finalStates.ToList();
+
+        }
+        public FiniteStateAutomaton()
+        {
 
         }
 
@@ -72,7 +70,6 @@ namespace Automata
                         return false;
                 }
             }
-
             return true;
         }
 
@@ -114,7 +111,6 @@ namespace Automata
             {
                 EpsilonClosureForState(currentState, result);
             }
-
             result = result.Distinct().ToList();
 
             return result;
@@ -325,7 +321,6 @@ namespace Automata
             {
                 GetReacheableStates(transition.EndState, states);
             }
-
         }
 
 
@@ -381,13 +376,17 @@ namespace Automata
             return false;
         }
 
-        private bool Dfs(string current, List<string> workingSet, List<string> inRecursionSet, List<string> totallyVisitedSet, List<string> terminatingStates, List<Transition> currentPath)
+        private bool Dfs(string current, 
+            List<string> workingSet, 
+            List<string> inRecursionSet, 
+            List<string> totallyVisitedSet, 
+            List<string> terminatingStates, 
+            List<Transition> currentPath)
         {
             MoveVertex(current, workingSet, inRecursionSet);
             List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == current && terminatingStates.Contains(x.EndState)).ToList();
             foreach (var trans in transitionsFromState)
             {
-
                 if (totallyVisitedSet.Contains(trans.EndState))
                     continue;
 
@@ -400,7 +399,6 @@ namespace Automata
                     currentPath.Remove(trans);
                     continue;
                 }
-
 
                 if (Dfs(trans.EndState, workingSet, inRecursionSet, totallyVisitedSet, terminatingStates, new List<Transition>(currentPath)))
                 {

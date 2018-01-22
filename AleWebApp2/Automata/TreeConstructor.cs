@@ -9,7 +9,7 @@ namespace Automata
         /// <summary>
         /// Constructs a binary Node tree from a parsed ASCII Logical Proposition
         /// </summary>
-        /// <param name="parsedString">Parsed ASCII Logical proposition; List of tokens</param>
+        /// <param name="parsedString">Parsed Prefix Regular Expression; List of tokens</param>
         /// <returns>Root Node of a binary tree</returns>
         public static Node ConstructTree(List<Token> parsedString)
         {

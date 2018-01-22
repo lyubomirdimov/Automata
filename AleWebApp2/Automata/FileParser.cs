@@ -116,7 +116,6 @@ namespace Automata
             };
             return file;
         }
-
         public static void FSMToFile(string path, FiniteStateAutomaton fsm)
         {
             StringBuilder builder = new StringBuilder();
@@ -152,7 +151,6 @@ namespace Automata
             File.WriteAllText(path, builder.ToString());
 
         }
-
         public static PdaFileObject FileToPDA(IFormFile file)
         {
             StreamReader stream = new StreamReader(file.OpenReadStream());
