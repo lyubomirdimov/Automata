@@ -1,4 +1,4 @@
-# 
+# Algebraic expressions pda
 
 alphabet: ab()+-*
 stack: p()%
