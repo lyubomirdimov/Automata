@@ -178,10 +178,12 @@ namespace Automata
             // Initial State of the DFA is the EpsilonClosure of the Initial state of the NFA
             EpsilonClosureForState(InitialState, currentStates);
             currentStates.Sort();
-
+            
             currentState = CombineStatesToString(currentStates);
             dfa.States.Add(currentState);
             dfa.InitialState = currentState;
+            if (currentStates.Exists(x => FinalStates.Contains(x)))
+                dfa.FinalStates.Add(currentState);
 
             notProcessedStates.Add(currentState);
             bool isComplete = false;
