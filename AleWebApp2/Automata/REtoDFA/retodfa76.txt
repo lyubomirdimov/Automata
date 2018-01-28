@@ -1,17 +1,19 @@
-# |(b,_)
+# |(.(c,c),_)
 
-alphabet: b
-states: 0,1,2
-final: 1
+alphabet: c
+states: 0,1,2,3
+final: 0,2
 
 dfa: y
 finite: y
 transitions: 
-0,b --> 1
-1,b --> 2
-2,b --> 2
+0,c --> 1
+1,c --> 2
+2,c --> 3
+3,c --> 3
 end.
 
 words: 
-b,y
+,y
+cc,y
 end.

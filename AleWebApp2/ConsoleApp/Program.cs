@@ -29,7 +29,7 @@ namespace ConsoleApp
 
             //var words = fsm.FSM.AcceptedWords();
             //Console.ReadLine();
-            //TestVectorsGen();
+           // TestVectorsGen();
             // RE to DFA
 
 
@@ -120,19 +120,19 @@ namespace ConsoleApp
         {
             //List<RegexToFSM> tsts = new List<RegexToFSM>();
 
-            //    for (int i = 0; i < 100; i++)
-            //    {
-            //        var tree = TreeConstructor.ConstructRandomTree();
-            //        var fsm = AutomataConstructor.RegexToNfa(tree.ToPrefixNotation());
-            //        fsm = fsm.ToDfa();
-            //        RegexToFSM rgfx = new RegexToFSM();
-            //        rgfx.FSM = fsm;
-            //        rgfx.regex = tree.ToPrefixNotation();
-            //        rgfx.IsDFA = fsm.IsDFA();
-            //        rgfx.IsFinite = fsm.IsInfinite() == false;
-            //        rgfx.Words = fsm.AcceptedWords();
-            //        tsts.Add(rgfx);
-            //    }
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    var tree = TreeConstructor.ConstructRandomTree();
+            //    var fsm = AutomataConstructor.RegexToNfa(tree.ToPrefixNotation());
+            //    fsm = fsm.ToDfa();
+            //    RegexToFSM rgfx = new RegexToFSM();
+            //    rgfx.FSM = fsm;
+            //    rgfx.regex = tree.ToPrefixNotation();
+            //    rgfx.IsDFA = fsm.IsDFA();
+            //    rgfx.IsFinite = fsm.IsInfinite() == false;
+            //    rgfx.Words = fsm.AcceptedWords();
+            //    tsts.Add(rgfx);
+            //}
 
 
             //var serializeObject = JsonConvert.SerializeObject(tsts, Formatting.Indented);
@@ -144,10 +144,10 @@ namespace ConsoleApp
             //{
 
 
-            //    string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToFSM.json");
+            //    string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/newRegexToFSM.json");
             //    RegexToFSM = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
 
-            //    json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToDFA.json");
+            //    json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/newRegexToDFA.json");
             //    RegexToDFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
             //}
 

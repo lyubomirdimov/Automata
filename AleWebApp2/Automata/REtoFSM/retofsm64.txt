@@ -1,16 +1,41 @@
-# .(d,d)
+# |(.(.(*(|(d,b)),c),*(c)),.(a,|(a,*(b))))
 
-alphabet: d
-states: qi685,qi686,qf686
-final: qf686
+alphabet: dbca
+states: qi761,qf761,qi765,qf765,qi766,qf766,qi767,qf767,qi764,qi768,qi770,qf770,qi769,qf769,qi772,qi773,qf773,qi774,qf774,qi776,qf776,qi775,qf775
+final: qf761
 
 dfa: n
-finite: y
+finite: n
 transitions: 
-qi685,d --> qi686
-qi686,d --> qf686
-end.
-
-words: 
-dd,y
+qi766,d --> qf766
+qi767,b --> qf767
+qi765,_ --> qi766
+qi765,_ --> qi767
+qf766,_ --> qf765
+qf767,_ --> qf765
+qi764,_ --> qi768
+qi764,_ --> qi765
+qf765,_ --> qi768
+qf765,_ --> qi765
+qi768,c --> qi769
+qi770,c --> qf770
+qi769,_ --> qf769
+qi769,_ --> qi770
+qf770,_ --> qf769
+qf770,_ --> qi770
+qi772,a --> qi773
+qi774,a --> qf774
+qi776,b --> qf776
+qi775,_ --> qf775
+qi775,_ --> qi776
+qf776,_ --> qf775
+qf776,_ --> qi776
+qi773,_ --> qi774
+qi773,_ --> qi775
+qf774,_ --> qf773
+qf775,_ --> qf773
+qi761,_ --> qi764
+qi761,_ --> qi772
+qf769,_ --> qf761
+qf773,_ --> qf761
 end.

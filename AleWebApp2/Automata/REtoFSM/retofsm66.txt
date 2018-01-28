@@ -1,26 +1,21 @@
-# |(_,|(b,.(c,*(d))))
+# |(c,_)
 
-alphabet: bcd
-states: qi690,qf690,qi691,qf691,qi692,qf692,qi693,qf693,qi695,qi697,qf697,qi696,qf696
-final: qf690
+alphabet: c
+states: qi780,qf780,qi781,qf781,qi782,qf782
+final: qf780
 
 dfa: n
-finite: n
+finite: y
 transitions: 
-qi691,_ --> qf691
-qi693,b --> qf693
-qi695,c --> qi696
-qi697,d --> qf697
-qi696,_ --> qf696
-qi696,_ --> qi697
-qf697,_ --> qf696
-qf697,_ --> qi697
-qi692,_ --> qi693
-qi692,_ --> qi695
-qf693,_ --> qf692
-qf696,_ --> qf692
-qi690,_ --> qi691
-qi690,_ --> qi692
-qf691,_ --> qf690
-qf692,_ --> qf690
+qi781,c --> qf781
+qi782,_ --> qf782
+qi780,_ --> qi781
+qi780,_ --> qi782
+qf781,_ --> qf780
+qf782,_ --> qf780
+end.
+
+words: 
+c,y
+,y
 end.

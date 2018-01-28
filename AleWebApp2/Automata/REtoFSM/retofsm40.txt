@@ -1,15 +1,35 @@
-# *(a)
+# |(.(|(c,.(_,a)),c),|(_,d))
 
-alphabet: a
-states: qi404,qi405,qf405,qf404
-final: qf404
+alphabet: cad
+states: qi514,qf514,qi516,qi517,qf517,qi519,qi520,qf520,qi521,qf521,qi522,qf522,qi523,qf523,qi524,qf524
+final: qf514
 
 dfa: n
-finite: n
+finite: y
 transitions: 
-qi405,a --> qf405
-qi404,_ --> qf404
-qi404,_ --> qi405
-qf405,_ --> qf404
-qf405,_ --> qi405
+qi517,c --> qf517
+qi519,_ --> qi520
+qi520,a --> qf520
+qi516,_ --> qi517
+qi516,_ --> qi519
+qf517,_ --> qi521
+qf520,_ --> qi521
+qi521,c --> qf521
+qi523,_ --> qf523
+qi524,d --> qf524
+qi522,_ --> qi523
+qi522,_ --> qi524
+qf523,_ --> qf522
+qf524,_ --> qf522
+qi514,_ --> qi516
+qi514,_ --> qi522
+qf521,_ --> qf514
+qf522,_ --> qf514
+end.
+
+words: 
+cc,y
+ac,y
+,y
+d,y
 end.

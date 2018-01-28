@@ -1,21 +1,21 @@
-# .(c,|(d,*(b)))
+# |(*(.(_,c)),d)
 
-alphabet: cdb
-states: qi556,qi557,qf557,qi558,qf558,qi560,qf560,qi559,qf559
-final: qf557
+alphabet: cd
+states: qi637,qf637,qi640,qi641,qf641,qi638,qf638,qi642,qf642
+final: qf637
 
 dfa: n
 finite: n
 transitions: 
-qi556,c --> qi557
-qi558,d --> qf558
-qi560,b --> qf560
-qi559,_ --> qf559
-qi559,_ --> qi560
-qf560,_ --> qf559
-qf560,_ --> qi560
-qi557,_ --> qi558
-qi557,_ --> qi559
-qf558,_ --> qf557
-qf559,_ --> qf557
+qi640,_ --> qi641
+qi641,c --> qf641
+qi638,_ --> qf638
+qi638,_ --> qi640
+qf641,_ --> qf638
+qf641,_ --> qi640
+qi642,d --> qf642
+qi637,_ --> qi638
+qi637,_ --> qi642
+qf638,_ --> qf637
+qf642,_ --> qf637
 end.

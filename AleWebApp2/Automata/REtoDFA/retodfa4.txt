@@ -1,18 +1,14 @@
-# *(.(a,c))
+# *(|(_,_))
 
-alphabet: ac
-states: 0,1,2,3
-final: 3
+alphabet: 
+states: 0,
+final: 0
 
 dfa: y
-finite: n
+finite: y
 transitions: 
-0,a --> 1
-0,c --> 2
-1,a --> 2
-1,c --> 3
-2,a --> 2
-2,c --> 2
-3,a --> 1
-3,c --> 2
+end.
+
+words: 
+,y
 end.

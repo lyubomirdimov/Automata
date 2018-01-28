@@ -1,16 +1,21 @@
-# .(*(d),c)
+# |(*(.(_,d)),_)
 
-alphabet: dc
-states: qi956,qi957,qf957,qi958,qf958
-final: qf958
+alphabet: d
+states: qi1107,qf1107,qi1110,qi1111,qf1111,qi1108,qf1108,qi1112,qf1112
+final: qf1107
 
 dfa: n
 finite: n
 transitions: 
-qi957,d --> qf957
-qi956,_ --> qi958
-qi956,_ --> qi957
-qf957,_ --> qi958
-qf957,_ --> qi957
-qi958,c --> qf958
+qi1110,_ --> qi1111
+qi1111,d --> qf1111
+qi1108,_ --> qf1108
+qi1108,_ --> qi1110
+qf1111,_ --> qf1108
+qf1111,_ --> qi1110
+qi1112,_ --> qf1112
+qi1107,_ --> qi1108
+qi1107,_ --> qi1112
+qf1108,_ --> qf1107
+qf1112,_ --> qf1107
 end.

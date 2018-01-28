@@ -1,14 +1,22 @@
-# _
+# .(.(a,d),_)
 
-alphabet: 
-states: 0,
-final: 0
+alphabet: ad
+states: 0,1,2,3
+final: 3
 
 dfa: y
 finite: y
 transitions: 
+0,a --> 1
+0,d --> 2
+1,a --> 2
+1,d --> 3
+2,a --> 2
+2,d --> 2
+3,a --> 2
+3,d --> 2
 end.
 
 words: 
-,y
+ad,y
 end.

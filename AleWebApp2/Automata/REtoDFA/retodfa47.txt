@@ -1,12 +1,12 @@
-# *(a)
+# *(d)
 
-alphabet: a
+alphabet: d
 states: 0,1
-final: 1
+final: 0,1
 
 dfa: y
 finite: n
 transitions: 
-0,a --> 1
-1,a --> 1
+0,d --> 1
+1,d --> 1
 end.

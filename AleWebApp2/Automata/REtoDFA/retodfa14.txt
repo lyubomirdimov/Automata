@@ -1,18 +1,12 @@
-# .(b,b)
+# *(a)
 
-alphabet: b
-states: 0,1,2,3
-final: 2
+alphabet: a
+states: 0,1
+final: 0,1
 
 dfa: y
-finite: y
+finite: n
 transitions: 
-0,b --> 1
-1,b --> 2
-2,b --> 3
-3,b --> 3
-end.
-
-words: 
-bb,y
+0,a --> 1
+1,a --> 1
 end.

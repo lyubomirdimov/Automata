@@ -1,15 +1,17 @@
-# *(a)
+# .(a,.(*(a),_))
 
 alphabet: a
-states: qi217,qi218,qf218,qf217
-final: qf217
+states: qi329,qi332,qf332,qi331,qi333,qf333
+final: qf333
 
 dfa: n
 finite: n
 transitions: 
-qi218,a --> qf218
-qi217,_ --> qf217
-qi217,_ --> qi218
-qf218,_ --> qf217
-qf218,_ --> qi218
+qi329,a --> qi331
+qi332,a --> qf332
+qi331,_ --> qi333
+qi331,_ --> qi332
+qf332,_ --> qi333
+qf332,_ --> qi332
+qi333,_ --> qf333
 end.

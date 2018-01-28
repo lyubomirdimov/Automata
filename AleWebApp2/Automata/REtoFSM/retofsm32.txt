@@ -1,19 +1,20 @@
-# *(_)
+# |(c,c)
 
-alphabet: 
-states: qi338,qi339,qf339,qf338
-final: qf338
+alphabet: c
+states: qi402,qf402,qi403,qf403,qi404,qf404
+final: qf402
 
 dfa: n
 finite: y
 transitions: 
-qi339,_ --> qf339
-qi338,_ --> qf338
-qi338,_ --> qi339
-qf339,_ --> qf338
-qf339,_ --> qi339
+qi403,c --> qf403
+qi404,c --> qf404
+qi402,_ --> qi403
+qi402,_ --> qi404
+qf403,_ --> qf402
+qf404,_ --> qf402
 end.
 
 words: 
-,y
+c,y
 end.

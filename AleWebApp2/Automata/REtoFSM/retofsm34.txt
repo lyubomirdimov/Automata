@@ -1,16 +1,16 @@
-# .(b,b)
+# .(*(c),d)
 
-alphabet: b
-states: qi356,qi357,qf357
-final: qf357
+alphabet: cd
+states: qi439,qi440,qf440,qi441,qf441
+final: qf441
 
 dfa: n
-finite: y
+finite: n
 transitions: 
-qi356,b --> qi357
-qi357,b --> qf357
-end.
-
-words: 
-bb,y
+qi440,c --> qf440
+qi439,_ --> qi441
+qi439,_ --> qi440
+qf440,_ --> qi441
+qf440,_ --> qi440
+qi441,d --> qf441
 end.

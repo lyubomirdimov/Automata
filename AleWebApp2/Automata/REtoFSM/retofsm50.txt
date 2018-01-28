@@ -1,30 +1,37 @@
-# |(*(_),.(a,|(a,c)))
+# |(.(|(_,|(a,b)),*(_)),a)
 
-alphabet: ac
-states: qi535,qf535,qi537,qf537,qi536,qf536,qi539,qi540,qf540,qi541,qf541,qi542,qf542
-final: qf535
+alphabet: ab
+states: qi615,qf615,qi617,qi618,qf618,qi619,qf619,qi620,qf620,qi621,qf621,qi623,qf623,qi622,qf622,qi624,qf624
+final: qf615
 
 dfa: n
 finite: y
 transitions: 
-qi537,_ --> qf537
-qi536,_ --> qf536
-qi536,_ --> qi537
-qf537,_ --> qf536
-qf537,_ --> qi537
-qi539,a --> qi540
-qi541,a --> qf541
-qi542,c --> qf542
-qi540,_ --> qi541
-qi540,_ --> qi542
-qf541,_ --> qf540
-qf542,_ --> qf540
-qi535,_ --> qi536
-qi535,_ --> qi539
-qf536,_ --> qf535
-qf540,_ --> qf535
+qi618,_ --> qf618
+qi620,a --> qf620
+qi621,b --> qf621
+qi619,_ --> qi620
+qi619,_ --> qi621
+qf620,_ --> qf619
+qf621,_ --> qf619
+qi617,_ --> qi618
+qi617,_ --> qi619
+qf618,_ --> qi622
+qf619,_ --> qi622
+qi623,_ --> qf623
+qi622,_ --> qf622
+qi622,_ --> qi623
+qf623,_ --> qf622
+qf623,_ --> qi623
+qi624,a --> qf624
+qi615,_ --> qi617
+qi615,_ --> qi624
+qf622,_ --> qf615
+qf624,_ --> qf615
 end.
 
 words: 
 ,y
+a,y
+b,y
 end.

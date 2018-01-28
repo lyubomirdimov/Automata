@@ -1,23 +1,12 @@
-# |(.(_,|(_,c)),d)
+# *(b)
 
-alphabet: cd
-states: 0,1,2,3
-final: 1,2
+alphabet: b
+states: 0,1
+final: 0,1
 
 dfa: y
-finite: y
+finite: n
 transitions: 
-0,c --> 1
-0,d --> 2
-1,c --> 3
-1,d --> 3
-2,c --> 3
-2,d --> 3
-3,c --> 3
-3,d --> 3
-end.
-
-words: 
-c,y
-d,y
+0,b --> 1
+1,b --> 1
 end.

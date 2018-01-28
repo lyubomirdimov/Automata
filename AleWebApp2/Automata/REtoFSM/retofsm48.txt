@@ -1,16 +1,19 @@
-# .(b,d)
+# *(_)
 
-alphabet: bd
-states: qi529,qi530,qf530
-final: qf530
+alphabet: 
+states: qi604,qi605,qf605,qf604
+final: qf604
 
 dfa: n
 finite: y
 transitions: 
-qi529,b --> qi530
-qi530,d --> qf530
+qi605,_ --> qf605
+qi604,_ --> qf604
+qi604,_ --> qi605
+qf605,_ --> qf604
+qf605,_ --> qi605
 end.
 
 words: 
-bd,y
+,y
 end.

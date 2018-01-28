@@ -1,20 +1,16 @@
-# |(d,d)
+# .(b,b)
 
-alphabet: d
-states: qi200,qf200,qi201,qf201,qi202,qf202
-final: qf200
+alphabet: b
+states: qi303,qi304,qf304
+final: qf304
 
 dfa: n
 finite: y
 transitions: 
-qi201,d --> qf201
-qi202,d --> qf202
-qi200,_ --> qi201
-qi200,_ --> qi202
-qf201,_ --> qf200
-qf202,_ --> qf200
+qi303,b --> qi304
+qi304,b --> qf304
 end.
 
 words: 
-d,y
+bb,y
 end.

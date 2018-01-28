@@ -1,15 +1,16 @@
-# *(c)
+# .(d,c)
 
-alphabet: c
-states: qi25,qi26,qf26,qf25
-final: qf25
+alphabet: dc
+states: qi66,qi67,qf67
+final: qf67
 
 dfa: n
-finite: n
+finite: y
 transitions: 
-qi26,c --> qf26
-qi25,_ --> qf25
-qi25,_ --> qi26
-qf26,_ --> qf25
-qf26,_ --> qi26
+qi66,d --> qi67
+qi67,c --> qf67
+end.
+
+words: 
+dc,y
 end.

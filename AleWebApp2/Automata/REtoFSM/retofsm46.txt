@@ -1,16 +1,15 @@
-# *(.(a,d))
+# *(c)
 
-alphabet: ad
-states: qi465,qi467,qi468,qf468,qf465
-final: qf465
+alphabet: c
+states: qi550,qi551,qf551,qf550
+final: qf550
 
 dfa: n
 finite: n
 transitions: 
-qi467,a --> qi468
-qi468,d --> qf468
-qi465,_ --> qf465
-qi465,_ --> qi467
-qf468,_ --> qf465
-qf468,_ --> qi467
+qi551,c --> qf551
+qi550,_ --> qf550
+qi550,_ --> qi551
+qf551,_ --> qf550
+qf551,_ --> qi551
 end.

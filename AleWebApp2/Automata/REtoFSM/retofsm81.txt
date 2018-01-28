@@ -1,15 +1,23 @@
-# *(b)
+# .(.(*(c),b),|(a,.(b,a)))
 
-alphabet: b
-states: qi815,qi816,qf816,qf815
-final: qf815
+alphabet: cba
+states: qi865,qi866,qf866,qi867,qi868,qf868,qi869,qf869,qi871,qi872,qf872
+final: qf868
 
 dfa: n
 finite: n
 transitions: 
-qi816,b --> qf816
-qi815,_ --> qf815
-qi815,_ --> qi816
-qf816,_ --> qf815
-qf816,_ --> qi816
+qi866,c --> qf866
+qi865,_ --> qi867
+qi865,_ --> qi866
+qf866,_ --> qi867
+qf866,_ --> qi866
+qi867,b --> qi868
+qi869,a --> qf869
+qi871,b --> qi872
+qi872,a --> qf872
+qi868,_ --> qi869
+qi868,_ --> qi871
+qf869,_ --> qf868
+qf872,_ --> qf868
 end.

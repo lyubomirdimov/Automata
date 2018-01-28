@@ -1,14 +1,14 @@
 # .(_,b)
 
 alphabet: b
-states: qi688,qi689,qf689
-final: qf689
+states: qi778,qi779,qf779
+final: qf779
 
 dfa: n
 finite: y
 transitions: 
-qi688,_ --> qi689
-qi689,b --> qf689
+qi778,_ --> qi779
+qi779,b --> qf779
 end.
 
 words: 

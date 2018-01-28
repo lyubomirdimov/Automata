@@ -288,7 +288,7 @@ namespace Automata
             // Set A - All reacheable States:
             // state q' is said to be reachable from another state q if, 
             // there is an input string which may take us from state q to state q'.
-            List<string> recheable = new List<string>();
+             List<string> recheable = new List<string>();
             GetReacheableStates(InitialState, recheable);
 
             // Set B - States that reach Final States
@@ -389,9 +389,6 @@ namespace Automata
             List<Transition> transitionsFromState = Transitions.Where(x => x.StartState == current && terminatingStates.Contains(x.EndState)).ToList();
             foreach (var trans in transitionsFromState)
             {
-                if (totallyVisitedSet.Contains(trans.EndState))
-                    continue;
-
                 currentPath.Add(trans);
 
                 if (inRecursionSet.Contains(trans.EndState))

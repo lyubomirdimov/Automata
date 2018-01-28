@@ -1,21 +1,44 @@
-# |(.(c,a),b)
+# *(.(*(_),|(.(b,|(.(c,.(b,.(b,|(.(a,*(c)),d)))),d)),_)))
 
-alphabet: cab
-states: qi311,qf311,qi313,qi314,qf314,qi315,qf315
-final: qf311
+alphabet: bcad
+states: qi361,qi364,qf364,qi363,qi365,qf365,qi367,qi368,qf368,qi370,qi372,qi374,qi375,qf375,qi377,qi379,qf379,qi378,qf378,qi380,qf380,qi381,qf381,qi382,qf382,qf361
+final: qf361
 
 dfa: n
-finite: y
+finite: n
 transitions: 
-qi313,c --> qi314
-qi314,a --> qf314
-qi315,b --> qf315
-qi311,_ --> qi313
-qi311,_ --> qi315
-qf314,_ --> qf311
-qf315,_ --> qf311
-end.
-
-words: 
-ca,y
+qi364,_ --> qf364
+qi363,_ --> qi365
+qi363,_ --> qi364
+qf364,_ --> qi365
+qf364,_ --> qi364
+qi367,b --> qi368
+qi370,c --> qi372
+qi372,b --> qi374
+qi374,b --> qi375
+qi377,a --> qi378
+qi379,c --> qf379
+qi378,_ --> qf378
+qi378,_ --> qi379
+qf379,_ --> qf378
+qf379,_ --> qi379
+qi380,d --> qf380
+qi375,_ --> qi377
+qi375,_ --> qi380
+qf378,_ --> qf375
+qf380,_ --> qf375
+qi381,d --> qf381
+qi368,_ --> qi370
+qi368,_ --> qi381
+qf375,_ --> qf368
+qf381,_ --> qf368
+qi382,_ --> qf382
+qi365,_ --> qi367
+qi365,_ --> qi382
+qf368,_ --> qf365
+qf382,_ --> qf365
+qi361,_ --> qf361
+qi361,_ --> qi363
+qf365,_ --> qf361
+qf365,_ --> qi363
 end.

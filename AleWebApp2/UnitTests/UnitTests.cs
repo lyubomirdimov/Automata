@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Automata;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +24,8 @@ namespace UnitTests
         private static string PDAFolderPath = @"../../../../Automata/PDAs";
         private static string REtoFSMFolderPath = @"../../../../Automata/REtoFSM/";
         private static string REtoDFAFolderPath = @"../../../../Automata/REtoDFA/";
-
+        private static string VectorsFolderPath = @"../../../../Automata/fsmVectors";
+        private static string PdaVectorsFolderPath = @"../../../../Automata/pdaVectors";
         public UnitTests()
         {
             Init();
@@ -37,10 +39,10 @@ namespace UnitTests
                 string json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/PDAs.json");
                 PDAs = JsonConvert.DeserializeObject<List<PDATestVectors>>(json);
 
-                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToFSM.json");
+                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/newRegexToFSM.json");
                 RegexToFSM = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
 
-                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/RegexToDFA.json");
+                json = wc.DownloadString("https://raw.githubusercontent.com/lyubomirdimov/Breaking-bad-Episode-Ale2/master/newRegexToDFA.json");
                 RegexToDFA = JsonConvert.DeserializeObject<List<RegexToFSM>>(json);
             }
         }
@@ -241,7 +243,7 @@ namespace UnitTests
             }
         }
 
-       
+
 
         [TestMethod]
         public void TestPDAAccepts()
@@ -265,6 +267,63 @@ namespace UnitTests
                 {
                     accepts = pdaFileObject.Pda.Accepts(rejected);
                     Assert.IsFalse(accepts);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestingFSMVectors()
+        {
+            DirectoryInfo vectorsDir = new DirectoryInfo(VectorsFolderPath);
+
+            var nfas = new List<FSMFileObject>();
+            foreach (FileInfo file in vectorsDir.GetFiles("*.txt"))
+            {
+                nfas.Add(FileParser.FileToFSM(reader: file.OpenText()));
+            }
+
+            for (var i = 0; i < nfas.Count; i++)
+            {
+                FSMFileObject fileObject = nfas[i];
+                var fsm = fileObject.FSM;
+                Assert.AreEqual(fsm.IsDFA(), fileObject.IsDfa);
+                Assert.AreNotEqual(fsm.IsInfinite(), fileObject.IsFinite);
+                foreach (var word in fileObject.AcceptedWords)
+                {
+                    Assert.IsTrue(fsm.Accepts(word));
+                }
+
+                foreach (var rejWord in fileObject.RejectedWords)
+                {
+                    Assert.IsFalse(fsm.Accepts(rejWord));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestingPDAVectors()
+        {
+            DirectoryInfo vectorsDir = new DirectoryInfo(PdaVectorsFolderPath);
+
+            var pdas = new List<PdaFileObject>();
+            foreach (FileInfo file in vectorsDir.GetFiles("*.txt"))
+            {
+                pdas.Add(FileParser.FileToPDA(reader: file.OpenText()));
+            }
+
+            for (var i = 0; i < pdas.Count; i++)
+            {
+                PdaFileObject fileObject = pdas[i];
+                var pda = fileObject.Pda;
+                
+                foreach (var word in fileObject.AcceptedWords)
+                {
+                    Assert.IsTrue(pda.Accepts(word));
+                }
+
+                foreach (var rejWord in fileObject.RejectedWords)
+                {
+                    Assert.IsFalse(pda.Accepts(rejWord));
                 }
             }
         }

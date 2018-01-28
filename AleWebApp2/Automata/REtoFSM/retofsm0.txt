@@ -1,36 +1,59 @@
-# |(.(*(|(|(b,|(a,c)),c)),d),_)
+# |(*(.(.(.(*(|(d,a)),|(d,_)),|(a,a)),.(*(.(.(.(*(a),.(*(c),d)),c),d)),a))),a)
 
-alphabet: bacd
-states: qi1,qf1,qi4,qf4,qi5,qf5,qi6,qf6,qi7,qf7,qi8,qf8,qi9,qf9,qi10,qf10,qi3,qi11,qf11,qi12,qf12
+alphabet: dac
+states: qi1,qf1,qi7,qf7,qi8,qf8,qi9,qf9,qi6,qi10,qi11,qf11,qi12,qf12,qi13,qi14,qf14,qi15,qf15,qi22,qf22,qi21,qi25,qf25,qi24,qi26,qi27,qi28,qf28,qi17,qi29,qf29,qi2,qf2,qi30,qf30
 final: qf1
 
 dfa: n
 finite: n
 transitions: 
-qi6,b --> qf6
-qi8,a --> qf8
-qi9,c --> qf9
+qi8,d --> qf8
+qi9,a --> qf9
 qi7,_ --> qi8
 qi7,_ --> qi9
 qf8,_ --> qf7
 qf9,_ --> qf7
-qi5,_ --> qi6
-qi5,_ --> qi7
-qf6,_ --> qf5
-qf7,_ --> qf5
-qi10,c --> qf10
-qi4,_ --> qi5
-qi4,_ --> qi10
-qf5,_ --> qf4
-qf10,_ --> qf4
-qi3,_ --> qi11
-qi3,_ --> qi4
-qf4,_ --> qi11
-qf4,_ --> qi4
+qi6,_ --> qi10
+qi6,_ --> qi7
+qf7,_ --> qi10
+qf7,_ --> qi7
 qi11,d --> qf11
 qi12,_ --> qf12
-qi1,_ --> qi3
-qi1,_ --> qi12
-qf11,_ --> qf1
-qf12,_ --> qf1
+qi10,_ --> qi11
+qi10,_ --> qi12
+qf11,_ --> qi13
+qf12,_ --> qi13
+qi14,a --> qf14
+qi15,a --> qf15
+qi13,_ --> qi14
+qi13,_ --> qi15
+qf14,_ --> qi17
+qf15,_ --> qi17
+qi22,a --> qf22
+qi21,_ --> qi24
+qi21,_ --> qi22
+qf22,_ --> qi24
+qf22,_ --> qi22
+qi25,c --> qf25
+qi24,_ --> qi26
+qi24,_ --> qi25
+qf25,_ --> qi26
+qf25,_ --> qi25
+qi26,d --> qi27
+qi27,c --> qi28
+qi28,d --> qf28
+qi17,_ --> qi29
+qi17,_ --> qi21
+qf28,_ --> qi29
+qf28,_ --> qi21
+qi29,a --> qf29
+qi2,_ --> qf2
+qi2,_ --> qi6
+qf29,_ --> qf2
+qf29,_ --> qi6
+qi30,a --> qf30
+qi1,_ --> qi2
+qi1,_ --> qi30
+qf2,_ --> qf1
+qf30,_ --> qf1
 end.

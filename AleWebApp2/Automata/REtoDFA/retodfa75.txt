@@ -1,12 +1,22 @@
-# *(.(*(a),_))
+# .(d,a)
 
-alphabet: a
-states: 0,1
-final: 1
+alphabet: da
+states: 0,1,2,3
+final: 3
 
 dfa: y
-finite: n
+finite: y
 transitions: 
-0,a --> 1
-1,a --> 1
+0,d --> 1
+0,a --> 2
+1,d --> 2
+1,a --> 3
+2,d --> 2
+2,a --> 2
+3,d --> 2
+3,a --> 2
+end.
+
+words: 
+da,y
 end.

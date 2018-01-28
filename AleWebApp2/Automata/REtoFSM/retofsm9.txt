@@ -1,35 +1,15 @@
-# .(.(.(.(*(|(c,.(b,|(d,*(.(_,b)))))),_),a),a),_)
+# *(d)
 
-alphabet: cbda
-states: qi94,qi95,qf95,qi96,qf96,qi98,qi99,qf99,qi100,qf100,qi103,qi104,qf104,qi101,qf101,qi105,qi106,qi107,qi108,qf108
-final: qf108
+alphabet: d
+states: qi119,qi120,qf120,qf119
+final: qf119
 
 dfa: n
 finite: n
 transitions: 
-qi96,c --> qf96
-qi98,b --> qi99
-qi100,d --> qf100
-qi103,_ --> qi104
-qi104,b --> qf104
-qi101,_ --> qf101
-qi101,_ --> qi103
-qf104,_ --> qf101
-qf104,_ --> qi103
-qi99,_ --> qi100
-qi99,_ --> qi101
-qf100,_ --> qf99
-qf101,_ --> qf99
-qi95,_ --> qi96
-qi95,_ --> qi98
-qf96,_ --> qf95
-qf99,_ --> qf95
-qi94,_ --> qi105
-qi94,_ --> qi95
-qf95,_ --> qi105
-qf95,_ --> qi95
-qi105,_ --> qi106
-qi106,a --> qi107
-qi107,a --> qi108
-qi108,_ --> qf108
+qi120,d --> qf120
+qi119,_ --> qf119
+qi119,_ --> qi120
+qf120,_ --> qf119
+qf120,_ --> qi120
 end.

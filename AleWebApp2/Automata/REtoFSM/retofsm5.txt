@@ -1,32 +1,15 @@
-# .(a,|(.(*(b),|(c,*(a))),.(a,c)))
+# *(a)
 
-alphabet: abc
-states: qi66,qi67,qf67,qi70,qf70,qi69,qi71,qf71,qi72,qf72,qi74,qf74,qi73,qf73,qi76,qi77,qf77
-final: qf67
+alphabet: a
+states: qi71,qi72,qf72,qf71
+final: qf71
 
 dfa: n
 finite: n
 transitions: 
-qi66,a --> qi67
-qi70,b --> qf70
-qi69,_ --> qi71
-qi69,_ --> qi70
-qf70,_ --> qi71
-qf70,_ --> qi70
-qi72,c --> qf72
-qi74,a --> qf74
-qi73,_ --> qf73
-qi73,_ --> qi74
-qf74,_ --> qf73
-qf74,_ --> qi74
+qi72,a --> qf72
+qi71,_ --> qf71
 qi71,_ --> qi72
-qi71,_ --> qi73
 qf72,_ --> qf71
-qf73,_ --> qf71
-qi76,a --> qi77
-qi77,c --> qf77
-qi67,_ --> qi69
-qi67,_ --> qi76
-qf71,_ --> qf67
-qf77,_ --> qf67
+qf72,_ --> qi72
 end.

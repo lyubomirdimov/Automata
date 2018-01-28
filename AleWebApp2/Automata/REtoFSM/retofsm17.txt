@@ -1,19 +1,59 @@
-# *(_)
+# |(|(c,.(d,d)),.(c,|(.(a,_),|(*(|(.(_,.(*(d),|(_,a))),.(a,*(a)))),a))))
 
-alphabet: 
-states: qi198,qi199,qf199,qf198
-final: qf198
+alphabet: cda
+states: qi274,qf274,qi275,qf275,qi276,qf276,qi278,qi279,qf279,qi281,qi282,qf282,qi284,qi285,qf285,qi286,qf286,qi288,qf288,qi290,qi293,qf293,qi292,qi294,qf294,qi295,qf295,qi296,qf296,qi298,qi300,qf300,qi299,qf299,qi287,qf287,qi301,qf301
+final: qf274
 
 dfa: n
-finite: y
+finite: n
 transitions: 
-qi199,_ --> qf199
-qi198,_ --> qf198
-qi198,_ --> qi199
-qf199,_ --> qf198
-qf199,_ --> qi199
-end.
-
-words: 
-,y
+qi276,c --> qf276
+qi278,d --> qi279
+qi279,d --> qf279
+qi275,_ --> qi276
+qi275,_ --> qi278
+qf276,_ --> qf275
+qf279,_ --> qf275
+qi281,c --> qi282
+qi284,a --> qi285
+qi285,_ --> qf285
+qi290,_ --> qi292
+qi293,d --> qf293
+qi292,_ --> qi294
+qi292,_ --> qi293
+qf293,_ --> qi294
+qf293,_ --> qi293
+qi295,_ --> qf295
+qi296,a --> qf296
+qi294,_ --> qi295
+qi294,_ --> qi296
+qf295,_ --> qf294
+qf296,_ --> qf294
+qi298,a --> qi299
+qi300,a --> qf300
+qi299,_ --> qf299
+qi299,_ --> qi300
+qf300,_ --> qf299
+qf300,_ --> qi300
+qi288,_ --> qi290
+qi288,_ --> qi298
+qf294,_ --> qf288
+qf299,_ --> qf288
+qi287,_ --> qf287
+qi287,_ --> qi288
+qf288,_ --> qf287
+qf288,_ --> qi288
+qi301,a --> qf301
+qi286,_ --> qi287
+qi286,_ --> qi301
+qf287,_ --> qf286
+qf301,_ --> qf286
+qi282,_ --> qi284
+qi282,_ --> qi286
+qf285,_ --> qf282
+qf286,_ --> qf282
+qi274,_ --> qi275
+qi274,_ --> qi281
+qf275,_ --> qf274
+qf282,_ --> qf274
 end.

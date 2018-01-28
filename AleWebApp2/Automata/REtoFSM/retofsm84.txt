@@ -1,20 +1,15 @@
-# *(.(_,_))
+# *(a)
 
-alphabet: 
-states: qi822,qi824,qi825,qf825,qf822
-final: qf822
+alphabet: a
+states: qi923,qi924,qf924,qf923
+final: qf923
 
 dfa: n
-finite: y
+finite: n
 transitions: 
-qi824,_ --> qi825
-qi825,_ --> qf825
-qi822,_ --> qf822
-qi822,_ --> qi824
-qf825,_ --> qf822
-qf825,_ --> qi824
-end.
-
-words: 
-,y
+qi924,a --> qf924
+qi923,_ --> qf923
+qi923,_ --> qi924
+qf924,_ --> qf923
+qf924,_ --> qi924
 end.

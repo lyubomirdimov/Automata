@@ -1,16 +1,39 @@
-# *(.(b,_))
+# *(.(.(*(|(a,*(b))),|(a,*(d))),c))
 
-alphabet: b
-states: qi203,qi205,qi206,qf206,qf203
-final: qf203
+alphabet: abdc
+states: qi305,qi309,qf309,qi310,qf310,qi312,qf312,qi311,qf311,qi308,qi313,qi314,qf314,qi316,qf316,qi315,qf315,qi317,qf317,qf305
+final: qf305
 
 dfa: n
 finite: n
 transitions: 
-qi205,b --> qi206
-qi206,_ --> qf206
-qi203,_ --> qf203
-qi203,_ --> qi205
-qf206,_ --> qf203
-qf206,_ --> qi205
+qi310,a --> qf310
+qi312,b --> qf312
+qi311,_ --> qf311
+qi311,_ --> qi312
+qf312,_ --> qf311
+qf312,_ --> qi312
+qi309,_ --> qi310
+qi309,_ --> qi311
+qf310,_ --> qf309
+qf311,_ --> qf309
+qi308,_ --> qi313
+qi308,_ --> qi309
+qf309,_ --> qi313
+qf309,_ --> qi309
+qi314,a --> qf314
+qi316,d --> qf316
+qi315,_ --> qf315
+qi315,_ --> qi316
+qf316,_ --> qf315
+qf316,_ --> qi316
+qi313,_ --> qi314
+qi313,_ --> qi315
+qf314,_ --> qi317
+qf315,_ --> qi317
+qi317,c --> qf317
+qi305,_ --> qf305
+qi305,_ --> qi308
+qf317,_ --> qf305
+qf317,_ --> qi308
 end.

@@ -1,56 +1,17 @@
-# *(.(c,.(|(d,|(d,d)),*(|(*(.(.(*(b),d),b)),|(b,|(c,_)))))))
+# .(*(b),.(d,c))
 
-alphabet: cdb
-states: qi370,qi372,qi374,qi375,qf375,qi376,qf376,qi377,qf377,qi378,qf378,qi380,qf380,qi385,qf385,qi384,qi386,qi387,qf387,qi381,qf381,qi388,qf388,qi389,qf389,qi390,qf390,qi391,qf391,qi392,qf392,qi379,qf379,qf370
-final: qf370
+alphabet: bdc
+states: qi466,qi467,qf467,qi469,qi470,qf470
+final: qf470
 
 dfa: n
 finite: n
 transitions: 
-qi372,c --> qi374
-qi375,d --> qf375
-qi377,d --> qf377
-qi378,d --> qf378
-qi376,_ --> qi377
-qi376,_ --> qi378
-qf377,_ --> qf376
-qf378,_ --> qf376
-qi374,_ --> qi375
-qi374,_ --> qi376
-qf375,_ --> qi379
-qf376,_ --> qi379
-qi385,b --> qf385
-qi384,_ --> qi386
-qi384,_ --> qi385
-qf385,_ --> qi386
-qf385,_ --> qi385
-qi386,d --> qi387
-qi387,b --> qf387
-qi381,_ --> qf381
-qi381,_ --> qi384
-qf387,_ --> qf381
-qf387,_ --> qi384
-qi389,b --> qf389
-qi391,c --> qf391
-qi392,_ --> qf392
-qi390,_ --> qi391
-qi390,_ --> qi392
-qf391,_ --> qf390
-qf392,_ --> qf390
-qi388,_ --> qi389
-qi388,_ --> qi390
-qf389,_ --> qf388
-qf390,_ --> qf388
-qi380,_ --> qi381
-qi380,_ --> qi388
-qf381,_ --> qf380
-qf388,_ --> qf380
-qi379,_ --> qf379
-qi379,_ --> qi380
-qf380,_ --> qf379
-qf380,_ --> qi380
-qi370,_ --> qf370
-qi370,_ --> qi372
-qf379,_ --> qf370
-qf379,_ --> qi372
+qi467,b --> qf467
+qi466,_ --> qi469
+qi466,_ --> qi467
+qf467,_ --> qi469
+qf467,_ --> qi467
+qi469,d --> qi470
+qi470,c --> qf470
 end.

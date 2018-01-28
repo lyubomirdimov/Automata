@@ -1,5 +1,5 @@
 Assignment 1
-	- read from input format
+	- read from input format - complete
 	- Indicate if it is DFA or not - Complete
 	- Represent Automaton - Complete
 
@@ -9,25 +9,25 @@ Assignment 2
 Assignment 3
 	- Input format as Regular Expression  - complete
 	- Construct NDFA from RE with Thomson construction - complete
-	- Write NDFA to a file (or JSON) 
+	- Write NDFA to a file (or JSON) -complete
 
 Assignment 4
-	- IsInfinite - 
+	- IsInfinite - complete
 	- AcceptedWords - Complete
 
 Assignment 5
 	- NDFA to DFA with Powerset construction  - Complete
-	- Write DFA to file (JSON)
+	- Write DFA to file (JSON) - complete
 
 Assignment 6
 	- Accepting PDA  - Complete
 	- Transition Priorities - Complete
 	- Check if PDA accepts string - Complete
-	- PDA to accept RE
-	- PDA to accept algebratic expressions
+	- PDA to accept RE - complete
+	- PDA to accept algebratic expressions - complete
 
 
 
 
 
-
+	*(|(_,b))

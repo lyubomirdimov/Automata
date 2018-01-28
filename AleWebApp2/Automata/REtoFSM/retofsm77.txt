@@ -1,15 +1,15 @@
-# *(d)
+# *(b)
 
-alphabet: d
-states: qi792,qi793,qf793,qf792
-final: qf792
+alphabet: b
+states: qi847,qi848,qf848,qf847
+final: qf847
 
 dfa: n
 finite: n
 transitions: 
-qi793,d --> qf793
-qi792,_ --> qf792
-qi792,_ --> qi793
-qf793,_ --> qf792
-qf793,_ --> qi793
+qi848,b --> qf848
+qi847,_ --> qf847
+qi847,_ --> qi848
+qf848,_ --> qf847
+qf848,_ --> qi848
 end.

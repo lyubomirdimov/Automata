@@ -1,45 +1,31 @@
-# .(.(_,.(c,d)),.(.(|(d,.(*(b),|(c,*(|(b,|(c,a)))))),d),d))
+# .(.(|(d,*(|(c,*(a)))),c),a)
 
-alphabet: cdba
-states: qi660,qi662,qi663,qi666,qi667,qf667,qi670,qf670,qi669,qi671,qf671,qi672,qf672,qi674,qf674,qi675,qf675,qi676,qf676,qi677,qf677,qi678,qf678,qi673,qf673,qi679,qi680,qf680
-final: qf680
+alphabet: dca
+states: qi744,qi745,qf745,qi747,qf747,qi748,qf748,qi750,qf750,qi749,qf749,qi746,qf746,qi751,qi752,qf752
+final: qf752
 
 dfa: n
 finite: n
 transitions: 
-qi660,_ --> qi662
-qi662,c --> qi663
-qi663,d --> qi666
-qi667,d --> qf667
-qi670,b --> qf670
-qi669,_ --> qi671
-qi669,_ --> qi670
-qf670,_ --> qi671
-qf670,_ --> qi670
-qi672,c --> qf672
-qi675,b --> qf675
-qi677,c --> qf677
-qi678,a --> qf678
-qi676,_ --> qi677
-qi676,_ --> qi678
-qf677,_ --> qf676
-qf678,_ --> qf676
-qi674,_ --> qi675
-qi674,_ --> qi676
-qf675,_ --> qf674
-qf676,_ --> qf674
-qi673,_ --> qf673
-qi673,_ --> qi674
-qf674,_ --> qf673
-qf674,_ --> qi674
-qi671,_ --> qi672
-qi671,_ --> qi673
-qf672,_ --> qf671
-qf673,_ --> qf671
-qi666,_ --> qi667
-qi666,_ --> qi669
-qf667,_ --> qi679
-qf671,_ --> qi679
-qi679,d --> qi680
-qi680,d --> qf680
+qi745,d --> qf745
+qi748,c --> qf748
+qi750,a --> qf750
+qi749,_ --> qf749
+qi749,_ --> qi750
+qf750,_ --> qf749
+qf750,_ --> qi750
+qi747,_ --> qi748
+qi747,_ --> qi749
+qf748,_ --> qf747
+qf749,_ --> qf747
+qi746,_ --> qf746
+qi746,_ --> qi747
+qf747,_ --> qf746
+qf747,_ --> qi747
+qi744,_ --> qi745
+qi744,_ --> qi746
+qf745,_ --> qi751
+qf746,_ --> qi751
+qi751,c --> qi752
+qi752,a --> qf752
 end.

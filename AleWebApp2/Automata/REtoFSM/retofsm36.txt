@@ -1,15 +1,33 @@
-# *(a)
+# |(.(a,d),|(.(.(c,d),*(|(d,_))),d))
 
-alphabet: a
-states: qi366,qi367,qf367,qf366
-final: qf366
+alphabet: adc
+states: qi448,qf448,qi450,qi451,qf451,qi452,qf452,qi455,qi456,qi458,qf458,qi459,qf459,qi460,qf460,qi457,qf457,qi461,qf461
+final: qf448
 
 dfa: n
 finite: n
 transitions: 
-qi367,a --> qf367
-qi366,_ --> qf366
-qi366,_ --> qi367
-qf367,_ --> qf366
-qf367,_ --> qi367
+qi450,a --> qi451
+qi451,d --> qf451
+qi455,c --> qi456
+qi456,d --> qi457
+qi459,d --> qf459
+qi460,_ --> qf460
+qi458,_ --> qi459
+qi458,_ --> qi460
+qf459,_ --> qf458
+qf460,_ --> qf458
+qi457,_ --> qf457
+qi457,_ --> qi458
+qf458,_ --> qf457
+qf458,_ --> qi458
+qi461,d --> qf461
+qi452,_ --> qi455
+qi452,_ --> qi461
+qf457,_ --> qf452
+qf461,_ --> qf452
+qi448,_ --> qi450
+qi448,_ --> qi452
+qf451,_ --> qf448
+qf452,_ --> qf448
 end.
