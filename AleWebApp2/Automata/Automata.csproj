@@ -11,11 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="pdaVectors\" />
     <Folder Include="REtoDFA\" />
     <Folder Include="REtoFSM\" />
     <Folder Include="PDAs\" />
-    <Folder Include="fsmVectors\" />
   </ItemGroup>
 
 </Project>
