@@ -1,0 +1,23 @@
+# reachable final without cycle ABCD (but with 2x eps-cycle)
+
+alphabet: a
+states: A,B,C,D,E,F
+final: D
+transitions:
+A,a --> B
+B,a --> C
+B,_ --> B
+C,a --> D
+C,_ --> E
+E,_ --> F
+F,_ --> C
+end.
+
+finite: y
+dfa: n
+
+words:
+aaa,y
+aa,n
+aaaa,n
+end.

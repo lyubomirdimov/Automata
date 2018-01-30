@@ -1,0 +1,32 @@
+# a*ab(ab)*b (with epsilon, with missing transitions, with too many transitions)
+
+alphabet: ab
+states: A,B,C
+final: C
+
+transitions:
+A,a --> A
+A,a --> B
+A,b --> B
+B,a --> B
+B,b --> B
+B,b --> C
+A,_ --> A
+B,_ --> B
+C,_ --> C
+end.
+
+dfa:n
+finite:n
+
+words:
+ab,y
+ababb,y
+abbbabababb,y
+bbbbabababb,y
+aaabbbaaaabb,y
+,n
+a,n
+abbba,n
+aa,n
+end.

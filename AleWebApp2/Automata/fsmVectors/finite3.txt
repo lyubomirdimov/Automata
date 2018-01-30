@@ -1,0 +1,21 @@
+# reachable final AB but cycle without final behind CD
+
+alphabet: a
+states: A,B,C,D
+final: B
+transitions:
+A,a --> B
+B,a --> C
+C,a --> D
+D,a --> C
+end.
+
+finite: y
+dfa: y
+
+words:
+a,y
+aa,n
+aaa,n
+aaaaaa,n
+end.

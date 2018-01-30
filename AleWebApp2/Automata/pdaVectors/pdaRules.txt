@@ -1,0 +1,44 @@
+# demonstrating the rules for choosing the transition
+
+alphabet: abcdefgh
+stack: xy
+states: A,B,C,D,E,F,G,H,I,J,K,L
+final: D,E,F,G,I,K,L
+transitions:
+A,a [_,x] --> B
+A,b       --> B
+A,c [_,y] --> B
+B,d [x,_] --> D
+B,e [_,_] --> E
+E,f [y,_] --> I
+B,_ [x,_] --> F
+F,g [_,_] --> I
+B,_       --> G
+G,h [y,_] --> L
+G,g [x,_] --> J
+B,d       --> C
+C,_ [_,x] --> H
+G,e       --> K
+end.
+
+finite: y
+dfa: n
+
+words:
+ad,y
+be,y
+cef,y
+ag,y
+b,y
+ch,y
+bd,n
+cg,n
+bg,n
+c,n
+,n
+a,y
+b,y
+c,n
+ae,n
+ah,n
+end.

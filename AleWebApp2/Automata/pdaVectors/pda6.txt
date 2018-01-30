@@ -1,0 +1,39 @@
+# regular expressions
+
+alphabet: ()abe'|.*
+stack: f'()
+states: A,B,C,D,E,F
+final: B
+
+transitions:
+A,_ [_,f] --> B
+B,a [f,_] --> B
+B,b [f,_] --> B
+B,e [f,_] --> B
+B,| [f,)] --> C
+B,* [f,)] --> E
+B,. [f,)] --> C
+C,_ [_,f] --> D
+D,_ [_,'] --> E
+E,_ [_,f] --> F
+F,_ [_,(] --> B
+B,( [(,_] --> B
+B,) [),_] --> B
+B,' [',_] --> B
+end.
+
+finite: n
+dfa: n
+
+words:
+.(.(a'b)'b),y
+*(.(|(a'b)'*(b))),y
+a,y
+(a),n
+e,y
+|(a'b),y
+*(*(a)),y
+(a'b),n
+|(a'b,n
+|(a'b)),n
+end.
