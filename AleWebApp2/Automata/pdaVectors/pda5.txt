@@ -1,0 +1,35 @@
+# algebraic expressions
+
+alphabet: ()ab+*
+stack: eo()
+states: A,B,C,D,E
+final: B
+
+transitions:
+A,_ [_,e] --> B
+B,a [e,_] --> B
+B,b [e,_] --> B
+B,( [e,)] --> C
+C,_ [_,e] --> D
+D,_ [_,o] --> E
+E,_ [_,e] --> B
+B,+ [o,_] --> B
+B,* [o,_] --> B
+B,) [),_] --> B
+end.
+
+finite: n
+dfa: n
+
+words:
+((a+b)*(b+a)),y
+a,y
+(),n
+(a),n
+(b*b),y
+a+b,n
+(a+b)*(b+a),n
+((b+a)*(a+b))),n
+*b,n
+(a++b),n
+end.

@@ -1,0 +1,34 @@
+# tue-2.1.4.a: substrings aa or bb (or both)
+
+alphabet: ab
+states: A,B,C,D
+final: D 
+
+transitions:
+A,a --> A
+A,a --> B
+A,b --> A
+A,b --> C
+B,a --> D
+C,b --> D
+D,a --> D
+D,b --> D
+end.
+
+dfa:n
+finite:n
+
+words:
+a,n
+aa,y
+b,n
+bb,y
+aaa,y
+bbb,y
+baaba,y
+baabba,y
+baabbaab,y
+,n
+baba,n
+babab,n
+end.
