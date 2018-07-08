@@ -1,0 +1,32 @@
+alphabet: abcdefgh
+stack: xy
+states: A,B,C,D,E,F,G,H,I,J,K,L
+final: D, E, I, F, G, K, L
+transitions:
+A,a [_,x] --> B
+A,b --> B
+A,c [_,y] --> B
+B,d --> C
+B,d [x,_] --> D
+B,e --> E
+B,_ [x,_] --> F
+B,_ --> G
+C,_ [_,x] --> H
+E,f [y,_] --> I
+F,g --> I
+G,g [x,_] --> J
+G,e --> K
+G,h [y,_] --> L
+end.
+
+dfa: n
+finite: y
+
+words:
+ad,y
+be,y
+cef,y
+ag,y
+b,y
+ch,y
+end.
